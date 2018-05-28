@@ -55,7 +55,13 @@ AppAsset::register($this);
                 </div>
 
                 <div class="navbar-mobile-clear"></div>
-
+                <ul class="nav nav-userinfo navbar-left">
+                    <li class="hidden-sm hidden-xs sidebar-togle">
+                        <a href="#" data-toggle="sidebar">
+                            <i class="fa-bars"></i>
+                        </a>
+                    </li>
+                </ul>
                 <ul class="navbar-nav">
                     <li>
                         <?= Html::a('<i class="fa-home"></i> <span class="title">Home</span>', ['/site/home'], ['class' => 'title']) ?>
@@ -127,8 +133,8 @@ AppAsset::register($this);
                         </ul>
                     </li>
                     <li>
-                            <?= Html::a('<i class="fa fa-shopping-cart"></i> <span class="title">BOM</span>', ['/bom/bom-master/index'], ['class' => 'title']) ?>
-                        </li>
+                        <?= Html::a('<i class="fa fa-shopping-cart"></i> <span class="title">BOM</span>', ['/bom/bom-master/index'], ['class' => 'title']) ?>
+                    </li>
                     <li>
                         <a href="">
                             <i class="fa fa-users"></i>

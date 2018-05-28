@@ -8,20 +8,16 @@ use kartik\date\DatePicker;
 /* @var $model common\models\BomMaster */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-<style>
-    .table_row{
-        display: none;
-    }
-</style>
+
 <div class="bom-master-form form-inline">
 
     <?php $form = ActiveForm::begin(); ?>
     <div class="row">
-        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    
             <?= $form->field($model, 'bom_no')->textInput(['maxlength' => true]) ?>
 
         </div>
-        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
+        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'> 
             <?php
             $model->date = date('d-M-Y');
             ?>
@@ -35,21 +31,13 @@ use kartik\date\DatePicker;
             ]);
             ?>
         </div>
-        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
-            <?= $form->field($model, 'status')->dropDownList(['1' => 'Enabled', '0' => 'Disabled']) ?>
-
-        </div>
-        <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
-            <?= $form->field($model, 'comment')->textInput(['maxlength' => true]) ?>
-
-        </div>
     </div>
     <h5 style="color: #313131;font-weight: 600;">BOM Details</h5>
     <div id="p_scents">
         <input type="hidden" id="bom_row_count" value="1"/>
         <div class="append-box">
-            <div class="row box_row" id="box_row-1">
-                <div class="col-md-3">
+            <div class="row">
+                <div class="col-md-6">
                     <div class="formrow">
                         <?php
                         $products = \common\models\FinishedProduct::find()->where(['status' => 1])->all();
@@ -68,30 +56,13 @@ use kartik\date\DatePicker;
                         </select>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-6">
                     <div class="formrow">
-                        <input type="number"  min="1" autocomplete="off"  step="any" class="form-control product_qty" name="create[product_qty][]" placeholder="Quantity" id="product_qty-1" required>
+                        <input type="number" min="1" autocomplete="off"  step="any" class="form-control product_qty" name="create[product_qty][]" placeholder="Quantity" id="product_qty-1" required>
                     </div>
                 </div>
-                <div class="col-md-5">
-                    <div class="formrow">
-                        <input type="text" class="form-control product_comment" name="create[product_comment][]" placeholder="Product Comment" id="product_comment-1">
-                    </div>
-                </div>
-                <div class="col-md-1">
-                    <div class="formrow">
-                        <a class="btn btn-secondary box_btn" id="box_btn-1" style="display:none;">Add</a>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-                <div class="col-md-12">
-                    <span>Product Comment :</span>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-            <div class="row table_row" id="table_row-1">
                 <div id="bom-material-details-1" class="bom-material-details">
-
+                    
                 </div>
             </div>
         </div>
@@ -134,31 +105,7 @@ use kartik\date\DatePicker;
             var item_id = $(this).val();
             itemChange(item_id, current_row_id);
         });
-        $(document).on('click', '.box_btn', function (e) {
-            var current_row_id = $(this).attr('id').match(/\d+/); // 123456
-            $("#product_id-"+ current_row_id).attr("disabled", "disabled");
-            $("#product_qty-"+ current_row_id).attr("disabled", "disabled");
-            $("#box_btn-" + current_row_id).css('display', 'none');
-            $("#table_row-" + current_row_id).css('display', 'block');
-        });
-        $(document).on('keyup mouseup', '.product_qty', function (e) {
-            var current_row_id = $(this).attr('id').match(/\d+/); // 123456
-            calculateQty(current_row_id);
-        });
     });
-    function calculateQty(current_row_id) {
-        var rowCount = $('.table-' + current_row_id + ' tr').length;
-        var product_qty = $('#product_qty-' + current_row_id).val();
-        if (rowCount > 0) {
-            for (i = 1; i <= rowCount; i++) {
-                var material_qty_val = $('#material_qty_val_' + current_row_id + '-' + i).val();
-                if (product_qty && product_qty != "" && material_qty_val && material_qty_val != "") {
-                    var qt_val = parseFloat(product_qty) * parseFloat(material_qty_val);
-                    $('#material_qty_' + current_row_id + '-' + i).val(qt_val);
-                }
-            }
-        }
-    }
     function itemChange(item_id, current_row_id) {
         $.ajax({
             type: 'POST',
@@ -168,9 +115,6 @@ use kartik\date\DatePicker;
             url: '<?= Yii::$app->homeUrl; ?>bom/bom-master/get-items',
             success: function (data) {
                 $("#bom-material-details-" + current_row_id).html(data);
-                $("#product_qty-" + current_row_id).val(1);
-                $("#box_btn-" + current_row_id).css('display', 'block');
-                calculateQty(current_row_id);
             }
         });
         return true;

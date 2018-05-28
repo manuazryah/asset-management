@@ -34,7 +34,7 @@ class BomMaster extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['date', 'DOC', 'DOU'], 'safe'],
+            [['date', 'DOC', 'DOU','comment'], 'safe'],
             [['date', 'bom_no'], 'required'],
             [['status', 'CB', 'UB'], 'integer'],
             [['bom_no'], 'string', 'max' => 100],

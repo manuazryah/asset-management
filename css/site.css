@@ -1353,6 +1353,19 @@ input[type=checkbox], input[type=radio] {
 .navbar.horizontal-menu.navbar-fixed-top+.page-container>.sidebar-menu.fixed .sidebar-menu-inner {
     top: 55px;
 }   
+.navbar-brand .logo{
+    width: 225px;
+}
+.sidebar-togle{
+    padding-top: 18px;
+}
+.navbar.horizontal-menu .navbar-inner>.nav>li>a:hover {
+     background: #ffffff;
+}
+.nav>li>a:hover, .nav>li>a:focus {
+    text-decoration: none;
+    background-color: #ffffff;
+}
 /*****************************************************Navigation Bar End ***********************/
 .outterr .btn-success {
     padding: 6px 30px;

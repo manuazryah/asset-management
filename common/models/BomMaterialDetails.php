@@ -36,7 +36,7 @@ class BomMaterialDetails extends \yii\db\ActiveRecord
     {
         return [
             [['bom_id', 'material', 'quantity', 'status', 'CB', 'UB'], 'integer'],
-            [['DOC', 'DOU'], 'safe'],
+            [['DOC', 'DOU','comment'], 'safe'],
             [['bom_id'], 'exist', 'skipOnError' => true, 'targetClass' => Bom::className(), 'targetAttribute' => ['bom_id' => 'id']],
         ];
     }

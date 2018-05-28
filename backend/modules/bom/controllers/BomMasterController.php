@@ -141,10 +141,12 @@ class BomMasterController extends Controller {
             $current_row_id= $_POST['current_row_id'];
             $finished_products = \common\models\FinishedProduct::find()->where(['id' => $item_id])->one();
             $material_details = \common\models\BomDetails::find()->where(['finished_product_id' => $finished_products->id])->all();
+            $supplier_materials = \common\models\SupplierwiseRowMaterial::find()->all();
             $new_row = $this->renderPartial('material_row', [
                 'finished_products' => $finished_products,
                 'material_details' => $material_details,
                 'current_row_id' => $current_row_id,
+                'supplier_materials' => $supplier_materials,
             ]);
             return $new_row;
         }
