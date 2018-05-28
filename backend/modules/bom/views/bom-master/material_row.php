@@ -1,6 +1,5 @@
 <table class="table table-<?= $current_row_id ?>">
     <?php
-    var_dump($supplier_materials);exit;
     if (!empty($material_details)) {
         $k = 0;
         foreach ($material_details as $value) {
