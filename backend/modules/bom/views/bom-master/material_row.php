@@ -17,7 +17,7 @@
                                 <?php }
                                 ?>
                             </select>
-                            <span>Comment : </span>
+                            <span>Comment : <?= $value->comment ?></span>
                         </div>
                     </div>
                     <div class="col-md-4">

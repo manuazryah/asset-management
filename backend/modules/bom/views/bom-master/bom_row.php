@@ -3,7 +3,7 @@
     <div class="row box_row" id="box_row-<?= $j ?>">
         <div class="col-md-3">
             <div class="formrow">
-                <select class="form-control product_id" name="create[product][]" id="product_id-<?= $j ?>" required>
+                <select class="form-control product_id" name="create[<?= $j ?>][product]" id="product_id-<?= $j ?>" required>
                     <option value="">Select Product</option>
                     <?php
                     if (!empty($products)) {
@@ -15,16 +15,17 @@
                     }
                     ?>
                 </select>
+                <input type="hidden" class="form-control product_qty" name="create[<?= $j ?>][product]" placeholder="Product" id="product-<?= $j ?>">
             </div>
         </div>
         <div class="col-md-3">
             <div class="formrow">
-                <input type="number" min="1" autocomplete="off"  step="any" class="form-control product_qty" name="create[product_qty][]" placeholder="Quantity" id="product_qty-<?= $j ?>" required>
+                <input type="number" min="1" autocomplete="off"  step="any" class="form-control product_qty" name="create[<?= $j ?>][product_qty]" placeholder="Quantity" id="product_qty-<?= $j ?>" required>
             </div>
         </div>
         <div class="col-md-5">
                     <div class="formrow">
-                        <input type="text" class="form-control product_comment" name="create[product_comment][]" placeholder="Product Comment" id="product_comment-<?= $j ?>">
+                        <input type="text" class="form-control product_comment" name="create[<?= $j ?>][product_comment]" placeholder="Product Comment" id="product_comment-<?= $j ?>">
                     </div>
                 </div>
         <div class="col-md-1">
@@ -34,7 +35,7 @@
                 </div>
         <div class="clearfix"></div>
         <div class="col-md-12">
-            <span>Product Comment :</span>
+           <div>Product Comment : <span id="exist_product_comment-<?= $j ?>"> </span></div>
         </div>
         <div class="clearfix"></div>
     </div>

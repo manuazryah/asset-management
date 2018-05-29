@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 </div>
                 <div class="panel-body">
-                    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+                   <?= \common\components\AlertMessageWidget::widget() ?>
 
                     <?= Html::a('<i class="fa-th-list"></i><span> Create Bom</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                     <?=
@@ -34,12 +34,15 @@ $this->params['breadcrumbs'][] = $this->title;
 //                            'id',
                             'bom_no',
                             'date',
+                            'comment',
 //                            'status',
 //                            'CB',
                             // 'UB',
                             // 'DOC',
                             // 'DOU',
-                            ['class' => 'yii\grid\ActionColumn'],
+                           ['class' => 'yii\grid\ActionColumn',
+                                'template' => '{view}',
+                            ],
                         ],
                     ]);
                     ?>
