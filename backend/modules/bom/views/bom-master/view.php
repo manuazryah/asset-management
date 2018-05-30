@@ -73,23 +73,23 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                     <div class="clearfix"></div>
                     <h5 class="bom-title">BOM Details</h5>
-                    <table class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>Product</th>
-                                <th>Quantity</th>
-                                <th>Comment</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <?php
-                            if (!empty($bom_details)) {
-                                foreach ($bom_details as $bom_detail) {
-                                    $material_details = \common\models\BomMaterialDetails::find()->where(['bom_id' => $bom_detail->id])->all();
-                                    ?>
+                    <?php
+                    if (!empty($bom_details)) {
+                        foreach ($bom_details as $bom_detail) {
+                            $material_details = \common\models\BomMaterialDetails::find()->where(['bom_id' => $bom_detail->id])->all();
+                            ?>
+                            <table class="table table-bordered table-striped">
+                                <thead>
                                     <tr>
-                                        <td><?= $bom_detail->product ?></td>
+                                        <th>Product</th>
+                                        <th>Quantity</th>
+                                        <th>Comment</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <td><?= $bom_detail->product != '' ? \common\models\FinishedProduct::findOne($bom_detail->product)->product_name : '' ?></td>
                                         <td><?= $bom_detail->qty ?></td>
                                         <td><?= $bom_detail->comment ?></td>
                                     </tr>
@@ -111,11 +111,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                             <?php
                                         }
                                     }
-                                }
-                            }
-                            ?>
-                        </tbody>
-                    </table>
+                                    ?>
+                                </tbody>
+                            </table>
+                            <?php
+                        }
+                    }
+                    ?>
                     <div class="clearfix"></div>
                 </div>
             </div>

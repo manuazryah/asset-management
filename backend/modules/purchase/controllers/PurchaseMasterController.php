@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\models\PurchaseDetails;
+use common\models\StockView;
 
 /**
  * PurchaseMasterController implements the CRUD actions for PurchaseMaster model.
@@ -49,8 +50,8 @@ class PurchaseMasterController extends Controller {
      * @return mixed
      */
     public function actionView($id) {
-        $model =$this->findModel($id);
-        $model_details = PurchaseDetails::find()->where(['master_id'=>$model->id])->all();
+        $model = $this->findModel($id);
+        $model_details = PurchaseDetails::find()->where(['master_id' => $model->id])->all();
         return $this->render('view', [
                     'model' => $model,
                     'model_details' => $model_details,
@@ -66,7 +67,7 @@ class PurchaseMasterController extends Controller {
         $model = new PurchaseMaster();
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->date("Y-m-d", strtotime($model->date));
+            $model->date = date("Y-m-d", strtotime($model->date));
             $transaction = Yii::$app->db->beginTransaction();
             try {
                 if ($model->save() && $this->InvoiceDetails($model)) {
@@ -172,7 +173,7 @@ class PurchaseMasterController extends Controller {
     }
 
     /**
-     * This function add each sales details into stock register.
+     * This function add each purchase material details into stock register.
      */
     public function AddStockRegister($aditional, $model_master) {
         $flag = 0;
@@ -194,9 +195,34 @@ class PurchaseMasterController extends Controller {
         $stock->UB = Yii::$app->user->identity->id;
         $stock->DOC = date('Y-m-d');
         if ($stock->save()) {
-            $flag = 1;
+            if ($this->AddStockView($stock)) {
+                $flag = 1;
+            } else {
+                $flag = 0;
+            }
         }
         if ($flag == 1) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+    public function AddStockView($stock) {
+        $stock_view_exist = StockView::find()->where(['material_id' => $stock->item_id])->one();
+        if (empty($stock_view_exist)) {
+            $stock_view = new StockView();
+            $stock_view->material_id = $stock->item_id;
+            $stock_view->available_qty = $stock->weight_in;
+            $stock_view->status = 1;
+            $stock_view->CB = Yii::$app->user->identity->id;
+            $stock_view->UB = Yii::$app->user->identity->id;
+            $stock_view->DOC = date('Y-m-d');
+        } else {
+            $stock_view = StockView::find()->where(['material_id' => $stock->item_id])->one();
+            $stock_view->available_qty += $stock->weight_in;
+        }
+        if ($stock_view->save()) {
             return TRUE;
         } else {
             return FALSE;

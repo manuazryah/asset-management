@@ -8,6 +8,7 @@ use common\models\BomMasterSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\StockView;
 
 /**
  * BomMasterController implements the CRUD actions for BomMaster model.
@@ -49,7 +50,7 @@ class BomMasterController extends Controller {
      */
     public function actionView($id) {
         $model = $this->findModel($id);
-        $bom_details = \common\models\Bom::find()->where(['master_id'=>$model->id])->all();
+        $bom_details = \common\models\Bom::find()->where(['master_id' => $model->id])->all();
         return $this->render('view', [
                     'model' => $model,
                     'bom_details' => $bom_details,
@@ -164,7 +165,7 @@ class BomMasterController extends Controller {
                     $i++;
                 }
             }
-            if ($this->AddMaterialDetails($arr, $bom_details)) {
+            if ($this->AddMaterialDetails($model,$arr, $bom_details)) {
                 $flag = 1;
             }
         }
@@ -178,7 +179,7 @@ class BomMasterController extends Controller {
     /**
      * This function save material details.
      */
-    public function AddMaterialDetails($arr, $bom_details) {
+    public function AddMaterialDetails($model,$arr, $bom_details) {
         $flag = 0;
         foreach ($arr as $val) {
             $aditional = new \common\models\BomMaterialDetails();
@@ -188,12 +189,71 @@ class BomMasterController extends Controller {
             $aditional->comment = $val['material_comment'];
             Yii::$app->SetValues->Attributes($aditional);
             if ($aditional->save()) {
+                if ($this->AddStockRegister($model,$aditional, $bom_details)) {
+                    $flag = 1;
+                } else {
+                    $flag = 0;
+                }
+            }
+        }
+        if ($flag == 1) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+    
+    /**
+     * This function add each BOM material details into stock register.
+     */
+    public function AddStockRegister($model,$aditional, $bom_details) {
+        $flag = 0;
+        $item_datas = \common\models\SupplierwiseRowMaterial::find()->where(['id' => $aditional->material])->one();
+        $stock = new \common\models\StockRegister();
+        $stock->type = 2;
+        $stock->document_line_id = $aditional->id;
+        $stock->invoice_no = $model->bom_no;
+        $stock->invoice_date = $model->date;
+        $stock->item_id = $aditional->material;
+        $stock->item_code = $item_datas->item_code;
+        $stock->item_name = $item_datas->item_name;
+//        $stock->warehouse = $aditional->warehouse;
+//        $stock->shelf = $aditional->shelf;
+//        $stock->item_cost = $aditional->price;
+        $stock->weight_out = $aditional->quantity;
+        $stock->status = 1;
+        $stock->CB = Yii::$app->user->identity->id;
+        $stock->UB = Yii::$app->user->identity->id;
+        $stock->DOC = date('Y-m-d');
+        if ($stock->save()) {
+            if ($this->AddStockView($stock)) {
                 $flag = 1;
             } else {
                 $flag = 0;
             }
         }
         if ($flag == 1) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+    public function AddStockView($stock) {
+        $stock_view_exist = StockView::find()->where(['material_id' => $stock->item_id])->one();
+        if (empty($stock_view_exist)) {
+            $stock_view = new StockView();
+            $stock_view->material_id = $stock->item_id;
+            $stock_view->available_qty = $stock->weight_out;
+            $stock_view->status = 1;
+            $stock_view->CB = Yii::$app->user->identity->id;
+            $stock_view->UB = Yii::$app->user->identity->id;
+            $stock_view->DOC = date('Y-m-d');
+        } else {
+            $stock_view = StockView::find()->where(['material_id' => $stock->item_id])->one();
+            $stock_view->available_qty -= $stock->weight_out;
+        }
+        if ($stock_view->save()) {
             return TRUE;
         } else {
             return FALSE;

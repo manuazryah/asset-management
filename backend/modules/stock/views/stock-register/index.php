@@ -38,9 +38,15 @@ $this->params['breadcrumbs'][] = $this->title;
                             [
                                 'attribute' => 'type',
                                 'format' => 'raw',
-                                'filter' => [1 => 'Purchase'],
+                                'filter' => [1 => 'Purchase', 2 => 'BOM'],
                                 'value' => function ($model) {
-                                    return $model->type == 1 ? 'Purchase' : '';
+                                    if ($model->type == 1) {
+                                        return 'Purchase';
+                                    } elseif ($model->type == 2) {
+                                        return 'BOM';
+                                    }else{
+                                         return '';
+                                    }
                                 },
                             ],
                             'invoice_no',
