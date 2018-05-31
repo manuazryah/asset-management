@@ -57,24 +57,24 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                             }
                                                                     }, $model),
                                                         ],
-                                                            [
-                                                            'attribute' => 'CB',
-                                                            'label' => 'Created By',
-                                                            'value' => call_user_func(function($model) {
-
-                                                                            return AdminUsers::findOne($model->CB)->name;
-                                                                    }, $model),
-                                                        ],
-                                                            [
-                                                            'attribute' => 'UB',
-                                                            'label' => 'Updated By',
-                                                            'value' => call_user_func(function($model) {
-
-                                                                            return AdminUsers::findOne($model->UB)->name;
-                                                                    }, $model),
-                                                        ],
-                                                        'DOC',
-                                                        'DOU',
+//                                                            [
+//                                                            'attribute' => 'CB',
+//                                                            'label' => 'Created By',
+//                                                            'value' => call_user_func(function($model) {
+//
+//                                                                            return AdminUsers::findOne($model->CB)->name;
+//                                                                    }, $model),
+//                                                        ],
+//                                                            [
+//                                                            'attribute' => 'UB',
+//                                                            'label' => 'Updated By',
+//                                                            'value' => call_user_func(function($model) {
+//
+//                                                                            return AdminUsers::findOne($model->UB)->name;
+//                                                                    }, $model),
+//                                                        ],
+//                                                        'DOC',
+//                                                        'DOU',
                                                     ],
                                                 ])
                                                 ?>

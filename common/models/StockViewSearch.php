@@ -5,29 +5,29 @@ namespace common\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\BomMaster;
+use common\models\StockView;
 
 /**
- * BomMasterSearch represents the model behind the search form about `common\models\BomMaster`.
+ * StockViewSearch represents the model behind the search form about `common\models\StockView`.
  */
-class BomMasterSearch extends BomMaster {
-
-    public $created_at_range;
-
+class StockViewSearch extends StockView
+{
     /**
      * @inheritdoc
      */
-    public function rules() {
+    public function rules()
+    {
         return [
-            [['id', 'status', 'CB', 'UB'], 'integer'],
-            [['bom_no', 'date', 'DOC', 'DOU'], 'safe'],
+            [['id', 'material_id', 'available_qty', 'status', 'CB', 'UB'], 'integer'],
+            [['DOC', 'DOU'], 'safe'],
         ];
     }
 
     /**
      * @inheritdoc
      */
-    public function scenarios() {
+    public function scenarios()
+    {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -39,8 +39,9 @@ class BomMasterSearch extends BomMaster {
      *
      * @return ActiveDataProvider
      */
-    public function search($params) {
-        $query = BomMaster::find();
+    public function search($params)
+    {
+        $query = StockView::find();
 
         // add conditions that should always apply here
 
@@ -55,16 +56,12 @@ class BomMasterSearch extends BomMaster {
             // $query->where('0=1');
             return $dataProvider;
         }
-        if (!empty($this->date) && strpos($this->date, '-') !== false) {
-            list($start_date, $end_date) = explode(' - ', $this->date);
-            $query->andFilterWhere(['between', 'date(date)', $start_date, $end_date]);
-            $this->date = "";
-        }
 
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'date' => $this->date,
+            'material_id' => $this->material_id,
+            'available_qty' => $this->available_qty,
             'status' => $this->status,
             'CB' => $this->CB,
             'UB' => $this->UB,
@@ -72,9 +69,6 @@ class BomMasterSearch extends BomMaster {
             'DOU' => $this->DOU,
         ]);
 
-        $query->andFilterWhere(['like', 'bom_no', $this->bom_no]);
-
         return $dataProvider;
     }
-
 }

@@ -35,6 +35,7 @@ class ComposerStaticInit82f1c4e6b5d03f69ea3171dceb9be168
         'k' => 
         array (
             'kartik\\mpdf\\' => 12,
+            'kartik\\daterange\\' => 17,
             'kartik\\date\\' => 12,
             'kartik\\base\\' => 12,
         ),
@@ -134,6 +135,10 @@ class ComposerStaticInit82f1c4e6b5d03f69ea3171dceb9be168
         'kartik\\mpdf\\' => 
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-mpdf',
+        ),
+        'kartik\\daterange\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-date-range',
         ),
         'kartik\\date\\' => 
         array (

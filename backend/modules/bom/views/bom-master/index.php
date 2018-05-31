@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use kartik\daterange\DateRangePicker;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\BomMasterSearch */
@@ -22,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 </div>
                 <div class="panel-body">
-                   <?= \common\components\AlertMessageWidget::widget() ?>
+                    <?= \common\components\AlertMessageWidget::widget() ?>
 
                     <?= Html::a('<i class="fa-th-list"></i><span> Create Bom</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                     <?=
@@ -31,16 +32,19 @@ $this->params['breadcrumbs'][] = $this->title;
                         'filterModel' => $searchModel,
                         'columns' => [
                             ['class' => 'yii\grid\SerialColumn'],
-//                            'id',
                             'bom_no',
-                            'date',
+                            [
+                                'attribute' => 'date',
+                                'value' => function ($data) {
+                                    return date("Y-m-d", strtotime($data->date));
+                                },
+                                'headerOptions' => [
+                                    'class' => 'col-md-2'
+                                ],
+                                'filter' => DateRangePicker::widget(['model' => $searchModel, 'attribute' => 'date', 'pluginOptions' => ['format' => 'd-m-Y', 'autoUpdateInput' => false]]),
+                            ],
                             'comment',
-//                            'status',
-//                            'CB',
-                            // 'UB',
-                            // 'DOC',
-                            // 'DOU',
-                           ['class' => 'yii\grid\ActionColumn',
+                            ['class' => 'yii\grid\ActionColumn',
                                 'template' => '{view}',
                             ],
                         ],

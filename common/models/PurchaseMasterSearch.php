@@ -12,6 +12,7 @@ use common\models\PurchaseMaster;
  */
 class PurchaseMasterSearch extends PurchaseMaster
 {
+    public $created_at_range;
     /**
      * @inheritdoc
      */
@@ -55,6 +56,11 @@ class PurchaseMasterSearch extends PurchaseMaster
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
+        }
+        if (!empty($this->date) && strpos($this->date, '-') !== false) {
+            list($start_date, $end_date) = explode(' - ', $this->date);
+            $query->andFilterWhere(['between', 'date(date)', $start_date, $end_date]);
+            $this->date = "";
         }
 
         // grid filtering conditions

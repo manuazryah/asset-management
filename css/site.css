@@ -117,7 +117,9 @@ table.table tr.filters{
 .table>thead>tr>td, .table>tbody>tr>td, .table>tfood>tr>td, .table>thead>tr>th, .table>tbody>tr>th, .table>tfood>tr>th {
     padding: 6px 15px;
 }
-
+.table>thead>tr>td:after, .table>thead>tr>th:after {
+    background-color: #fff;
+}
 table.table tr td:last-child {
     display: inline-flex;
     border: 0;
@@ -159,10 +161,23 @@ html .select2-drop .select2-results li.select2-result-selectable .select2-result
     color: #000000;
     padding-left: 15px;
 }
+.form-control{
+    color: #464646;
+    font-size: 12px;
+    /*height: 35px;*/
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    padding: .375rem .75rem;
+}
 form .form-group .form-control{
     color: #464646;
-    font-size: 14px;
-    height: 35px;
+    font-size: 12px;
+    /*height: 35px;*/
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    padding: .375rem .75rem;
 }
 .form-group label{
     color: #484848;
@@ -266,7 +281,7 @@ form .form-group .form-control{
 .sidebar-menu {
     width: 230px;
     background: #013c56;
-    border-right: 1px solid #eee;
+    border-right: none;
 }
 .sidebar-menu .main-menu {
     padding-left: 0px;
@@ -304,11 +319,11 @@ form .form-group .form-control{
     }
 }
 .page-container .main-content {
-    background: #e8e8e8;
+    background: #f9fafb;
 }
 footer.main-footer {
-    border-top: 1px solid #eee;
-    background-color: #e8e8e8;
+    border-top: 1px solid #f9fafb;
+    background-color: #f9fafb;
 }
 nav.navbar {
     /* border: 0; */
@@ -355,7 +370,8 @@ table.table tr {
 .panel {
     border-radius: 5px;
     background-color: #fff;
-    border-top: 2px solid #3c8dbc;
+    /*border-top: 2px solid #3c8dbc;*/
+    border: 1px solid rgba(0,0,0,.0625)!important;
 }
 .control-label{
     color: black;
@@ -1388,7 +1404,7 @@ input[type=checkbox], input[type=radio] {
 }
 .grid-view {
     border-radius: 0;
-    border: 1px solid #eee;
+    border: none;
     margin-bottom: 18px;
 }
 .invoice-delete{

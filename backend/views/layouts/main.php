@@ -111,7 +111,7 @@ AppAsset::register($this);
                         </a>
                         <ul>
                             <li>
-                                <?= Html::a('<i class="fa fa-angle-double-right"></i> Product Ctegory', ['/product/product-category/index'], ['class' => 'title']) ?>
+                                <?= Html::a('<i class="fa fa-angle-double-right"></i> Product Category', ['/product/product-category/index'], ['class' => 'title']) ?>
                             </li>
                             <li>
                                 <?= Html::a('<i class="fa fa-angle-double-right"></i> Finished Product', ['/product/finished-product/index'], ['class' => 'title']) ?>
@@ -129,6 +129,9 @@ AppAsset::register($this);
                         <ul>
                             <li>
                                 <?= Html::a('<i class="fa fa-angle-double-right"></i> Stock Register', ['/stock/stock-register/index'], ['class' => 'title']) ?>
+                            </li>
+                            <li>
+                                <?= Html::a('<i class="fa fa-angle-double-right"></i> Stock View', ['/stock/stock-view/index'], ['class' => 'title']) ?>
                             </li>
                         </ul>
                     </li>
@@ -278,7 +281,7 @@ AppAsset::register($this);
                             </a>
                             <ul>
                                 <li>
-                                    <?= Html::a('<i class="fa fa-angle-double-right"></i> Product Ctegory', ['/product/product-category/index'], ['class' => 'title']) ?>
+                                    <?= Html::a('<i class="fa fa-angle-double-right"></i> Product Category', ['/product/product-category/index'], ['class' => 'title']) ?>
                                 </li>
                                 <li>
                                     <?= Html::a('<i class="fa fa-angle-double-right"></i> Finished Product', ['/product/finished-product/index'], ['class' => 'title']) ?>
@@ -296,6 +299,9 @@ AppAsset::register($this);
                             <ul>
                                 <li>
                                     <?= Html::a('<i class="fa fa-angle-double-right"></i> Stock Register', ['/stock/stock-register/index'], ['class' => 'title']) ?>
+                                </li>
+                                <li>
+                                    <?= Html::a('<i class="fa fa-angle-double-right"></i> Stock View', ['/stock/stock-view/index'], ['class' => 'title']) ?>
                                 </li>
                             </ul>
                         </li>

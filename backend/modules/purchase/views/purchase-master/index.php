@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use common\models\Supplier;
+use kartik\daterange\DateRangePicker;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\PurchaseMasterSearch */
@@ -34,7 +35,16 @@ $this->params['breadcrumbs'][] = $this->title;
                         'columns' => [
                                 ['class' => 'yii\grid\SerialColumn'],
 //                                                            'id',
-                            'date',
+                            [
+                                'attribute' => 'date',
+                                'value' => function ($data) {
+                                    return date("Y-m-d", strtotime($data->date));
+                                },
+                                'headerOptions' => [
+                                    'class' => 'col-md-2'
+                                ],
+                                'filter' => DateRangePicker::widget(['model' => $searchModel, 'attribute' => 'date', 'pluginOptions' => ['format' => 'd-m-Y', 'autoUpdateInput' => false]]),
+                            ],
                             'invoice_no',
                             [
                                 'attribute' => 'supplier',

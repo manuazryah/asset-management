@@ -98,9 +98,9 @@ $model->bom_no = $this->context->getBomNo();
             </div>
         </div>
     </div>
-    <div class="form-group field-portcalldatarob-fresh_water_arrival_quantity">
-        <a id="addbomdetails" class="btn btn-icon btn-blue addScnt btn-larger btn-block" ><i class="fa fa-plus"></i> Add More</a>
-    </div>
+    <!--    <div class="form-group field-portcalldatarob-fresh_water_arrival_quantity">
+            <a id="addbomdetails" class="btn btn-icon btn-blue addScnt btn-larger btn-block" ><i class="fa fa-plus"></i> Add More</a>
+        </div>-->
     <div class="clearfix"></div>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => 'btn btn-success']) ?>
@@ -138,7 +138,7 @@ $model->bom_no = $this->context->getBomNo();
         });
         $(document).on('click', '.box_btn', function (e) {
             var current_row_id = $(this).attr('id').match(/\d+/); // 123456
-            $("#product_id-" + current_row_id).prop( "disabled", true );   
+            $("#product_id-" + current_row_id).prop("disabled", true);
             $("#product_qty-" + current_row_id).prop("readonly", true);
             $("#box_btn-" + current_row_id).css('display', 'none');
             $("#table_row-" + current_row_id).css('display', 'block');
@@ -147,6 +147,19 @@ $model->bom_no = $this->context->getBomNo();
             var current_row_id = $(this).attr('id').match(/\d+/); // 123456
             calculateQty(current_row_id);
         });
+        $(document).on('keyup mouseup', '.material_qty', function (e) {
+            var current_row_id = $(this).attr('id').match(/\d+/); // 123456
+            var array = $(this).attr('id').split("-");
+            var row_id = array[array.length - 1];
+            var qt_val = parseInt($(this).val());
+            var material_availqty_val = parseInt($('#material_avail_qty_' + current_row_id + '-' + row_id).text());
+            if (qt_val <= material_availqty_val) {
+                $('#material_qty_' + current_row_id + '-' + row_id).val(qt_val);
+            } else {
+                alert('Quantity exeeds the available quantity');
+                $('#material_qty_' + current_row_id + '-' + row_id).val(material_availqty_val);
+            }
+        });
     });
     function calculateQty(current_row_id) {
         var rowCount = $('.table-' + current_row_id + ' tr').length;
@@ -154,9 +167,14 @@ $model->bom_no = $this->context->getBomNo();
         if (rowCount > 0) {
             for (i = 1; i <= rowCount; i++) {
                 var material_qty_val = $('#material_qty_val_' + current_row_id + '-' + i).val();
+                var material_availqty_val = $('#material_avail_qty_' + current_row_id + '-' + i).text();
                 if (product_qty && product_qty != "" && material_qty_val && material_qty_val != "") {
                     var qt_val = parseFloat(product_qty) * parseFloat(material_qty_val);
-                    $('#material_qty_' + current_row_id + '-' + i).val(qt_val);
+                    if (qt_val <= material_availqty_val) {
+                        $('#material_qty_' + current_row_id + '-' + i).val(qt_val);
+                    } else {
+                        $('#material_qty_' + current_row_id + '-' + i).val(material_availqty_val);
+                    }
                 }
             }
         }
