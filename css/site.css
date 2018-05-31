@@ -1432,6 +1432,9 @@ table.table tr td:last-child {
     border: 1px #fff !important;
     padding: 6px 0px;
 }
+.form-control.select2-container {
+    padding: 0 !important;
+}
 /************************* BOM Start ********************************************/
 .bom-master-form .append-box {
     border: 1px solid #e1e1e1;
