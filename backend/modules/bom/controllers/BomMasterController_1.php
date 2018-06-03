@@ -165,7 +165,7 @@ class BomMasterController extends Controller {
                     $i++;
                 }
             }
-            if ($this->AddMaterialDetails($model, $arr, $bom_details)) {
+            if ($this->AddMaterialDetails($model,$arr, $bom_details)) {
                 $flag = 1;
             }
         }
@@ -179,7 +179,7 @@ class BomMasterController extends Controller {
     /**
      * This function save material details.
      */
-    public function AddMaterialDetails($model, $arr, $bom_details) {
+    public function AddMaterialDetails($model,$arr, $bom_details) {
         $flag = 0;
         foreach ($arr as $val) {
             $aditional = new \common\models\BomMaterialDetails();
@@ -189,7 +189,11 @@ class BomMasterController extends Controller {
             $aditional->comment = $val['material_comment'];
             Yii::$app->SetValues->Attributes($aditional);
             if ($aditional->save()) {
-                $flag = 1;
+                if ($this->AddStockRegister($model,$aditional, $bom_details)) {
+                    $flag = 1;
+                } else {
+                    $flag = 0;
+                }
             }
         }
         if ($flag == 1) {
@@ -198,11 +202,11 @@ class BomMasterController extends Controller {
             return FALSE;
         }
     }
-
+    
     /**
      * This function add each BOM material details into stock register.
      */
-    public function AddStockRegister($model, $aditional, $bom_details) {
+    public function AddStockRegister($model,$aditional, $bom_details) {
         $flag = 0;
         $item_datas = \common\models\SupplierwiseRowMaterial::find()->where(['id' => $aditional->material])->one();
         $stock = new \common\models\StockRegister();
@@ -264,15 +268,12 @@ class BomMasterController extends Controller {
      */
     public function actionUpdate($id) {
         $model = $this->findModel($id);
-        $model_bom = \common\models\Bom::find()->where(['master_id' => $model->id])->all();
-        $supplier_materials = \common\models\SupplierwiseRowMaterial::find()->all();
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('form_update', [
+            return $this->render('update', [
                         'model' => $model,
-                        'model_bom' => $model_bom,
-                        'supplier_materials' => $supplier_materials,
             ]);
         }
     }

@@ -19,33 +19,30 @@ use Yii;
  *
  * @property Bom $bom
  */
-class BomMaterialDetails extends \yii\db\ActiveRecord
-{
+class BomMaterialDetails extends \yii\db\ActiveRecord {
+
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'bom_material_details';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['bom_id', 'material', 'quantity', 'status', 'CB', 'UB'], 'integer'],
-            [['DOC', 'DOU','comment'], 'safe'],
-            [['bom_id'], 'exist', 'skipOnError' => true, 'targetClass' => Bom::className(), 'targetAttribute' => ['bom_id' => 'id']],
+                [['bom_id', 'material', 'quantity', 'status', 'CB', 'UB', 'actual_qty'], 'integer'],
+                [['DOC', 'DOU', 'comment'], 'safe'],
+                [['bom_id'], 'exist', 'skipOnError' => true, 'targetClass' => Bom::className(), 'targetAttribute' => ['bom_id' => 'id']],
         ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'bom_id' => 'Bom ID',
@@ -62,8 +59,8 @@ class BomMaterialDetails extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getBom()
-    {
+    public function getBom() {
         return $this->hasOne(Bom::className(), ['id' => 'bom_id']);
     }
+
 }

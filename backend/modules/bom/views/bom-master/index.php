@@ -31,9 +31,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
                         'columns' => [
-                            ['class' => 'yii\grid\SerialColumn'],
+                                ['class' => 'yii\grid\SerialColumn'],
                             'bom_no',
-                            [
+                                [
                                 'attribute' => 'date',
                                 'value' => function ($data) {
                                     return date("Y-m-d", strtotime($data->date));
@@ -44,8 +44,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'filter' => DateRangePicker::widget(['model' => $searchModel, 'attribute' => 'date', 'pluginOptions' => ['format' => 'd-m-Y', 'autoUpdateInput' => false]]),
                             ],
                             'comment',
-                            ['class' => 'yii\grid\ActionColumn',
-                                'template' => '{view}',
+                                ['class' => 'yii\grid\ActionColumn',
+                                'template' => '{view}{update}',
                             ],
                         ],
                     ]);
