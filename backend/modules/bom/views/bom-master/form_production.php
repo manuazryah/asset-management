@@ -24,15 +24,23 @@ $this->params['breadcrumbs'][] = 'Update';
             <div class="panel-body">
                 <?= Html::a('<i class="fa-th-list"></i><span> Manage Bom Master</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                 <ul class="nav nav-tabs nav-tabs-justified">
-                    <li  class="active">
+                    <li>
                         <?php
-                        echo Html::a('<span class="visible-xs"><i class="fa-home"></i></span><span class="hidden-xs">Pending</span>', ['bom-master/update', 'id' => $model->id]);
+                        if ($model->status == 1) {
+                            echo Html::a('<span class="visible-xs"><i class="fa-home"></i></span><span class="hidden-xs">BOM Details</span>', ['bom-master/update', 'id' => $model->id]);
+                        }else{
+                            echo '<a><span class="visible-xs"><i class="fa-home"></i></span><span class="hidden-xs">BOM Details</span></a>';
+                        }
                         ?>
 
                     </li>
-                    <li>
+                    <li class="active">
                         <?php
-                        echo Html::a('<span class="visible-xs"><i class="fa-home"></i></span><span class="hidden-xs">Production</span>', ['bom-master/production', 'id' => $model->id]);
+                        if ($model->status == 2) {
+                            echo Html::a('<span class="visible-xs"><i class="fa-home"></i></span><span class="hidden-xs">Production</span>', ['bom-master/production', 'id' => $model->id]);
+                        }else{
+                            echo '<a><span class="visible-xs"><i class="fa-home"></i></span><span class="hidden-xs">Production</span></a>';
+                        }
                         ?>
 
                     </li>
@@ -130,7 +138,7 @@ $this->params['breadcrumbs'][] = 'Update';
                                                     <?php
                                                     $material_details = \common\models\BomMaterialDetails::find()->where(['bom_id' => $bom->id])->all();
                                                     ?>
-                                                    <table class="table table-<?= $current_row_id ?>">
+                                                    <table class="table table-1">
                                                         <?php
                                                         if (!empty($material_details)) {
                                                             $k = 0;

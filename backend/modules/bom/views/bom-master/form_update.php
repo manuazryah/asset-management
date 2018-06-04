@@ -26,13 +26,21 @@ $this->params['breadcrumbs'][] = 'Update';
                 <ul class="nav nav-tabs nav-tabs-justified">
                     <li  class="active">
                         <?php
-                        echo Html::a('<span class="visible-xs"><i class="fa-home"></i></span><span class="hidden-xs">Pending</span>', ['bom-master/update', 'id' => $model->id]);
+                        if ($model->status == 1) {
+                            echo Html::a('<span class="visible-xs"><i class="fa-home"></i></span><span class="hidden-xs">BOM Details</span>', ['bom-master/update', 'id' => $model->id]);
+                        }else{
+                            echo '<a><span class="visible-xs"><i class="fa-home"></i></span><span class="hidden-xs">BOM Details</span></a>';
+                        }
                         ?>
 
                     </li>
                     <li>
                         <?php
-                        echo Html::a('<span class="visible-xs"><i class="fa-home"></i></span><span class="hidden-xs">Production</span>', ['bom-master/production', 'id' => $model->id]);
+                        if ($model->status == 2) {
+                            echo Html::a('<span class="visible-xs"><i class="fa-home"></i></span><span class="hidden-xs">Production</span>', ['bom-master/production', 'id' => $model->id]);
+                        }else{
+                            echo '<a><span class="visible-xs"><i class="fa-home"></i></span><span class="hidden-xs">Production</span></a>';
+                        }
                         ?>
 
                     </li>
@@ -50,9 +58,9 @@ $this->params['breadcrumbs'][] = 'Update';
                                 </div>
                                 <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
                                     <?php
-                                    if($model->date == ''){
+                                    if ($model->date == '') {
                                         $model->date = date('d-M-Y');
-                                    }else{
+                                    } else {
                                         $model->date = date("d-M-Y", strtotime($model->date));
                                     }
                                     ?>
@@ -130,7 +138,7 @@ $this->params['breadcrumbs'][] = 'Update';
                                                     <?php
                                                     $material_details = \common\models\BomMaterialDetails::find()->where(['bom_id' => $bom->id])->all();
                                                     ?>
-                                                    <table class="table table-<?= $current_row_id ?>">
+                                                    <table class="table table-1">
                                                         <?php
                                                         if (!empty($material_details)) {
                                                             $k = 0;
@@ -149,8 +157,7 @@ $this->params['breadcrumbs'][] = 'Update';
                                                                             <div class="formrow">
                                                                                 <select class="form-control" name="updatematerial[<?= $value->id ?>][material_id]">
                                                                                     <option value="">Select Material</option>
-                                                                                    <?php 
-                                                                                    foreach ($supplier_materials as $supplier_material) { ?>
+                                                                                    <?php foreach ($supplier_materials as $supplier_material) { ?>
                                                                                         <option value="<?= $row_material->id ?>" <?= $supplier_material->id == $row_material->id ? 'selected' : '' ?>><?= $supplier_material->item_name ?></option>
                                                                                     <?php }
                                                                                     ?>
@@ -200,7 +207,11 @@ $this->params['breadcrumbs'][] = 'Update';
 
 
                             <?php ActiveForm::end(); ?>
-
+                            <?php
+                            if ($model->status == 1) {
+                                echo Html::a('<span> BOM Details Completed & Proceed to Production</span>', ['bom-master/bom-complete', 'id' => $model->id], ['class' => 'btn btn-secondary btn-right']);
+                            }
+                            ?>
                         </div>
                     </div>
                 </div>

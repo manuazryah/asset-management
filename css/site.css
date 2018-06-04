@@ -644,7 +644,7 @@ a {
     font-family: 'Montserrat', sans-serif;
     font-size: 15px;
     font-weight: 600;
-    border-radius: 5px;
+    border-radius: .25em;
     padding: 7px 20px;
 }
 .btn-warning:hover, .btn-warning:focus, .btn-warning.focus, .btn-warning:active, .btn-warning.active, .open>.dropdown-toggle.btn-warning {
@@ -1470,3 +1470,11 @@ table.table tr td:last-child {
     cursor: pointer;
 }
 /************************* BOM End ********************************************/
+.btn.btn-secondary {
+    background-color: #68b828;
+    color: #fff;
+    border-radius: .25em;
+}
+.btn-right{
+    float: right;
+}

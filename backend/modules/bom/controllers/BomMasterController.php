@@ -14,6 +14,17 @@ use common\models\StockView;
  * BomMasterController implements the CRUD actions for BomMaster model.
  */
 class BomMasterController extends Controller {
+    
+    public function beforeAction($action) {
+        if (!parent::beforeAction($action)) {
+            return false;
+        }
+        if (Yii::$app->user->isGuest) {
+            $this->redirect(['/site/index']);
+            return false;
+        }
+        return true;
+    }
 
     /**
      * @inheritdoc
@@ -468,6 +479,21 @@ class BomMasterController extends Controller {
                 'j' => $j,
             ]);
             return $new_row;
+        }
+    }
+
+    /**
+     * This function add new row for new Bom details entry
+     * @return new row
+     */
+    public function actionBomComplete($id) {
+        $model = $this->findModel($id);
+        if (!empty($model)) {
+            $model->status = 2;
+            $model->update();
+            return $this->redirect(['production', 'id' => $model->id]);
+        }else{
+            return $this->redirect(Yii::$app->request->referrer);
         }
     }
 
