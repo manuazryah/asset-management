@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = 'Update';
                                 </div>
                                 <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
                                     <?php
-                                    if($model->date == ''){
+                                   if($model->date == ''){
                                         $model->date = date('d-M-Y');
                                     }else{
                                         $model->date = date("d-M-Y", strtotime($model->date));
@@ -67,7 +67,7 @@ $this->params['breadcrumbs'][] = 'Update';
                                     ?>
                                 </div>
                                 <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
-                                    <?= $form->field($model, 'status')->dropDownList(['1' => 'Pending']) ?>
+                                    <?= $form->field($model, 'status')->dropDownList(['2' => 'Production']) ?>
 
                                 </div>
                                 <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
@@ -147,7 +147,7 @@ $this->params['breadcrumbs'][] = 'Update';
                                                                     <td style="padding: 6px 0px;width: 50%;">
                                                                         <div class="col-md-8">
                                                                             <div class="formrow">
-                                                                                <select class="form-control" name="updatematerial[<?= $value->id ?>][material_id]">
+                                                                                <select class="form-control" name="updatematerial[<?= $value->id ?>][material_id]" readonly>
                                                                                     <option value="">Select Material</option>
                                                                                     <?php 
                                                                                     foreach ($supplier_materials as $supplier_material) { ?>
@@ -161,10 +161,13 @@ $this->params['breadcrumbs'][] = 'Update';
                                                                         <div class="col-md-4">
                                                                             <div class="formrow">
                                                                                 <input id="material_qty_val_<?= $bom->id ?>-<?= $k ?>" type="hidden" autocomplete="off" class="form-control" name="updatematerial[<?= $value->id ?>][material_qty_val]" value="<?= $value->quantity ?>"placeholder="Material" required readonly>
-                                                                                <input id="material_qty_<?= $bom->id ?>-<?= $k ?>" data-val="<?= $bom->id ?>" type="number"  max="<?= $avail ?>" autocomplete="off" class="form-control material_qty" name="updatematerial[<?= $value->id ?>][material_qty]" value="<?= $value->quantity ?>" placeholder="Qty" required>
+                                                                                <input id="material_qty_<?= $bom->id ?>-<?= $k ?>" data-val="<?= $bom->id ?>" type="number"  max="<?= $avail ?>" autocomplete="off" class="form-control material_qty" name="updatematerial[<?= $value->id ?>][material_qty]" value="<?= $value->quantity ?>" placeholder="Qty" required readonly>
                                                                                 <span>Available Qty : <span id="material_avail_qty_<?= $bom->id ?>-<?= $k ?>"><?= $avail ?></span></span>
                                                                             </div>
                                                                         </div>
+                                                                    </td>
+                                                                    <td style="padding: 6px 0px;">
+                                                                        <input id="material_actual_qty_<?= $bom->id ?>-<?= $k ?>" data-val="<?= $bom->id ?>" type="number"  min="1" max="<?= $avail ?>" autocomplete="off" class="form-control material_actual_qty" name="updatematerial[<?= $value->id ?>][actual_qty]" value="<?= $value->actual_qty ?>" placeholder="Actual Qty" required>
                                                                     </td>
                                                                     <td style="padding: 12px 0px;">
                                                                         <span><?= $row_material->item_unit != '' ? \common\models\Unit::findOne($row_material->item_unit)->unit_name : '' ?></span>
@@ -172,7 +175,7 @@ $this->params['breadcrumbs'][] = 'Update';
                                                                     <td>
                                                                         <div class="col-md-12">
                                                                             <div class="formrow">
-                                                                                <input id="material_comment_<?= $bom->id ?>" type="text" autocomplete="off" class="form-control" name="updatematerial[<?= $value->id ?>][material_comment]" value="<?= $value->comment ?>" placeholder="Comment">
+                                                                                <input id="material_comment_<?= $bom->id ?>" type="text" autocomplete="off" class="form-control" name="updatematerial[<?= $value->id ?>][material_comment]" value=""placeholder="Comment">
                                                                             </div>
                                                                         </div>
                                                                     </td>
@@ -195,7 +198,7 @@ $this->params['breadcrumbs'][] = 'Update';
                                 </div>-->
                             <div class="clearfix"></div>
                             <div class="form-group">
-                                <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => 'btn btn-success']) ?>
+                                <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Complete Production', ['class' => 'btn btn-success']) ?>
                             </div>
 
 

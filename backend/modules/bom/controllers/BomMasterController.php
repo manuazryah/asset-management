@@ -202,7 +202,7 @@ class BomMasterController extends Controller {
     /**
      * This function add each BOM material details into stock register.
      */
-    public function AddStockRegister($model, $aditional, $bom_details) {
+    public function AddStockRegister($model, $aditional) {
         $flag = 0;
         $item_datas = \common\models\SupplierwiseRowMaterial::find()->where(['id' => $aditional->material])->one();
         $stock = new \common\models\StockRegister();
@@ -216,7 +216,7 @@ class BomMasterController extends Controller {
 //        $stock->warehouse = $aditional->warehouse;
 //        $stock->shelf = $aditional->shelf;
 //        $stock->item_cost = $aditional->price;
-        $stock->weight_out = $aditional->quantity;
+        $stock->weight_out = $aditional->actual_qty;
         $stock->status = 1;
         $stock->CB = Yii::$app->user->identity->id;
         $stock->UB = Yii::$app->user->identity->id;
@@ -266,14 +266,165 @@ class BomMasterController extends Controller {
         $model = $this->findModel($id);
         $model_bom = \common\models\Bom::find()->where(['master_id' => $model->id])->all();
         $supplier_materials = \common\models\SupplierwiseRowMaterial::find()->all();
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->date = date("Y-m-d", strtotime($model->date));
+            $data = Yii::$app->request->post();
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                if ($model->save() && $this->UpdateBomDetails($model, $data) && $this->UpdateBomMaterial($model, $data)) {
+                    $transaction->commit();
+                    Yii::$app->session->setFlash('success', "Invoice Updated successfully");
+                } else {
+                    $transaction->rollBack();
+                    Yii::$app->session->setFlash('error', "There was a problem updating invoice. Please try again.");
+                }
+            } catch (Exception $e) {
+                $transaction->rollBack();
+                Yii::$app->session->setFlash('error', "There was a problem updating invoice. Please try again.");
+            }
+            return $this->redirect(['update', 'id' => $model->id]);
         } else {
             return $this->render('form_update', [
                         'model' => $model,
                         'model_bom' => $model_bom,
                         'supplier_materials' => $supplier_materials,
             ]);
+        }
+    }
+
+    /*
+     * Save BOM details
+     */
+
+    public function UpdateBomDetails($model, $data) {
+        $flag = 0;
+        if (!empty($data['update'])) {
+            foreach ($data['update'] as $key => $update) {
+                $bom_detail = \common\models\Bom::find()->where(['id' => $key])->one();
+                $bom_detail->comment = $update['product_comment'];
+                if ($bom_detail->save()) {
+                    $flag = 1;
+                }
+            }
+        }
+        if ($flag == 1) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+    /*
+     * Save BOM details
+     */
+
+    public function UpdateBomMaterial($model, $data) {
+        $flag = 0;
+        $arr = [];
+        if (!empty($data['updatematerial'])) {
+            foreach ($data['updatematerial'] as $key => $update) {
+                $bom_material_detail = \common\models\BomMaterialDetails::find()->where(['id' => $key])->one();
+                $bom_material_detail->material = $update['material_id'];
+                $bom_material_detail->quantity = $update['material_qty'];
+                $bom_material_detail->comment = $update['material_comment'];
+                if ($bom_material_detail->save()) {
+                    $flag = 1;
+                }
+            }
+        }
+        if ($flag == 1) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+    /**
+     * Updates an existing BomMaster model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionProduction($id) {
+        $model = $this->findModel($id);
+        $model_bom = \common\models\Bom::find()->where(['master_id' => $model->id])->all();
+        $supplier_materials = \common\models\SupplierwiseRowMaterial::find()->all();
+        if ($model->load(Yii::$app->request->post())) {
+            $model->status = 3;
+            $model->date = date("Y-m-d", strtotime($model->date));
+            $data = Yii::$app->request->post();
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                if ($model->save() && $this->ProductionBomDetails($model, $data) && $this->ProductionBomMaterial($model, $data)) {
+                    $transaction->commit();
+                    Yii::$app->session->setFlash('success', "Material Prodduction Completed successfully");
+                } else {
+                    $transaction->rollBack();
+                    Yii::$app->session->setFlash('error', "There was a problem updating invoice. Please try again.");
+                }
+            } catch (Exception $e) {
+                $transaction->rollBack();
+                Yii::$app->session->setFlash('error', "There was a problem updating invoice. Please try again.");
+            }
+            return $this->redirect('index');
+        } else {
+            return $this->render('form_production', [
+                        'model' => $model,
+                        'model_bom' => $model_bom,
+                        'supplier_materials' => $supplier_materials,
+            ]);
+        }
+    }
+
+    /*
+     * Save BOM details
+     */
+
+    public function ProductionBomDetails($model, $data) {
+        $flag = 0;
+        if (!empty($data['update'])) {
+            foreach ($data['update'] as $key => $update) {
+                $bom_detail = \common\models\Bom::find()->where(['id' => $key])->one();
+                $bom_detail->comment = $update['product_comment'];
+                if ($bom_detail->save()) {
+                    $flag = 1;
+                }
+            }
+        }
+        if ($flag == 1) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+    /*
+     * Save BOM details
+     */
+
+    public function ProductionBomMaterial($model, $data) {
+        $flag = 0;
+        $arr = [];
+        if (!empty($data['updatematerial'])) {
+            foreach ($data['updatematerial'] as $key => $update) {
+                $bom_material_detail = \common\models\BomMaterialDetails::find()->where(['id' => $key])->one();
+                $bom_material_detail->material = $update['material_id'];
+                $bom_material_detail->quantity = $update['material_qty'];
+                $bom_material_detail->comment = $update['material_comment'];
+                $bom_material_detail->actual_qty = $update['actual_qty'];
+                if ($bom_material_detail->save()) {
+                    if ($this->AddStockRegister($model, $bom_material_detail)) {
+                        $flag = 1;
+                    } else {
+                        $flag = 0;
+                    }
+                }
+            }
+        }
+        if ($flag == 1) {
+            return TRUE;
+        } else {
+            return FALSE;
         }
     }
 

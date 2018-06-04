@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use kartik\daterange\DateRangePicker;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\BomMasterSearch */
@@ -31,9 +32,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
                         'columns' => [
-                                ['class' => 'yii\grid\SerialColumn'],
+                            ['class' => 'yii\grid\SerialColumn'],
                             'bom_no',
-                                [
+                            [
                                 'attribute' => 'date',
                                 'value' => function ($data) {
                                     return date("Y-m-d", strtotime($data->date));
@@ -44,9 +45,35 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'filter' => DateRangePicker::widget(['model' => $searchModel, 'attribute' => 'date', 'pluginOptions' => ['format' => 'd-m-Y', 'autoUpdateInput' => false]]),
                             ],
                             'comment',
-                                ['class' => 'yii\grid\ActionColumn',
+                            ['class' => 'yii\grid\ActionColumn',
                                 'template' => '{view}{update}',
-                            ],
+                                'contentOptions' => ['style' => 'width:100px;'],
+                                'buttons' => [
+                                    'update' => function ($url, $model) {
+                                        if ($model->status != 3) {
+                                            return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                                                        'title' => Yii::t('app', 'update'),
+                                                        'class' => '',
+                                            ]);
+                                        }
+                                    },
+                                    'view' => function ($url, $model) {
+                                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                                                    'title' => Yii::t('app', 'delete'),
+                                                    'class' => '',
+                                        ]);
+                                    },
+                                ],
+                                'urlCreator' => function ($action, $model) {
+                                    if ($action === 'update') {
+                                        $url = Url::to(['update', 'id' => $model->id]);
+                                        return $url;
+                                    }
+                                    if ($action === 'view') {
+                                        $url = Url::to(['view', 'id' => $model->id]);
+                                        return $url;
+                                    }
+                                }],
                         ],
                     ]);
                     ?>
