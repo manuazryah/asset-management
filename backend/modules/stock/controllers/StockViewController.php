@@ -25,6 +25,7 @@ class StockViewController extends Controller
         }
         return true;
     }
+    
     /**
      * @inheritdoc
      */

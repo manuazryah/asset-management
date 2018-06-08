@@ -25,6 +25,7 @@ class BomDetailsController extends Controller
         }
         return true;
     }
+    
     /**
      * @inheritdoc
      */

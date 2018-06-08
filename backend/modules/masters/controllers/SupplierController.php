@@ -13,6 +13,17 @@ use yii\filters\VerbFilter;
  * SupplierController implements the CRUD actions for Supplier model.
  */
 class SupplierController extends Controller {
+    
+    public function beforeAction($action) {
+        if (!parent::beforeAction($action)) {
+            return false;
+        }
+        if (Yii::$app->user->isGuest) {
+            $this->redirect(['/site/index']);
+            return false;
+        }
+        return true;
+    }
 
     /**
      * @inheritdoc

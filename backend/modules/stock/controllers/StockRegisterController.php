@@ -25,6 +25,7 @@ class StockRegisterController extends Controller
         }
         return true;
     }
+    
     /**
      * @inheritdoc
      */

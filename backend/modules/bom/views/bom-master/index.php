@@ -66,7 +66,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ],
                                 'urlCreator' => function ($action, $model) {
                                     if ($action === 'update') {
-                                        $url = Url::to(['update', 'id' => $model->id]);
+                                        if($model->status ==2){
+                                            $url = Url::to(['production', 'id' => $model->id]);
+                                        }elseif($model->status ==1){
+                                            $url = Url::to(['update', 'id' => $model->id]);
+                                        }
                                         return $url;
                                     }
                                     if ($action === 'view') {
