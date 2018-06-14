@@ -30,16 +30,6 @@
         </select>
     </td>
     <td>
-        <select id="invoice-shelf-<?= $next ?>" class="form-control invoice-shelf" name="create[shelf][<?= $next ?>]" required>
-            <option value="">-Choose a Shelf-</option>
-            <?php foreach ($shelf_datas as $shelf_data) {
-                ?>
-                <option value="<?= $shelf_data->id ?>"><?= $shelf_data->shelf_name ?></option>
-            <?php }
-            ?>
-        </select>
-    </td>
-    <td>
         <a id="del" class="" ><i class="fa fa-times invoice-delete" title="Remove Row"></i></a>
     </td>
 </tr>

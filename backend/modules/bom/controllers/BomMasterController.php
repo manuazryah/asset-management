@@ -200,10 +200,33 @@ class BomMasterController extends Controller {
             $aditional->comment = $val['material_comment'];
             Yii::$app->SetValues->Attributes($aditional);
             if ($aditional->save()) {
-                $flag = 1;
+                if($this->UpdateStockView($aditional)){
+                    $flag = 1;
+                }
             }
         }
         if ($flag == 1) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+    public function UpdateStockView($material){
+        $stock_view_exist = StockView::find()->where(['material_id' => $material->material])->one();
+        if (empty($stock_view_exist)) {
+            $stock_view = new StockView();
+            $stock_view->material_id = $material->material;
+            $stock_view->reserved_qty = $material->quantity;
+            $stock_view->status = 1;
+            $stock_view->CB = Yii::$app->user->identity->id;
+            $stock_view->UB = Yii::$app->user->identity->id;
+            $stock_view->DOC = date('Y-m-d');
+        } else {
+            $stock_view = StockView::find()->where(['material_id' => $material->material])->one();
+            $stock_view->reserved_qty += $material->quantity;
+            $stock_view->available_qty -= $material->quantity;
+        }
+        if ($stock_view->save()) {
             return TRUE;
         } else {
             return FALSE;

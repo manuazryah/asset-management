@@ -115,7 +115,7 @@ table.table tr.filters{
     border: 1px solid #e6e4e4;
 }
 .table>thead>tr>td, .table>tbody>tr>td, .table>tfood>tr>td, .table>thead>tr>th, .table>tbody>tr>th, .table>tfood>tr>th {
-    padding: 2px 1px;
+    padding: 10px 10px;
 }
 .table>thead>tr>td:after, .table>thead>tr>th:after {
     background-color: #fff;
@@ -1473,4 +1473,8 @@ table.table tr td:last-child {
 }
 .btn-right{
     float: right;
+}
+.logo h4{
+    color: #116d9d;
+    font-weight: 600;
 }

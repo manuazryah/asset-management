@@ -62,12 +62,8 @@ Use common\models\Brand;
         </div>
     </div>
     <div class="row">
-        <div class='col-md-6 col-sm-6 col-xs-12 left_padd'>
-            <?= $form->field($model, 'reference')->textInput(['maxlength' => true]) ?>
-
-        </div>
-        <div class='col-md-6 col-sm-6 col-xs-12 left_padd'>
-            <?= $form->field($model, 'comment')->textarea(['rows' => 6]) ?>
+        <div class='col-md-12 col-sm-12 col-xs-12 left_padd'>
+            <?= $form->field($model, 'comment')->textarea(['rows' => 2]) ?>
 
         </div>
     </div>

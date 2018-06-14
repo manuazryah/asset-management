@@ -44,7 +44,7 @@ class BomDetails extends \yii\db\ActiveRecord
             [['finished_product_id', 'master_row_material_id', 'row_material_id', 'quantity', 'unit', 'status', 'CB', 'UB'], 'integer'],
             [['DOC', 'DOU'], 'safe'],
             [['comment'], 'string', 'max' => 500],
-            [['row_material_id', 'quantity', 'comment'], 'required'],
+            [['row_material_id', 'quantity'], 'required'],
             [['finished_product_id'], 'exist', 'skipOnError' => true, 'targetClass' => FinishedProduct::className(), 'targetAttribute' => ['finished_product_id' => 'id']],
             [['master_row_material_id'], 'exist', 'skipOnError' => true, 'targetClass' => RowMaterial::className(), 'targetAttribute' => ['master_row_material_id' => 'id']],
             [['row_material_id'], 'exist', 'skipOnError' => true, 'targetClass' => SupplierwiseRowMaterial::className(), 'targetAttribute' => ['row_material_id' => 'id']],

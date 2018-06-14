@@ -50,7 +50,6 @@ use kartik\date\DatePicker;
                     <th data-priority="6" style="width: 10%;">Price</th>
                     <th data-priority="6" style="width: 15%;">Total</th>
                     <th data-priority="6" style="width: 20%;">Warehouse</th>
-                    <th data-priority="6" style="width: 15%;">Shelf</th>
                     <th data-priority="1" style="width: 50px;"></th>
                 </tr>
                 <tr>
@@ -90,17 +89,6 @@ use kartik\date\DatePicker;
                         ?>
                     </select>
                 </td>
-                <td>
-                    <?php $shelf_datas = ShelfDetails::findAll(['status' => 1]); ?>
-                    <select id="invoice-shelf-1" class="form-control invoice-shelf" name="create[shelf][1]" required>
-                        <option value="">-Choose a Shelf-</option>
-                        <?php foreach ($shelf_datas as $shelf_data) {
-                            ?>
-                            <option value="<?= $shelf_data->id ?>"><?= $shelf_data->shelf_name ?></option>
-                        <?php }
-                        ?>
-                    </select>
-                </td>
                 <td></td>
             </tr>
             </tbody>
@@ -113,7 +101,6 @@ use kartik\date\DatePicker;
                     <th data-priority="6" style="width: 10%;"><span style="float:right" id="price-tot-amt"></span></th>
                     <th data-priority="6" style="width: 15%;"><span style="float:right" id="grand-tot-amt"></span></th>
                     <th data-priority="6" style="width: 20%;"></th>
-                    <th data-priority="6" style="width: 15%;"></th>
                     <th data-priority="1" style="width: 50px;   "></th>
                 </tr>
             </thead>

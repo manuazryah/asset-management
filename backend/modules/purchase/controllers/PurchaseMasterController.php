@@ -131,11 +131,6 @@ class PurchaseMasterController extends Controller {
                 $arr[$i]['warehouse'] = $val;
                 $i++;
             }
-            $i = 0;
-            foreach ($create['shelf'] as $val) {
-                $arr[$i]['shelf'] = $val;
-                $i++;
-            }
             if ($this->AddInvoiceDetails($arr, $model_master)) {
                 $flag = 1;
             }
@@ -162,7 +157,6 @@ class PurchaseMasterController extends Controller {
                 $aditional->price = $val['price'];
                 $aditional->total = $aditional->qty * $aditional->price;
                 $aditional->warehouse = $val['warehouse'];
-                $aditional->shelf = $val['shelf'];
                 $aditional->status = 1;
                 $aditional->CB = Yii::$app->user->identity->id;
                 $aditional->UB = Yii::$app->user->identity->id;
@@ -198,7 +192,6 @@ class PurchaseMasterController extends Controller {
         $stock->item_code = $item_datas->item_code;
         $stock->item_name = $item_datas->item_name;
         $stock->warehouse = $aditional->warehouse;
-        $stock->shelf = $aditional->shelf;
         $stock->item_cost = $aditional->price;
         $stock->weight_in = $aditional->qty;
         $stock->status = 1;

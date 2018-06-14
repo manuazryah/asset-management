@@ -50,7 +50,7 @@ class PurchaseDetails extends \yii\db\ActiveRecord
             [['master_id'], 'exist', 'skipOnError' => true, 'targetClass' => PurchaseMaster::className(), 'targetAttribute' => ['master_id' => 'id']],
             [['material'], 'exist', 'skipOnError' => true, 'targetClass' => SupplierwiseRowMaterial::className(), 'targetAttribute' => ['material' => 'id']],
             [['warehouse'], 'exist', 'skipOnError' => true, 'targetClass' => Warehouse::className(), 'targetAttribute' => ['warehouse' => 'id']],
-            [['shelf'], 'exist', 'skipOnError' => true, 'targetClass' => ShelfDetails::className(), 'targetAttribute' => ['shelf' => 'id']],
+//            [['shelf'], 'exist', 'skipOnError' => true, 'targetClass' => ShelfDetails::className(), 'targetAttribute' => ['shelf' => 'id']],
         ];
     }
 
@@ -104,8 +104,8 @@ class PurchaseDetails extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getShelf0()
-    {
-        return $this->hasOne(ShelfDetails::className(), ['id' => 'shelf']);
-    }
+//    public function getShelf0()
+//    {
+//        return $this->hasOne(ShelfDetails::className(), ['id' => 'shelf']);
+//    }
 }

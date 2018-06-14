@@ -20,11 +20,13 @@ $this->params['breadcrumbs'][] = 'Update';
 
             </div>
             <div class="panel-body">
-                        <?=  Html::a('<i class="fa-th-list"></i><span> Manage Bom Master</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                <?= Html::a('<i class="fa-th-list"></i><span> Manage Bom Master</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                 <div class="panel-body"><div class="bom-master-create">
-<?= $this->render('_form', [
-                        'model' => $model,
-                        ]) ?>
+                        <?=
+                        $this->render('_form', [
+                            'model' => $model,
+                        ])
+                        ?>
                     </div>
                 </div>
             </div>

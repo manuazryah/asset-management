@@ -34,7 +34,7 @@ class StockView extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['material_id', 'available_qty', 'status', 'CB', 'UB'], 'integer'],
+            [['material_id', 'available_qty', 'status', 'CB', 'UB','reserved_qty'], 'integer'],
             [['DOC', 'DOU'], 'safe'],
             [['material_id'], 'exist', 'skipOnError' => true, 'targetClass' => SupplierwiseRowMaterial::className(), 'targetAttribute' => ['material_id' => 'id']],
         ];

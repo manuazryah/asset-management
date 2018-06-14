@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = 'Update';
                         <?php
                         if ($model->status == 1) {
                             echo Html::a('<span class="visible-xs"><i class="fa-home"></i></span><span class="hidden-xs">BOM Details</span>', ['bom-master/update', 'id' => $model->id]);
-                        }else{
+                        } else {
                             echo '<a><span class="visible-xs"><i class="fa-home"></i></span><span class="hidden-xs">BOM Details</span></a>';
                         }
                         ?>
@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = 'Update';
                         <?php
                         if ($model->status == 2) {
                             echo Html::a('<span class="visible-xs"><i class="fa-home"></i></span><span class="hidden-xs">Production</span>', ['bom-master/production', 'id' => $model->id]);
-                        }else{
+                        } else {
                             echo '<a><span class="visible-xs"><i class="fa-home"></i></span><span class="hidden-xs">Production</span></a>';
                         }
                         ?>
@@ -138,12 +138,14 @@ $this->params['breadcrumbs'][] = 'Update';
                                                     <?php
                                                     $material_details = \common\models\BomMaterialDetails::find()->where(['bom_id' => $bom->id])->all();
                                                     ?>
+                                                    <input type="hidden" name="material_row_count" id="material_row_count" value="<?= count($material_details)?>"/>
                                                     <table class="table table-1">
                                                         <?php
                                                         if (!empty($material_details)) {
                                                             $k = 0;
                                                             foreach ($material_details as $value) {
                                                                 $avail = 0;
+                                                                $avail_reserve = $value->quantity;
                                                                 $k++;
                                                                 $row_material = \common\models\SupplierwiseRowMaterial::findOne($value->material);
                                                                 $stock_view = common\models\StockView::find()->where(['material_id' => $row_material->id])->one();
@@ -168,8 +170,8 @@ $this->params['breadcrumbs'][] = 'Update';
                                                                         <div class="col-md-4">
                                                                             <div class="formrow">
                                                                                 <input id="material_qty_val_<?= $bom->id ?>-<?= $k ?>" type="hidden" autocomplete="off" class="form-control" name="updatematerial[<?= $value->id ?>][material_qty_val]" value="<?= $value->quantity ?>"placeholder="Material" required readonly>
-                                                                                <input id="material_qty_<?= $bom->id ?>-<?= $k ?>" data-val="<?= $bom->id ?>" type="number"  max="<?= $avail ?>" autocomplete="off" class="form-control material_qty" name="updatematerial[<?= $value->id ?>][material_qty]" value="<?= $value->quantity ?>" placeholder="Qty" required>
-                                                                                <span>Available Qty : <span id="material_avail_qty_<?= $bom->id ?>-<?= $k ?>"><?= $avail ?></span></span>
+                                                                                <input id="material_qty_<?= $bom->id ?>-<?= $k ?>" data-val="<?= $bom->id ?>" type="number"  max="<?= $avail + $avail_reserve ?>" autocomplete="off" class="form-control material_qty" name="updatematerial[<?= $value->id ?>][material_qty]" value="<?= $value->quantity ?>" placeholder="Qty" required>
+                                                                                <span title="Available Quantity">AVQ : <span id="material_avail_qty_<?= $bom->id ?>-<?= $k ?>"><?= $avail ?></span> </span><span title="Reserved Quantity" style="float:right">REQ : <span id="material_reserve_qty_<?= $bom->id ?>-<?= $k ?>"><?= $avail_reserve ?></span></span>
                                                                             </div>
                                                                         </div>
                                                                     </td>
@@ -243,6 +245,27 @@ $this->params['breadcrumbs'][] = 'Update';
         $(document).on('change', '.product_id', function (e) {
             var current_row_id = $(this).attr('id').match(/\d+/); // 123456
             var item_id = $(this).val();
+            var next_row_id = $('#material_row_count').val();
+            if (next_row_id > 1) {
+                for (i = 1; i <= next_row_id; i++) {
+                    var item_val = $('#salesinvoicedetails-item_id-' + i).val();
+                    if (item_val == item_id) {
+                        count = count + 1;
+                    }
+                }
+                if (count > 1) {
+                    flag = 1;
+                } else {
+                    flag = 0;
+                }
+            }
+            if (flag == 0) {
+                itemChange(item_id, current_row_id, next_row_id);
+            } else {
+                alert('This Item is already Choosed');
+                $("#salesinvoicedetails-item_id-" + current_row_id).select2("val", "");
+                e.preventDefault();
+            }
             itemChange(item_id, current_row_id);
         });
         $(document).on('click', '.box_btn', function (e) {
@@ -262,12 +285,13 @@ $this->params['breadcrumbs'][] = 'Update';
             var row_id = array[array.length - 1];
             var qt_val = $(this).val();
             var material_availqty_val = parseInt($('#material_avail_qty_' + current_row_id + '-' + row_id).text());
-            if (parseInt(qt_val) <= material_availqty_val) {
+            var material_reserve_val = parseInt($('#material_reserve_qty_' + current_row_id + '-' + row_id).text());
+            if (parseInt(qt_val) <= (material_availqty_val + material_reserve_val)) {
                 $('#material_qty_' + current_row_id + '-' + row_id).val(qt_val);
             } else {
                 if (qt_val != '') {
                     alert('Quantity exeeds the available quantity');
-                    $('#material_qty_' + current_row_id + '-' + row_id).val(material_availqty_val);
+                    $('#material_qty_' + current_row_id + '-' + row_id).val(material_availqty_val + material_reserve_val);
                 } else {
                     $('#material_qty_' + current_row_id + '-' + row_id).val(0);
                 }
