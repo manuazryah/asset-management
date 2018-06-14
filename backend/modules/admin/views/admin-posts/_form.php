@@ -25,6 +25,22 @@ use yii\widgets\ActiveForm;
 
                 </div>
                 <div class='col-md-4 col-sm-6 col-xs-12'>
+                        <?= $form->field($model, 'purchase')->dropDownList(['1' => 'Yes', '0' => 'No']) ?>
+
+                </div>
+                <div class='col-md-4 col-sm-6 col-xs-12'>
+                        <?= $form->field($model, 'stock')->dropDownList(['1' => 'Yes', '0' => 'No']) ?>
+
+                </div>
+                <div class='col-md-4 col-sm-6 col-xs-12'>
+                        <?= $form->field($model, 'bom')->dropDownList(['1' => 'Yes', '0' => 'No']) ?>
+
+                </div>
+                <div class='col-md-4 col-sm-6 col-xs-12'>
+                        <?= $form->field($model, 'supplier_customer')->dropDownList(['1' => 'Yes', '0' => 'No']) ?>
+
+                </div>
+                <div class='col-md-4 col-sm-6 col-xs-12'>
                         <?= $form->field($model, 'status')->dropDownList(['1' => 'Enabled', '0' => 'Disabled']) ?>
 
                 </div>

@@ -57,7 +57,7 @@ Use common\models\Brand;
 
         </div>
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-            <?= $form->field($model, 'gender')->dropDownList(['1' => 'Men', '2' => 'Women']) ?>
+            <?= $form->field($model, 'gender')->dropDownList(['1' => 'Men', '2' => 'Women','3'=>'Unisex','4'=>'Oriental']) ?>
 
         </div>
     </div>

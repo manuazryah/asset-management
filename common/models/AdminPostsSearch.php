@@ -18,7 +18,7 @@ class AdminPostsSearch extends AdminPosts
     public function rules()
     {
         return [
-            [['id', 'status', 'CB', 'UB'], 'integer'],
+            [['id', 'status', 'CB', 'UB','purchase','stock','bom','supplier_customer','admin','masters'], 'integer'],
             [['post_name', 'DOC', 'DOU'], 'safe'],
         ];
     }
@@ -61,6 +61,12 @@ class AdminPostsSearch extends AdminPosts
         $query->andFilterWhere([
             'id' => $this->id,
             'status' => $this->status,
+            'admin' => $this->admin,
+            'masters' => $this->masters,
+            'purchase' => $this->purchase,
+            'stock' => $this->stock,
+            'bom' => $this->bom,
+            'supplier_customer' => $this->supplier_customer,
             'CB' => $this->CB,
             'UB' => $this->UB,
             'DOC' => $this->DOC,

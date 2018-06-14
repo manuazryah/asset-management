@@ -36,15 +36,9 @@ use common\models\Unit;
     </div>
     <div class="row">
         <div class='col-md-6 col-sm-6 col-xs-12 left_padd'>    
-            <?= $form->field($model, 'reference')->textarea(['rows' => 3]) ?>
-
-        </div>
-        <div class='col-md-6 col-sm-6 col-xs-12 left_padd'>    
             <?= $form->field($model, 'description')->textarea(['rows' => 3]) ?>
 
         </div> 
-    </div>
-    <div class="row">
         <div class='col-md-6 col-sm-6 col-xs-12 left_padd'>    
             <?php
             if ($model->photo != '') {
@@ -70,12 +64,13 @@ use common\models\Unit;
             </div>
         </div>
     </div>
-
-
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => 'btn btn-success']) ?>
+    <div class="row">
+        <div class='col-md-12 col-sm-12 col-xs-12 left_padd'> 
+            <div class="form-group">
+                <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => 'btn btn-success']) ?>
+            </div>
+        </div>
     </div>
-
 
     <?php ActiveForm::end(); ?>
 

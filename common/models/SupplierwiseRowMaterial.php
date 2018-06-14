@@ -70,7 +70,7 @@ class SupplierwiseRowMaterial extends \yii\db\ActiveRecord {
             'reference' => 'Reference',
             'supplier' => 'Supplier',
             'purchase_price' => 'Purchase Price',
-            'minimum_quantity' => 'Minimum Quantity',
+            'minimum_quantity' => 'Minimum Stock Quantity',
             'comment' => 'Comment',
             'status' => 'Status',
             'CB' => 'Cb',

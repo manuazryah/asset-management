@@ -37,8 +37,7 @@ AppAsset::register($this);
                 <!-- Navbar Brand -->
                 <div class="navbar-brand">
                     <a href="" class="logo">
-                        <img src="<?= Yii::$app->homeUrl ?>images/logo.png" width="100" alt="" class="hidden-xs" />
-                        <img src="<?= Yii::$app->homeUrl ?>images/logo.png" width="150" alt="" class="visible-xs" />
+                        <h4>AL ORCHID PERFUME</h4>
                     </a>
                 </div>
 
@@ -89,23 +88,6 @@ AppAsset::register($this);
                     ?>
                     <li>
                         <a href="">
-                            <i class="fa fa-cubes"></i>
-                            <span class="title">Row Material</span>
-                        </a>
-                        <ul>
-                            <li>
-                                <?= Html::a('<i class="fa fa-angle-double-right"></i> Material Category', ['/masters/row-material-category/index'], ['class' => 'title']) ?>
-                            </li>
-                            <li>
-                                <?= Html::a('<i class="fa fa-angle-double-right"></i> Row Material', ['/masters/row-material/index'], ['class' => 'title']) ?>
-                            </li>
-                            <li>
-                                <?= Html::a('<i class="fa fa-angle-double-right"></i> Supplier Wise Material', ['/material/supplierwise-row-material/index'], ['class' => 'title']) ?>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="">
                             <i class="fa fa-file"></i>
                             <span class="title">Product</span>
                         </a>
@@ -140,6 +122,20 @@ AppAsset::register($this);
                     </li>
                     <li>
                         <a href="">
+                            <i class="fa fa-cubes"></i>
+                            <span class="title">Row Material</span>
+                        </a>
+                        <ul>
+                            <li>
+                                <?= Html::a('<i class="fa fa-angle-double-right"></i> Row Material', ['/masters/row-material/index'], ['class' => 'title']) ?>
+                            </li>
+                            <li>
+                                <?= Html::a('<i class="fa fa-angle-double-right"></i> Supplier Wise Material', ['/material/supplierwise-row-material/index'], ['class' => 'title']) ?>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="">
                             <i class="fa fa-users"></i>
                             <span class="title">Suppliers & Customers</span>
                         </a>
@@ -168,7 +164,7 @@ AppAsset::register($this);
                                 <?= Html::a('<i class="fa fa-angle-double-right"></i> Warehouse', ['/masters/warehouse/index'], ['class' => 'title']) ?>
                             </li>
                             <li>
-                                <?= Html::a('<i class="fa fa-angle-double-right"></i> Shelf Details', ['/masters/shelf-details/index'], ['class' => 'title']) ?>
+                                <?= Html::a('<i class="fa fa-angle-double-right"></i> Material Category', ['/masters/row-material-category/index'], ['class' => 'title']) ?>
                             </li>
                         </ul>
                     </li>
@@ -259,23 +255,6 @@ AppAsset::register($this);
                         ?>
                         <li>
                             <a href="">
-                                <i class="fa fa-cubes"></i>
-                                <span class="title">Row Material</span>
-                            </a>
-                            <ul>
-                                <li>
-                                    <?= Html::a('<i class="fa fa-angle-double-right"></i> Material Category', ['/masters/row-material-category/index'], ['class' => 'title']) ?>
-                                </li>
-                                <li>
-                                    <?= Html::a('<i class="fa fa-angle-double-right"></i> Row Material', ['/masters/row-material/index'], ['class' => 'title']) ?>
-                                </li>
-                                <li>
-                                    <?= Html::a('<i class="fa fa-angle-double-right"></i> Supplier Wise Material', ['/material/supplierwise-row-material/index'], ['class' => 'title']) ?>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="">
                                 <i class="fa fa-file"></i>
                                 <span class="title">Product</span>
                             </a>
@@ -310,6 +289,20 @@ AppAsset::register($this);
                         </li>
                         <li>
                             <a href="">
+                                <i class="fa fa-cubes"></i>
+                                <span class="title">Row Material</span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <?= Html::a('<i class="fa fa-angle-double-right"></i> Row Material', ['/masters/row-material/index'], ['class' => 'title']) ?>
+                                </li>
+                                <li>
+                                    <?= Html::a('<i class="fa fa-angle-double-right"></i> Supplier Wise Material', ['/material/supplierwise-row-material/index'], ['class' => 'title']) ?>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="">
                                 <i class="fa fa-users"></i>
                                 <span class="title">Suppliers & Customers</span>
                             </a>
@@ -338,7 +331,7 @@ AppAsset::register($this);
                                     <?= Html::a('<i class="fa fa-angle-double-right"></i> Warehouse', ['/masters/warehouse/index'], ['class' => 'title']) ?>
                                 </li>
                                 <li>
-                                    <?= Html::a('<i class="fa fa-angle-double-right"></i> Shelf Details', ['/masters/shelf-details/index'], ['class' => 'title']) ?>
+                                    <?= Html::a('<i class="fa fa-angle-double-right"></i> Material Category', ['/masters/row-material-category/index'], ['class' => 'title']) ?>
                                 </li>
                             </ul>
                         </li>

@@ -34,11 +34,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             'post_name',
                             [
                                 'attribute' => 'admin',
+                                'format' => 'raw',
                                 'filter' => [1 => 'Yes', 0 => 'No'],
                                 'value' => function ($model) {
                                     return $model->admin == 1 ? 'Yes' : 'No';
                                 },
-                                'filter' => [1 => 'Yes', 0 => 'No'],
                             ],
                             [
                                 'attribute' => 'masters',
@@ -46,6 +46,38 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'filter' => [1 => 'Yes', 0 => 'No'],
                                 'value' => function ($model) {
                                     return $model->masters == 1 ? 'Yes' : 'No';
+                                },
+                            ],
+                            [
+                                'attribute' => 'purchase',
+                                'format' => 'raw',
+                                'filter' => [1 => 'Yes', 0 => 'No'],
+                                'value' => function ($model) {
+                                    return $model->purchase == 1 ? 'Yes' : 'No';
+                                },
+                            ],
+                            [
+                                'attribute' => 'stock',
+                                'format' => 'raw',
+                                'filter' => [1 => 'Yes', 0 => 'No'],
+                                'value' => function ($model) {
+                                    return $model->stock == 1 ? 'Yes' : 'No';
+                                },
+                            ],
+                            [
+                                'attribute' => 'bom',
+                                'format' => 'raw',
+                                'filter' => [1 => 'Yes', 0 => 'No'],
+                                'value' => function ($model) {
+                                    return $model->bom == 1 ? 'Yes' : 'No';
+                                },
+                            ],
+                            [
+                                'attribute' => 'supplier_customer',
+                                'format' => 'raw',
+                                'filter' => [1 => 'Yes', 0 => 'No'],
+                                'value' => function ($model) {
+                                    return $model->supplier_customer == 1 ? 'Yes' : 'No';
                                 },
                             ],
                             [

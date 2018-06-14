@@ -112,10 +112,10 @@ table.table tr.filters{
     background-color: #fff;
 }
 .filters .form-control{
-    border: 1px solid #afafaf;
+    border: 1px solid #e6e4e4;
 }
 .table>thead>tr>td, .table>tbody>tr>td, .table>tfood>tr>td, .table>thead>tr>th, .table>tbody>tr>th, .table>tfood>tr>th {
-    padding: 6px 15px;
+    padding: 2px 1px;
 }
 .table>thead>tr>td:after, .table>thead>tr>th:after {
     background-color: #fff;
@@ -167,8 +167,6 @@ html .select2-drop .select2-results li.select2-result-selectable .select2-result
     /*height: 35px;*/
     background-clip: padding-box;
     border: 1px solid #ced4da;
-    border-radius: .25rem;
-    padding: .375rem .75rem;
 }
 form .form-group .form-control{
     color: #464646;
@@ -176,8 +174,6 @@ form .form-group .form-control{
     /*height: 35px;*/
     background-clip: padding-box;
     border: 1px solid #ced4da;
-    border-radius: .25rem;
-    padding: .375rem .75rem;
 }
 .form-group label{
     color: #484848;

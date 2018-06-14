@@ -13,12 +13,12 @@ use common\models\Unit;
 ?>
 <style>
     label {
-    font-weight: bold;
-    color: #484848;
-}
+        font-weight: bold;
+        color: #484848;
+    }
 </style>
 <div class="supplierwise-row-material-form form-inline">
-<?= \common\components\AlertMessageWidget::widget() ?>
+    <?= \common\components\AlertMessageWidget::widget() ?>
     <?php $form = ActiveForm::begin(); ?>
     <div class="row">
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
@@ -42,22 +42,22 @@ use common\models\Unit;
 
         </div>
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-            <?= $form->field($model, 'reference')->textInput(['maxlength' => true]) ?>
+            <?php $supplier = ArrayHelper::map(Supplier::findAll(['status' => 1]), 'id', 'company_name'); ?>
+            <?= $form->field($model, 'supplier')->dropDownList($supplier, ['prompt' => '-Choose Supplier-']) ?>
 
         </div>
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-            <?php $supplier = ArrayHelper::map(Supplier::findAll(['status' => 1]), 'id', 'company_name'); ?>
-            <?= $form->field($model, 'supplier')->dropDownList($supplier, ['prompt' => '-Choose Supplier-']) ?>
+            <?= $form->field($model, 'purchase_price')->textInput(['maxlength' => true]) ?>
 
         </div>
     </div>
     <div class="row">
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-            <?= $form->field($model, 'purchase_price')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'minimum_quantity')->textInput(['maxlength' => true]) ?>
 
         </div>
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-            <?= $form->field($model, 'minimum_quantity')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'comment')->textInput(['maxlength' => true]) ?>
 
         </div>
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
@@ -80,7 +80,7 @@ use common\models\Unit;
                 if ($model->photo != '') {
                     $dirPath = Yii::getAlias(Yii::$app->params['uploadPath']) . '/uploads/supplierwise_material/' . $model->id . '.' . $model->photo;
                     if (file_exists($dirPath)) {
-                        echo '<img width="70" height="70" class="img-responsive" src="' . Yii::$app->homeUrl . 'uploads/supplierwise_material/' . $model->id . '.' . $model->photo . '?'.rand().'"/>';
+                        echo '<img width="70" height="70" class="img-responsive" src="' . Yii::$app->homeUrl . 'uploads/supplierwise_material/' . $model->id . '.' . $model->photo . '?' . rand() . '"/>';
                     } else {
                         echo '';
                     }
@@ -90,18 +90,12 @@ use common\models\Unit;
         </div>
     </div>
     <div class="row">
-        <div class='col-md-8 col-sm-8 col-xs-12 left_padd'>
-            <?= $form->field($model, 'comment')->textarea(['rows' => 2]) ?>
-
+        <div class='col-md-12 col-sm-12 col-xs-12 left_padd'>
+            <div class="form-group">
+                <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => 'btn btn-success']) ?>
+            </div>
         </div>
     </div>
-
-
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => 'btn btn-success']) ?>
-    </div>
-
-
     <?php ActiveForm::end(); ?>
 
 </div>

@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\FinishedProduct */
 
-$this->title = 'Create Finished Product';
+$this->title = 'Product';
 $this->params['breadcrumbs'][] = ['label' => 'Finished Products', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             </div>
             <div class="panel-body">
-                <?= Html::a('<i class="fa-th-list"></i><span> Manage Finished Product</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                <?= Html::a('<i class="fa-th-list"></i><span> Manage Product</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                 <ul class="nav nav-tabs nav-tabs-justified">
                     <li class="active">
                         <a><span class="visible-xs"><i class="fa-home"></i></span><span class="hidden-xs">Finished Product</span></a>
