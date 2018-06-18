@@ -15,7 +15,7 @@ $model->bom_no = $this->context->getBomNo();
     }
 </style>
 <div class="bom-master-form form-inline">
-
+    <?= \common\components\AlertMessageWidget::widget() ?>
     <?php $form = ActiveForm::begin(); ?>
     <div class="row">
         <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
@@ -160,7 +160,58 @@ $model->bom_no = $this->context->getBomNo();
                 $('#material_qty_' + current_row_id + '-' + row_id).val(material_availqty_val);
             }
         });
+        $(document).on('change', '.invoice-material_id', function (e) {
+            var flag = 0;
+            var count = 0;
+            var idd = $(this).attr('id');
+            var current_row_id = $(this).attr('id').match(/\d+/); // 123456
+            var array = idd.split('-');
+            var material_row_id = array[2];
+            var row_count = $('#material_cout_row-' + current_row_id).val();
+            var item_id = $(this).val();
+            if (row_count > 1) {
+                for (i = 1; i <= row_count; i++) {
+                    var item_val = $('#invoice-material_id_' + current_row_id + '-' + i).val();
+                    if (item_val == item_id) {
+                        count = count + 1;
+                    }
+                }
+                if (count > 1) {
+                    flag = 1;
+                } else {
+                    flag = 0;
+                }
+            }
+            if (flag == 0) {
+                materialChange(item_id, current_row_id, material_row_id);
+            } else {
+                alert('This Item is already Choosed');
+                $('#invoice-material_id_' + current_row_id + '-' + i).val('');
+                e.preventDefault();
+            }
+        });
     });
+    
+    function materialChange(item_id, current_row_id, material_row_id) {
+    alert('sg');
+        $.ajax({
+            type: 'POST',
+            cache: false,
+            async: false,
+            data: {item_id: item_id, current_row_id: parseInt(current_row_id)},
+            url: '<?= Yii::$app->homeUrl; ?>bom/bom-master/get-items',
+            success: function (data) {
+                var res = $.parseJSON(data);
+                $("#bom-material-details-" + current_row_id).html(res.result['new_row']);
+                $("#product_qty-" + current_row_id).val(1);
+                $("#product-" + current_row_id).val(item_id);
+                $("#exist_product_comment-" + current_row_id).text(res.result['product_comment']);
+                $("#box_btn-" + current_row_id).css('display', 'block');
+                calculateQty(current_row_id);
+            }
+        });
+        return true;
+    }
     function calculateQty(current_row_id) {
         var rowCount = $('.table-' + current_row_id + ' tr').length;
         var product_qty = $('#product_qty-' + current_row_id).val();

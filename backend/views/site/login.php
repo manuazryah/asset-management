@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div id="login" class="animate form">
             <section class="login_content">
                 <div>
-                    <img width="225" class="img-responsive" src="<?= Yii::$app->homeUrl; ?>images/logo.png"/>
+                    <h2 style="color:#063c55;font-weight: 600;">AL ORCHID PERFUME</h2>
                 </div>
                 <h1>Dear user, log in to access the admin area!</h1>
                 <?= \common\widgets\Alert::widget(); ?>

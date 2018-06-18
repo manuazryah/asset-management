@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = 'Update';
                 <div class="panel-body">
                     <div class="bom-master-create">
                         <div class="bom-master-form form-inline">
-
+                            <?= \common\components\AlertMessageWidget::widget() ?>
                             <?php $form = ActiveForm::begin(); ?>
                             <div class="row">
                                 <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
@@ -138,7 +138,7 @@ $this->params['breadcrumbs'][] = 'Update';
                                                     <?php
                                                     $material_details = \common\models\BomMaterialDetails::find()->where(['bom_id' => $bom->id])->all();
                                                     ?>
-                                                    <input type="hidden" name="material_row_count" id="material_row_count" value="<?= count($material_details)?>"/>
+                                                    <input type="hidden" name="material_row_count" id="material_row_count" value="<?= count($material_details) ?>"/>
                                                     <table class="table table-1">
                                                         <?php
                                                         if (!empty($material_details)) {
@@ -157,7 +157,7 @@ $this->params['breadcrumbs'][] = 'Update';
                                                                     <td style="padding: 6px 0px;width: 50%;">
                                                                         <div class="col-md-8">
                                                                             <div class="formrow">
-                                                                                <select class="form-control" name="updatematerial[<?= $value->id ?>][material_id]">
+                                                                                <select class="form-control" name="updatematerial[<?= $value->id ?>][material_id]" disabled>
                                                                                     <option value="">Select Material</option>
                                                                                     <?php foreach ($supplier_materials as $supplier_material) { ?>
                                                                                         <option value="<?= $row_material->id ?>" <?= $supplier_material->id == $row_material->id ? 'selected' : '' ?>><?= $supplier_material->item_name ?></option>
@@ -171,7 +171,7 @@ $this->params['breadcrumbs'][] = 'Update';
                                                                             <div class="formrow">
                                                                                 <input id="material_qty_val_<?= $bom->id ?>-<?= $k ?>" type="hidden" autocomplete="off" class="form-control" name="updatematerial[<?= $value->id ?>][material_qty_val]" value="<?= $value->quantity ?>"placeholder="Material" required readonly>
                                                                                 <input id="material_qty_<?= $bom->id ?>-<?= $k ?>" data-val="<?= $bom->id ?>" type="number"  max="<?= $avail + $avail_reserve ?>" autocomplete="off" class="form-control material_qty" name="updatematerial[<?= $value->id ?>][material_qty]" value="<?= $value->quantity ?>" placeholder="Qty" required>
-                                                                                <span title="Available Quantity">AVQ : <span id="material_avail_qty_<?= $bom->id ?>-<?= $k ?>"><?= $avail ?></span> </span><span title="Reserved Quantity" style="float:right">REQ : <span id="material_reserve_qty_<?= $bom->id ?>-<?= $k ?>"><?= $avail_reserve ?></span></span>
+                                                                                <span title="Available Quantity">AVL : <span id="material_avail_qty_<?= $bom->id ?>-<?= $k ?>"><?= $avail ?></span> </span><span title="Reserved Quantity" style="float:right">RES : <span id="material_reserve_qty_<?= $bom->id ?>-<?= $k ?>"><?= $avail_reserve ?></span></span>
                                                                             </div>
                                                                         </div>
                                                                     </td>

@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = 'Update';
                         <?php
                         if ($model->status == 1) {
                             echo Html::a('<span class="visible-xs"><i class="fa-home"></i></span><span class="hidden-xs">BOM Details</span>', ['bom-master/update', 'id' => $model->id]);
-                        }else{
+                        } else {
                             echo '<a><span class="visible-xs"><i class="fa-home"></i></span><span class="hidden-xs">BOM Details</span></a>';
                         }
                         ?>
@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = 'Update';
                         <?php
                         if ($model->status == 2) {
                             echo Html::a('<span class="visible-xs"><i class="fa-home"></i></span><span class="hidden-xs">Production</span>', ['bom-master/production', 'id' => $model->id]);
-                        }else{
+                        } else {
                             echo '<a><span class="visible-xs"><i class="fa-home"></i></span><span class="hidden-xs">Production</span></a>';
                         }
                         ?>
@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = 'Update';
                 <div class="panel-body">
                     <div class="bom-master-create">
                         <div class="bom-master-form form-inline">
-
+                            <?= \common\components\AlertMessageWidget::widget() ?>
                             <?php $form = ActiveForm::begin(); ?>
                             <div class="row">
                                 <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
@@ -58,9 +58,9 @@ $this->params['breadcrumbs'][] = 'Update';
                                 </div>
                                 <div class='col-md-3 col-sm-6 col-xs-12 left_padd'>
                                     <?php
-                                   if($model->date == ''){
+                                    if ($model->date == '') {
                                         $model->date = date('d-M-Y');
-                                    }else{
+                                    } else {
                                         $model->date = date("d-M-Y", strtotime($model->date));
                                     }
                                     ?>
@@ -144,6 +144,7 @@ $this->params['breadcrumbs'][] = 'Update';
                                                             $k = 0;
                                                             foreach ($material_details as $value) {
                                                                 $avail = 0;
+                                                                $avail_reserve = $value->quantity;
                                                                 $k++;
                                                                 $row_material = \common\models\SupplierwiseRowMaterial::findOne($value->material);
                                                                 $stock_view = common\models\StockView::find()->where(['material_id' => $row_material->id])->one();
@@ -155,10 +156,9 @@ $this->params['breadcrumbs'][] = 'Update';
                                                                     <td style="padding: 6px 0px;width: 50%;">
                                                                         <div class="col-md-8">
                                                                             <div class="formrow">
-                                                                                <select class="form-control" name="updatematerial[<?= $value->id ?>][material_id]" readonly>
+                                                                                <select class="form-control" name="updatematerial[<?= $value->id ?>][material_id]" disabled>
                                                                                     <option value="">Select Material</option>
-                                                                                    <?php 
-                                                                                    foreach ($supplier_materials as $supplier_material) { ?>
+                                                                                    <?php foreach ($supplier_materials as $supplier_material) { ?>
                                                                                         <option value="<?= $row_material->id ?>" <?= $supplier_material->id == $row_material->id ? 'selected' : '' ?>><?= $supplier_material->item_name ?></option>
                                                                                     <?php }
                                                                                     ?>
@@ -169,13 +169,13 @@ $this->params['breadcrumbs'][] = 'Update';
                                                                         <div class="col-md-4">
                                                                             <div class="formrow">
                                                                                 <input id="material_qty_val_<?= $bom->id ?>-<?= $k ?>" type="hidden" autocomplete="off" class="form-control" name="updatematerial[<?= $value->id ?>][material_qty_val]" value="<?= $value->quantity ?>"placeholder="Material" required readonly>
-                                                                                <input id="material_qty_<?= $bom->id ?>-<?= $k ?>" data-val="<?= $bom->id ?>" type="number"  max="<?= $avail ?>" autocomplete="off" class="form-control material_qty" name="updatematerial[<?= $value->id ?>][material_qty]" value="<?= $value->quantity ?>" placeholder="Qty" required readonly>
+                                                                                <input id="material_qty_<?= $bom->id ?>-<?= $k ?>" data-val="<?= $bom->id ?>" type="number"  max="<?= $avail + $avail_reserve ?>" autocomplete="off" class="form-control material_qty" name="updatematerial[<?= $value->id ?>][material_qty]" value="<?= $value->quantity ?>" placeholder="Qty" required readonly>
                                                                                 <span>Available Qty : <span id="material_avail_qty_<?= $bom->id ?>-<?= $k ?>"><?= $avail ?></span></span>
                                                                             </div>
                                                                         </div>
                                                                     </td>
                                                                     <td style="padding: 6px 0px;">
-                                                                        <input id="material_actual_qty_<?= $bom->id ?>-<?= $k ?>" data-val="<?= $bom->id ?>" type="number"  min="1" max="<?= $avail ?>" autocomplete="off" class="form-control material_actual_qty" name="updatematerial[<?= $value->id ?>][actual_qty]" value="<?= $value->actual_qty ?>" placeholder="Actual Qty" required>
+                                                                        <input id="material_actual_qty_<?= $bom->id ?>-<?= $k ?>" data-val="<?= $bom->id ?>" type="number"  min="1" max="<?= $avail + $avail_reserve ?>" autocomplete="off" class="form-control material_actual_qty" name="updatematerial[<?= $value->id ?>][actual_qty]" value="<?= $value->quantity ?>" placeholder="Actual Qty" required>
                                                                     </td>
                                                                     <td style="padding: 12px 0px;">
                                                                         <span><?= $row_material->item_unit != '' ? \common\models\Unit::findOne($row_material->item_unit)->unit_name : '' ?></span>
@@ -193,6 +193,26 @@ $this->params['breadcrumbs'][] = 'Update';
                                                         }
                                                         ?>
                                                     </table>
+                                                </div>
+                                            </div>
+                                            <?php
+                                            $ware_houses = \common\models\Warehouse::find()->all();
+                                            ?>
+                                            <div class="row">
+                                                <div class="col-md-4 right-div">
+                                                    <select class="form-control" name="product_warehouse" required>
+                                                        <option value="">Select Warehouse</option>
+                                                        <?php
+                                                        if(!empty($ware_houses)){
+                                                            foreach ($ware_houses as $ware_house) { ?>
+                                                                <option value="<?= $ware_house->id ?>"><?= $ware_house->warehouse_name ?></option>
+                                                           <?php }
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4 right-div">
+                                                    <input type="text" name="no_of_product" class="form-control" placeholder="Number of Product" required/>
                                                 </div>
                                             </div>
                                         </div>
@@ -221,94 +241,24 @@ $this->params['breadcrumbs'][] = 'Update';
 </div>
 <script>
     $(document).ready(function () {
-        $(document).on('click', '#addbomdetails', function (event) {
-            var row_id = $('#bom_row_count').val();
-            var next = parseInt(row_id) + 1;
-            $.ajax({
-                type: 'POST',
-                cache: false,
-                async: false,
-                data: {next: next},
-                url: '<?= Yii::$app->homeUrl ?>bom/bom-master/get-bom',
-                success: function (data) {
-                    $('#p_scents').append(data);
-                }
-            });
-            counter++;
-        });
-        $(document).on('click', '.ibtnDel', function () {
-            $(this).parents('.append-box').remove();
-            return false;
-        });
-        $(document).on('change', '.product_id', function (e) {
-            var current_row_id = $(this).attr('id').match(/\d+/); // 123456
-            var item_id = $(this).val();
-            itemChange(item_id, current_row_id);
-        });
-        $(document).on('click', '.box_btn', function (e) {
-            var current_row_id = $(this).attr('id').match(/\d+/); // 123456
-            $("#product_id-" + current_row_id).prop("disabled", true);
-            $("#product_qty-" + current_row_id).prop("readonly", true);
-            $("#box_btn-" + current_row_id).css('display', 'none');
-            $("#table_row-" + current_row_id).css('display', 'block');
-        });
-        $(document).on('keyup mouseup', '.product_qty', function (e) {
-            var current_row_id = $(this).attr('id').match(/\d+/); // 123456
-            calculateQty(current_row_id);
-        });
-        $(document).on('keyup mouseup', '.material_qty', function (e) {
+        $(document).on('keyup mouseup', '.material_actual_qty', function (e) {
             var current_row_id = $(this).attr('id').match(/\d+/); // 123456
             var array = $(this).attr('id').split("-");
             var row_id = array[array.length - 1];
             var qt_val = $(this).val();
             var material_availqty_val = parseInt($('#material_avail_qty_' + current_row_id + '-' + row_id).text());
-            if (parseInt(qt_val) <= material_availqty_val) {
-                $('#material_qty_' + current_row_id + '-' + row_id).val(qt_val);
+            var material_reserve_qty = parseInt($('#material_qty_' + current_row_id + '-' + row_id).val());
+            var actual_avail = material_availqty_val + material_reserve_qty;
+            if (parseInt(qt_val) <= actual_avail) {
+                $('#material_actual_qty_' + current_row_id + '-' + row_id).val(qt_val);
             } else {
                 if (qt_val != '') {
                     alert('Quantity exeeds the available quantity');
-                    $('#material_qty_' + current_row_id + '-' + row_id).val(material_availqty_val);
+                    $('#material_actual_qty_' + current_row_id + '-' + row_id).val(actual_avail);
                 } else {
-                    $('#material_qty_' + current_row_id + '-' + row_id).val(0);
+                    $('#material_actual_qty_' + current_row_id + '-' + row_id).val(0);
                 }
             }
         });
     });
-    function calculateQty(current_row_id) {
-        var rowCount = $('.table-' + current_row_id + ' tr').length;
-        var product_qty = $('#product_qty-' + current_row_id).val();
-        if (rowCount > 0) {
-            for (i = 1; i <= rowCount; i++) {
-                var material_qty_val = $('#material_qty_val_' + current_row_id + '-' + i).val();
-                var material_availqty_val = $('#material_avail_qty_' + current_row_id + '-' + i).text();
-                if (product_qty && product_qty != "" && material_qty_val && material_qty_val != "") {
-                    var qt_val = parseFloat(product_qty) * parseFloat(material_qty_val);
-                    if (qt_val <= material_availqty_val) {
-                        $('#material_qty_' + current_row_id + '-' + i).val(qt_val);
-                    } else {
-                        $('#material_qty_' + current_row_id + '-' + i).val(material_availqty_val);
-                    }
-                }
-            }
-        }
-    }
-    function itemChange(item_id, current_row_id) {
-        $.ajax({
-            type: 'POST',
-            cache: false,
-            async: false,
-            data: {item_id: item_id, current_row_id: parseInt(current_row_id)},
-            url: '<?= Yii::$app->homeUrl; ?>bom/bom-master/get-items',
-            success: function (data) {
-                var res = $.parseJSON(data);
-                $("#bom-material-details-" + current_row_id).html(res.result['new_row']);
-                $("#product_qty-" + current_row_id).val(1);
-                $("#product-" + current_row_id).val(item_id);
-                $("#exist_product_comment-" + current_row_id).text(res.result['product_comment']);
-                $("#box_btn-" + current_row_id).css('display', 'block');
-                calculateQty(current_row_id);
-            }
-        });
-        return true;
-    }
 </script>

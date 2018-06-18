@@ -20,7 +20,7 @@
                     <td style="padding: 6px 0px;width: 50%;">
                         <div class="col-md-8">
                             <div class="formrow">
-                                <select class="form-control" name="creatematerial[<?= $current_row_id ?>][material_id][]">
+                                <select id="invoice-material_id_<?= $current_row_id ?>-<?= $k ?>" class="form-control invoice-material_id" name="creatematerial[<?= $current_row_id ?>][material_id][]">
                                     <option value="">Select Country</option>
                                     <?php foreach ($supplier_materials as $supplier_material) { ?>
                                         <option value="<?= $supplier_material->id ?>" <?= $supplier_material->id == $row_material->id ? ' selected' : '' ?>><?= $supplier_material->item_name ?></option>
@@ -54,4 +54,5 @@
         }
     }
     ?>
+    <input type="hidden" id="material_cout_row-<?= $current_row_id ?>" value="<?= $k ?>"/>
 </table>

@@ -70,6 +70,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                             $url = Url::to(['production', 'id' => $model->id]);
                                         }elseif($model->status ==1){
                                             $url = Url::to(['update', 'id' => $model->id]);
+                                        }else{
+                                            $url='';
                                         }
                                         return $url;
                                     }

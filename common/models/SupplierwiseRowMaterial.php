@@ -51,8 +51,8 @@ class SupplierwiseRowMaterial extends \yii\db\ActiveRecord {
             [['master_row_material_id'], 'exist', 'skipOnError' => true, 'targetClass' => RowMaterial::className(), 'targetAttribute' => ['master_row_material_id' => 'id']],
             [['supplier'], 'exist', 'skipOnError' => true, 'targetClass' => Supplier::className(), 'targetAttribute' => ['supplier' => 'id']],
             [['item_unit'], 'exist', 'skipOnError' => true, 'targetClass' => Unit::className(), 'targetAttribute' => ['item_unit' => 'id']],
-            [['item_code', 'item_name', 'master_row_material_id', 'item_unit', 'reference', 'minimum_quantity', 'purchase_price', 'supplier'], 'required'],
-            [['photo'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg'],
+            [['item_code', 'item_name', 'master_row_material_id', 'item_unit', 'minimum_quantity', 'purchase_price', 'supplier'], 'required'],
+            [['photo'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg'],
         ];
     }
 

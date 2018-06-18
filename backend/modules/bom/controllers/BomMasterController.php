@@ -14,7 +14,7 @@ use common\models\StockView;
  * BomMasterController implements the CRUD actions for BomMaster model.
  */
 class BomMasterController extends Controller {
-    
+
     public function beforeAction($action) {
         if (!parent::beforeAction($action)) {
             return false;
@@ -200,7 +200,7 @@ class BomMasterController extends Controller {
             $aditional->comment = $val['material_comment'];
             Yii::$app->SetValues->Attributes($aditional);
             if ($aditional->save()) {
-                if($this->UpdateStockView($aditional)){
+                if ($this->CreateStockView($aditional)) {
                     $flag = 1;
                 }
             }
@@ -211,7 +211,8 @@ class BomMasterController extends Controller {
             return FALSE;
         }
     }
-    public function UpdateStockView($material){
+
+    public function CreateStockView($material) {
         $stock_view_exist = StockView::find()->where(['material_id' => $material->material])->one();
         if (empty($stock_view_exist)) {
             $stock_view = new StockView();
@@ -256,7 +257,7 @@ class BomMasterController extends Controller {
         $stock->UB = Yii::$app->user->identity->id;
         $stock->DOC = date('Y-m-d');
         if ($stock->save()) {
-            if ($this->AddStockView($stock)) {
+            if ($this->AddStockView($stock, $aditional)) {
                 $flag = 1;
             } else {
                 $flag = 0;
@@ -269,7 +270,7 @@ class BomMasterController extends Controller {
         }
     }
 
-    public function AddStockView($stock) {
+    public function AddStockView($stock, $aditional) {
         $stock_view_exist = StockView::find()->where(['material_id' => $stock->item_id])->one();
         if (empty($stock_view_exist)) {
             $stock_view = new StockView();
@@ -282,6 +283,7 @@ class BomMasterController extends Controller {
         } else {
             $stock_view = StockView::find()->where(['material_id' => $stock->item_id])->one();
             $stock_view->available_qty -= $stock->weight_out;
+            $stock_view->reserved_qty -= $aditional->quantity;
         }
         if ($stock_view->save()) {
             return TRUE;
@@ -357,16 +359,37 @@ class BomMasterController extends Controller {
         $arr = [];
         if (!empty($data['updatematerial'])) {
             foreach ($data['updatematerial'] as $key => $update) {
+                $bom_material_detail_prev = \common\models\BomMaterialDetails::find()->where(['id' => $key])->one();
                 $bom_material_detail = \common\models\BomMaterialDetails::find()->where(['id' => $key])->one();
-                $bom_material_detail->material = $update['material_id'];
+//                $bom_material_detail->material = $update['material_id'];
                 $bom_material_detail->quantity = $update['material_qty'];
                 $bom_material_detail->comment = $update['material_comment'];
                 if ($bom_material_detail->save()) {
-                    $flag = 1;
+                    if ($this->UpdateStockView($bom_material_detail, $bom_material_detail_prev)) {
+                        $flag = 1;
+                    }
                 }
             }
         }
         if ($flag == 1) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+    public function UpdateStockView($material_new, $material_old) {
+        $stock_view = StockView::find()->where(['material_id' => $material_new->material])->one();
+        if ($material_new->quantity > $material_old->quantity) {
+            $qty = $material_new->quantity - $material_old->quantity;
+            $stock_view->reserved_qty += $qty;
+            $stock_view->available_qty -= $qty;
+        } elseif ($material_new->quantity < $material_old->quantity) {
+            $qty = $material_old->quantity - $material_new->quantity;
+            $stock_view->reserved_qty -= $qty;
+            $stock_view->available_qty += $qty;
+        }
+        if ($stock_view->save()) {
             return TRUE;
         } else {
             return FALSE;
@@ -389,7 +412,7 @@ class BomMasterController extends Controller {
             $data = Yii::$app->request->post();
             $transaction = Yii::$app->db->beginTransaction();
             try {
-                if ($model->save() && $this->ProductionBomDetails($model, $data) && $this->ProductionBomMaterial($model, $data)) {
+                if ($model->save() && $this->ProductionBomDetails($model, $data) && $this->ProductionBomMaterial($model, $data) && $this->ProductStock($data)) {
                     $transaction->commit();
                     Yii::$app->session->setFlash('success', "Material Prodduction Completed successfully");
                 } else {
@@ -407,6 +430,65 @@ class BomMasterController extends Controller {
                         'model_bom' => $model_bom,
                         'supplier_materials' => $supplier_materials,
             ]);
+        }
+    }
+
+    /*
+     * Save BOM details
+     */
+
+    public function ProductStock($data) {
+        $flag = 0;
+        if (!empty($data['update'])) {
+            foreach ($data['update'] as $update) {
+                if (!empty($update)) {
+                    if ($update['product'] != '') {
+                        $stock = new \common\models\ProductStockRegister();
+                        $stock->product_id = $update['product'];
+                        $stock->stock_in = $data['no_of_product'];
+                        $stock->warehouse = $data['product_warehouse'];
+                        $stock->unit = 1;
+                        $stock->status = 1;
+                        $stock->CB = Yii::$app->user->identity->id;
+                        $stock->UB = Yii::$app->user->identity->id;
+                        $stock->DOC = date('Y-m-d');
+                        if ($stock->save()) {
+                            if ($this->AddProductStockView($stock)) {
+                                $flag = 1;
+                            } else {
+                                $flag = 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if ($flag == 1) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+    
+    public function AddProductStockView($stock) {
+        $stock_view_exist = \common\models\ProductStockView::find()->where(['product_id' => $stock->product_id])->one();
+        if (empty($stock_view_exist)) {
+            $stock_view = new \common\models\ProductStockView();
+            $stock_view->product_id = $stock->product_id;
+            $stock_view->available_qty = $stock->stock_in;
+            $stock_view->unit = $stock->unit;
+            $stock_view->status = 1;
+            $stock_view->CB = Yii::$app->user->identity->id;
+            $stock_view->UB = Yii::$app->user->identity->id;
+            $stock_view->DOC = date('Y-m-d');
+        } else {
+            $stock_view = \common\models\ProductStockView::find()->where(['product_id' => $stock->product_id])->one();
+            $stock_view->available_qty += $stock->stock_in;
+        }
+        if ($stock_view->save()) {
+            return TRUE;
+        } else {
+            return FALSE;
         }
     }
 
@@ -442,7 +524,7 @@ class BomMasterController extends Controller {
         if (!empty($data['updatematerial'])) {
             foreach ($data['updatematerial'] as $key => $update) {
                 $bom_material_detail = \common\models\BomMaterialDetails::find()->where(['id' => $key])->one();
-                $bom_material_detail->material = $update['material_id'];
+//                $bom_material_detail->material = $update['material_id'];
                 $bom_material_detail->quantity = $update['material_qty'];
                 $bom_material_detail->comment = $update['material_comment'];
                 $bom_material_detail->actual_qty = $update['actual_qty'];
@@ -515,7 +597,7 @@ class BomMasterController extends Controller {
             $model->status = 2;
             $model->update();
             return $this->redirect(['production', 'id' => $model->id]);
-        }else{
+        } else {
             return $this->redirect(Yii::$app->request->referrer);
         }
     }

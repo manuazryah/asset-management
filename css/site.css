@@ -318,7 +318,7 @@ form .form-group .form-control{
     background: #f9fafb;
 }
 footer.main-footer {
-    border-top: 1px solid #f9fafb;
+    border-top: 1px solid rgba(0,0,0,.0625)!important;
     background-color: #f9fafb;
 }
 nav.navbar {
@@ -1372,7 +1372,7 @@ input[type=checkbox], input[type=radio] {
     padding-top: 18px;
 }
 .navbar.horizontal-menu .navbar-inner>.nav>li>a:hover {
-     background: #ffffff;
+    background: #ffffff;
 }
 .nav>li>a:hover, .nav>li>a:focus {
     text-decoration: none;
@@ -1475,6 +1475,12 @@ table.table tr td:last-child {
     float: right;
 }
 .logo h4{
-    color: #116d9d;
-    font-weight: 600;
+    color: #063c55;
+    font-weight: 700;
+}
+#yii-debug-toolbar{
+    display: none !important;
+}
+.right-div{
+    float: right;
 }
