@@ -43,6 +43,9 @@ return [
         'bom' => [
             'class' => 'backend\modules\bom\bom',
         ],
+        'sales' => [
+            'class' => 'backend\modules\sales\Module',
+        ],
     ],
     'components' => [
         'request' => [

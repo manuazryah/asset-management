@@ -163,8 +163,15 @@ class FinishedProductController extends Controller {
      */
 
     public function actionDeleteDetail($id) {
-        BomDetails::findOne($id)->delete();
-        return $this->redirect(Yii::$app->request->referrer);
+        $bom_details = BomDetails::findOne($id);
+        if(!empty($bom_details)){
+            $finished_product = FinishedProduct::find()->where(['id'=>$bom_details->finished_product_id])->one();
+            $bom_details->delete();
+            return $this->redirect(['add', 'id' => $finished_product->id]);
+        }else{
+             return $this->redirect(['index']);
+        }
+        
     }
 
     /**

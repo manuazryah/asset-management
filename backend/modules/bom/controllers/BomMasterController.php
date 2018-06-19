@@ -469,7 +469,7 @@ class BomMasterController extends Controller {
             return FALSE;
         }
     }
-    
+
     public function AddProductStockView($stock) {
         $stock_view_exist = \common\models\ProductStockView::find()->where(['product_id' => $stock->product_id])->one();
         if (empty($stock_view_exist)) {
@@ -633,6 +633,27 @@ class BomMasterController extends Controller {
             $num = 1;
         }
         return 'BOM' . $num;
+    }
+
+    public function actionGetMaterial() {
+        if (Yii::$app->request->isAjax) {
+            $item_id = $_POST['item_id'];
+            $avail = 0;
+            $avail_reserve = 0;
+            $row_material = \common\models\SupplierwiseRowMaterial::findOne($item_id);
+            $stock_view = StockView::find()->where(['material_id' => $row_material->id])->one();
+            if (!empty($stock_view)) {
+                $avail = $stock_view->available_qty;
+                if ($stock_view->reserved_qty != '') {
+                    $avail_reserve = $stock_view->reserved_qty;
+                }
+            }
+            $comment = $row_material->comment != '' ? $row_material->comment : '';
+            $unit = $row_material->item_unit != '' ? \common\models\Unit::findOne($row_material->item_unit)->unit_name : '';
+            $arr_variable1 = array('comment' => $comment, 'avail' => $avail, 'reserve' => $avail_reserve, 'unit' => $unit);
+            $data['result'] = $arr_variable1;
+            return json_encode($data);
+        }
     }
 
 }

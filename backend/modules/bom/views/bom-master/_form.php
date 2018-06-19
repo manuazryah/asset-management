@@ -186,28 +186,36 @@ $model->bom_no = $this->context->getBomNo();
                 materialChange(item_id, current_row_id, material_row_id);
             } else {
                 alert('This Item is already Choosed');
-                $('#invoice-material_id_' + current_row_id + '-' + i).val('');
+                $('#invoice-material_id_' + current_row_id + '-' + material_row_id).val('');
+                $('#material_avail_qty_' + current_row_id + '-' + material_row_id).text('');
+                $('#material_reserve_qty_' + current_row_id + '-' + material_row_id).text('');
+                $('#material_unit_' + current_row_id + '-' + material_row_id).text('');
+                $('#material_comment_' + current_row_id + '-' + material_row_id).text('');
+                $('#material_qty_' + current_row_id + '-' + material_row_id).attr({
+                    "max": '', // substitute your own
+                });
                 e.preventDefault();
             }
         });
     });
-    
+
     function materialChange(item_id, current_row_id, material_row_id) {
-    alert('sg');
         $.ajax({
             type: 'POST',
             cache: false,
             async: false,
-            data: {item_id: item_id, current_row_id: parseInt(current_row_id)},
-            url: '<?= Yii::$app->homeUrl; ?>bom/bom-master/get-items',
+            data: {item_id: item_id},
+            url: '<?= Yii::$app->homeUrl; ?>bom/bom-master/get-material',
             success: function (data) {
                 var res = $.parseJSON(data);
-                $("#bom-material-details-" + current_row_id).html(res.result['new_row']);
-                $("#product_qty-" + current_row_id).val(1);
-                $("#product-" + current_row_id).val(item_id);
-                $("#exist_product_comment-" + current_row_id).text(res.result['product_comment']);
-                $("#box_btn-" + current_row_id).css('display', 'block');
-                calculateQty(current_row_id);
+                $('#material_comment_' + current_row_id + '-' + material_row_id).text(res.result['comment']);
+                $('#material_avail_qty_' + current_row_id + '-' + material_row_id).text(res.result['avail']);
+                $('#material_reserve_qty_' + current_row_id + '-' + material_row_id).text(res.result['reserve']);
+                $('#material_unit_' + current_row_id + '-' + material_row_id).text(res.result['unit']);
+                $('#material_qty_val_' + current_row_id + '-' + material_row_id).val(1);
+                $('#material_qty_' + current_row_id + '-' + material_row_id).attr({
+                    "max": res.result['avail'] - res.result['reserve'], // substitute your own
+                });
             }
         });
         return true;
@@ -244,6 +252,7 @@ $model->bom_no = $this->context->getBomNo();
                 $("#product-" + current_row_id).val(item_id);
                 $("#exist_product_comment-" + current_row_id).text(res.result['product_comment']);
                 $("#box_btn-" + current_row_id).css('display', 'block');
+                $('#material_qty_val_' + current_row_id + '-' + material_row_id).val(1);
                 calculateQty(current_row_id);
             }
         });

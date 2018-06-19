@@ -101,7 +101,10 @@ AppAsset::register($this);
                         </ul>
                     </li>
                     <li>
-                        <?= Html::a('<i class="fa fa-shopping-cart"></i> <span class="title">Purchase</span>', ['/purchase/purchase-master/index'], ['class' => 'title']) ?>
+                        <?= Html::a('<i class="fa fa-briefcase"></i> <span class="title">Purchase</span>', ['/purchase/purchase-master/index'], ['class' => 'title']) ?>
+                    </li>
+                    <li>
+                        <?= Html::a('<i class="fa fa-shopping-cart"></i> <span class="title">Product Sale</span>', ['/sales/product-sale-master/index'], ['class' => 'title']) ?>
                     </li>
                     <li>
                         <a href="">
@@ -268,7 +271,10 @@ AppAsset::register($this);
                             </ul>
                         </li>
                         <li>
-                            <?= Html::a('<i class="fa fa-shopping-cart"></i> <span class="title">Purchase</span>', ['/purchase/purchase-master/index'], ['class' => 'title']) ?>
+                            <?= Html::a('<i class="fa fa-briefcase"></i> <span class="title">Purchase</span>', ['/purchase/purchase-master/index'], ['class' => 'title']) ?>
+                        </li>
+                        <li>
+                            <?= Html::a('<i class="fa fa-shopping-cart"></i> <span class="title">Product Sale</span>', ['/sales/product-sale-master/index'], ['class' => 'title']) ?>
                         </li>
                         <li>
                             <a href="">
