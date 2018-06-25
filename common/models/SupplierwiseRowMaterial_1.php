@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "supplierwise_row_material".
  *
  * @property int $id
- * @property int $material_ctegory
+ * @property int $master_row_material_id
  * @property string $item_code
  * @property string $item_name
  * @property int $item_unit
@@ -25,9 +25,9 @@ use Yii;
  * @property string $DOU
  *
  * @property BomDetails[] $bomDetails
- * @property RowMaterialCategory $materialCtegory
- * @property Unit $itemUnit
+ * @property RowMaterial $masterRowMaterial
  * @property Supplier $supplier0
+ * @property Unit $itemUnit
  */
 class SupplierwiseRowMaterial extends \yii\db\ActiveRecord {
 
@@ -43,16 +43,16 @@ class SupplierwiseRowMaterial extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-                [['material_ctegory', 'item_unit', 'supplier', 'minimum_quantity', 'status', 'CB', 'UB'], 'integer'],
-                [['purchase_price'], 'number'],
-                [['comment'], 'string'],
-                [['DOC', 'DOU'], 'safe'],
-                [['item_code', 'item_name', 'photo', 'reference'], 'string', 'max' => 100],
-                [['material_ctegory'], 'exist', 'skipOnError' => true, 'targetClass' => RowMaterialCategory::className(), 'targetAttribute' => ['material_ctegory' => 'id']],
-                [['item_unit'], 'exist', 'skipOnError' => true, 'targetClass' => Unit::className(), 'targetAttribute' => ['item_unit' => 'id']],
-                [['supplier'], 'exist', 'skipOnError' => true, 'targetClass' => Supplier::className(), 'targetAttribute' => ['supplier' => 'id']],
-                [['item_code', 'item_name', 'material_ctegory', 'item_unit', 'supplier'], 'required'],
-                [['photo'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg'],
+            [['master_row_material_id', 'item_unit', 'supplier', 'minimum_quantity', 'status', 'CB', 'UB'], 'integer'],
+            [['purchase_price'], 'number'],
+            [['comment'], 'string'],
+            [['DOC', 'DOU'], 'safe'],
+            [['item_code', 'item_name', 'photo', 'reference'], 'string', 'max' => 100],
+            [['master_row_material_id'], 'exist', 'skipOnError' => true, 'targetClass' => RowMaterial::className(), 'targetAttribute' => ['master_row_material_id' => 'id']],
+            [['supplier'], 'exist', 'skipOnError' => true, 'targetClass' => Supplier::className(), 'targetAttribute' => ['supplier' => 'id']],
+            [['item_unit'], 'exist', 'skipOnError' => true, 'targetClass' => Unit::className(), 'targetAttribute' => ['item_unit' => 'id']],
+            [['item_code', 'item_name', 'master_row_material_id', 'item_unit', 'minimum_quantity', 'purchase_price', 'supplier'], 'required'],
+            [['photo'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg'],
         ];
     }
 
@@ -62,7 +62,7 @@ class SupplierwiseRowMaterial extends \yii\db\ActiveRecord {
     public function attributeLabels() {
         return [
             'id' => 'ID',
-            'material_ctegory' => 'Material Ctegory',
+            'master_row_material_id' => 'Master Row Material ID',
             'item_code' => 'Item Code',
             'item_name' => 'Item Name',
             'item_unit' => 'Item Unit',
@@ -70,7 +70,7 @@ class SupplierwiseRowMaterial extends \yii\db\ActiveRecord {
             'reference' => 'Reference',
             'supplier' => 'Supplier',
             'purchase_price' => 'Purchase Price',
-            'minimum_quantity' => 'Minimum Quantity',
+            'minimum_quantity' => 'Minimum Stock Quantity',
             'comment' => 'Comment',
             'status' => 'Status',
             'CB' => 'Cb',
@@ -90,15 +90,8 @@ class SupplierwiseRowMaterial extends \yii\db\ActiveRecord {
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getMaterialCtegory() {
-        return $this->hasOne(RowMaterialCategory::className(), ['id' => 'material_ctegory']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getItemUnit() {
-        return $this->hasOne(Unit::className(), ['id' => 'item_unit']);
+    public function getMasterRowMaterial() {
+        return $this->hasOne(RowMaterial::className(), ['id' => 'master_row_material_id']);
     }
 
     /**
@@ -106,6 +99,13 @@ class SupplierwiseRowMaterial extends \yii\db\ActiveRecord {
      */
     public function getSupplier0() {
         return $this->hasOne(Supplier::className(), ['id' => 'supplier']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getItemUnit() {
+        return $this->hasOne(Unit::className(), ['id' => 'item_unit']);
     }
 
 }

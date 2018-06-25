@@ -10,24 +10,22 @@ use common\models\AdminPosts;
 /**
  * AdminPostsSearch represents the model behind the search form about `common\models\AdminPosts`.
  */
-class AdminPostsSearch extends AdminPosts
-{
+class AdminPostsSearch extends AdminPosts {
+
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['id', 'status', 'CB', 'UB','purchase','stock','bom','supplier_customer','admin','masters'], 'integer'],
-            [['post_name', 'DOC', 'DOU'], 'safe'],
+                [['id', 'status', 'CB', 'UB', 'purchase', 'stock', 'bom', 'supplier_customer', 'admin', 'masters', 'sale'], 'integer'],
+                [['post_name', 'DOC', 'DOU'], 'safe'],
         ];
     }
 
     /**
      * @inheritdoc
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -39,8 +37,7 @@ class AdminPostsSearch extends AdminPosts
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
+    public function search($params) {
         $query = AdminPosts::find();
 
         // add conditions that should always apply here
@@ -67,6 +64,7 @@ class AdminPostsSearch extends AdminPosts
             'stock' => $this->stock,
             'bom' => $this->bom,
             'supplier_customer' => $this->supplier_customer,
+            'sale' => $this->sale,
             'CB' => $this->CB,
             'UB' => $this->UB,
             'DOC' => $this->DOC,
@@ -77,4 +75,5 @@ class AdminPostsSearch extends AdminPosts
 
         return $dataProvider;
     }
+
 }

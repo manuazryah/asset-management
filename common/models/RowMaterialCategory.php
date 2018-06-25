@@ -17,37 +17,34 @@ use Yii;
  * @property string $DOC
  * @property string $DOU
  */
-class RowMaterialCategory extends \yii\db\ActiveRecord
-{
+class RowMaterialCategory extends \yii\db\ActiveRecord {
+
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'row_material_category';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['status', 'CB', 'UB'], 'integer'],
-            [['comment'], 'string'],
-            [['DOC', 'DOU'], 'safe'],
-            [['category'], 'required'],
-            [['category', 'photo'], 'string', 'max' => 100],
-            [['photo','category'], 'required', 'on' => 'create'],
-            [['photo'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg'],
+                [['status', 'CB', 'UB'], 'integer'],
+                [['comment'], 'string'],
+                [['DOC', 'DOU'], 'safe'],
+                [['category'], 'required'],
+                [['category', 'photo'], 'string', 'max' => 100],
+//            [['photo','category'], 'required', 'on' => 'create'],
+//            [['photo'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg'],
         ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'category' => 'Category',
@@ -60,4 +57,5 @@ class RowMaterialCategory extends \yii\db\ActiveRecord
             'DOU' => 'Dou',
         ];
     }
+
 }

@@ -3,10 +3,10 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\SupplierwiseRowMaterial */
+/* @var $model common\models\Supplier */
 
-$this->title = 'Update Row Material: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Supplierwise Row Materials', 'url' => ['index']];
+$this->title = 'Update Customer: ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Suppliers', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
@@ -20,8 +20,8 @@ $this->params['breadcrumbs'][] = 'Update';
 
             </div>
             <div class="panel-body">
-                <?= Html::a('<i class="fa-th-list"></i><span> Manage Row Material</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
-                <div class="panel-body"><div class="supplierwise-row-material-create">
+                <?= Html::a('<i class="fa-th-list"></i><span> Manage Customer</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                <div class="panel-body"><div class="supplier-create">
                         <?=
                         $this->render('_form', [
                             'model' => $model,

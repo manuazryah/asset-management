@@ -9,10 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-/**
- * SupplierController implements the CRUD actions for Supplier model.
- */
-class SupplierController extends Controller {
+class CustomersController extends \yii\web\Controller {
 
     public function beforeAction($action) {
         if (!parent::beforeAction($action)) {
@@ -26,42 +23,17 @@ class SupplierController extends Controller {
     }
 
     /**
-     * @inheritdoc
-     */
-    public function behaviors() {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
-
-    /**
      * Lists all Supplier models.
      * @return mixed
      */
     public function actionIndex() {
         $searchModel = new SupplierSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->andWhere(['type' => 1]);
+        $dataProvider->query->andWhere(['type' => 2]);
 
         return $this->render('index', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
-     * Displays a single Supplier model.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionView($id) {
-        return $this->render('view', [
-                    'model' => $this->findModel($id),
         ]);
     }
 
@@ -76,7 +48,7 @@ class SupplierController extends Controller {
         if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)) {
             $model->type = 1;
             if ($model->validate() && $model->save()) {
-                Yii::$app->session->setFlash('success', "Supplier Created Successfully");
+                Yii::$app->session->setFlash('success', "Customer Created Successfully");
                 $model = new Supplier();
             }
         } return $this->render('create', [
@@ -94,7 +66,7 @@ class SupplierController extends Controller {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->save()) {
-            Yii::$app->session->setFlash('success', "Supplier Updated Successfully");
+            Yii::$app->session->setFlash('success', "Customer Updated Successfully");
         } return $this->render('update', [
                     'model' => $model,
         ]);
@@ -109,10 +81,10 @@ class SupplierController extends Controller {
     public function actionDelete($id) {
         try {
             if ($this->findModel($id)->delete()) {
-                Yii::$app->session->setFlash('success', "Supplier removed Successfully");
+                Yii::$app->session->setFlash('success', "Customer removed Successfully");
             }
         } catch (\Exception $e) {
-            Yii::$app->session->setFlash('error', "Can't delete. Because this supplier is used in another functions.");
+            Yii::$app->session->setFlash('error', "Can't delete. Because this customer is used in another functions.");
         }
 
         return $this->redirect(['index']);

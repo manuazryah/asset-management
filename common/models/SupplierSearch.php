@@ -10,24 +10,22 @@ use common\models\Supplier;
 /**
  * SupplierSearch represents the model behind the search form about `common\models\Supplier`.
  */
-class SupplierSearch extends Supplier
-{
+class SupplierSearch extends Supplier {
+
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['id', 'status', 'CB', 'UB'], 'integer'],
-            [['company_name', 'email', 'phone', 'address', 'contact_person', 'DOC', 'DOU'], 'safe'],
+                [['id', 'status', 'CB', 'UB', 'type'], 'integer'],
+                [['company_name', 'email', 'phone', 'address', 'contact_person', 'DOC', 'DOU'], 'safe'],
         ];
     }
 
     /**
      * @inheritdoc
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -39,8 +37,7 @@ class SupplierSearch extends Supplier
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
+    public function search($params) {
         $query = Supplier::find();
 
         // add conditions that should always apply here
@@ -68,11 +65,12 @@ class SupplierSearch extends Supplier
         ]);
 
         $query->andFilterWhere(['like', 'company_name', $this->company_name])
-            ->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'phone', $this->phone])
-            ->andFilterWhere(['like', 'address', $this->address])
-            ->andFilterWhere(['like', 'contact_person', $this->contact_person]);
+                ->andFilterWhere(['like', 'email', $this->email])
+                ->andFilterWhere(['like', 'phone', $this->phone])
+                ->andFilterWhere(['like', 'address', $this->address])
+                ->andFilterWhere(['like', 'contact_person', $this->contact_person]);
 
         return $dataProvider;
     }
+
 }

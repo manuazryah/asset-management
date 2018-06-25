@@ -9,7 +9,7 @@ use common\models\Supplier;
 /* @var $searchModel common\models\SupplierwiseRowMaterialSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Supplierwise Row Materials';
+$this->title = 'Row Materials';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="supplierwise-row-material-index">
@@ -25,24 +25,24 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <div class="panel-body">
                     <?= \common\components\AlertMessageWidget::widget() ?>
-                    <?= Html::a('<i class="fa-th-list"></i><span> Create Supplierwise Row Material</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                    <?= Html::a('<i class="fa-th-list"></i><span> Add Row Material</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                     <?=
                     GridView::widget([
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
                         'columns' => [
-                            ['class' => 'yii\grid\SerialColumn'],
+                                ['class' => 'yii\grid\SerialColumn'],
 //                                                            'id',
 //                            'master_row_material_id',
 //                            'item_code',
                             'item_name',
-                            [
+                                [
                                 'attribute' => 'supplier',
                                 'value' => 'supplier0.company_name',
                                 'filter' => ArrayHelper::map(Supplier::find()->asArray()->all(), 'id', 'company_name'),
                             ],
                             'purchase_price',
-                            [
+                                [
                                 'attribute' => 'photo',
                                 'filter' => '',
                                 'format' => 'raw',

@@ -14,7 +14,7 @@ use yii\web\UploadedFile;
  * SupplierwiseRowMaterialController implements the CRUD actions for SupplierwiseRowMaterial model.
  */
 class SupplierwiseRowMaterialController extends Controller {
-    
+
     public function beforeAction($action) {
         if (!parent::beforeAction($action)) {
             return false;
@@ -74,7 +74,6 @@ class SupplierwiseRowMaterialController extends Controller {
         $model = new SupplierwiseRowMaterial();
 
         if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)) {
-            $check = Yii::$app->request->post('check');
             $files = UploadedFile::getInstance($model, 'photo');
             if (!empty($files)) {
                 $model->photo = $files->extension;
@@ -82,16 +81,12 @@ class SupplierwiseRowMaterialController extends Controller {
             if ($model->validate() && $model->save()) {
                 if (!empty($files)) {
                     $this->upload($model, $files);
-                } else {
-                    if ($check == 1) {
-                        $this->copyImage($model);
-                    }
                 }
                 Yii::$app->session->setFlash('success', "Supplier wise Row Material Created Successfully");
                 $model = new SupplierwiseRowMaterial();
             }
         }
-            return $this->render('create', [
+        return $this->render('create', [
                     'model' => $model,
         ]);
     }
@@ -153,7 +148,6 @@ class SupplierwiseRowMaterialController extends Controller {
         $photo_ = $model->photo;
         if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)) {
             $files = UploadedFile::getInstance($model, 'photo');
-            $check = Yii::$app->request->post('check');
             if (empty($files)) {
                 $model->photo = $photo_;
             } else {
@@ -162,10 +156,6 @@ class SupplierwiseRowMaterialController extends Controller {
             if ($model->validate() && $model->save()) {
                 if (!empty($files)) {
                     $this->upload($model, $files);
-                }else {
-                    if ($check == 1) {
-                        $this->copyImage($model);
-                    }
                 }
                 Yii::$app->session->setFlash('success', "Supplier wise Row Material Updated Successfully");
             }
@@ -224,6 +214,34 @@ class SupplierwiseRowMaterialController extends Controller {
             $data['result'] = $arrr_variable;
             echo json_encode($data);
         }
+    }
+
+    /*
+     * Add new supplier
+     */
+
+    public function actionAddSupplier() {
+        $model = new \common\models\Supplier();
+        if (Yii::$app->request->post()) {
+            $model->company_name = Yii::$app->request->post()['company_name'];
+            $model->email = Yii::$app->request->post()['email'];
+            $model->address = Yii::$app->request->post()['address'];
+            $model->phone = Yii::$app->request->post()['phone'];
+            $model->contact_person = Yii::$app->request->post()['contact_person'];
+            $model->type = 1;
+            if ($model->validate() && $model->save()) {
+                echo json_encode(array("con" => "1", 'id' => $model->id, 'name' => $model->company_name)); //Success
+                exit;
+            } else {
+                $array = $model->getErrors();
+                $error = isset($array['name']['0']) ? $array['name']['0'] : 'Internal error';
+                echo json_encode(array("con" => "2", 'error' => $error));
+                exit;
+            }
+        }
+        return $this->renderAjax('_form_supplier', [
+                    'model' => $model,
+        ]);
     }
 
 }

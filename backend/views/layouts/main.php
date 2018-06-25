@@ -75,11 +75,11 @@ AppAsset::register($this);
                             </a>
                             <ul>
                                 <li>
-                                    <?= Html::a('<i class="fa fa-angle-double-right"></i> Access Powers', ['/admin-posts/index'], ['class' => 'title']) ?>
+                                    <?= Html::a('<i class="fa fa-angle-double-right"></i> Access Powers', ['/admin/admin-posts/index'], ['class' => 'title']) ?>
                                 </li>
 
                                 <li>
-                                    <?= Html::a('<i class="fa fa-angle-double-right"></i> Admin Users', ['/admin-users/index'], ['class' => 'title']) ?>
+                                    <?= Html::a('<i class="fa fa-angle-double-right"></i> Admin Users', ['/admin/admin-users/index'], ['class' => 'title']) ?>
                                 </li>
                             </ul>
                         </li>
@@ -87,24 +87,7 @@ AppAsset::register($this);
                     }
                     ?>
                     <li>
-                        <a href="">
-                            <i class="fa fa-file"></i>
-                            <span class="title">Product</span>
-                        </a>
-                        <ul>
-                            <li>
-                                <?= Html::a('<i class="fa fa-angle-double-right"></i> Product Category', ['/product/product-category/index'], ['class' => 'title']) ?>
-                            </li>
-                            <li>
-                                <?= Html::a('<i class="fa fa-angle-double-right"></i> Finished Product', ['/product/finished-product/index'], ['class' => 'title']) ?>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <?= Html::a('<i class="fa fa-briefcase"></i> <span class="title">Purchase</span>', ['/purchase/purchase-master/index'], ['class' => 'title']) ?>
-                    </li>
-                    <li>
-                        <?= Html::a('<i class="fa fa-shopping-cart"></i> <span class="title">Product Sale</span>', ['/sales/product-sale-master/index'], ['class' => 'title']) ?>
+                        <?= Html::a('<i class="fa fa-shopping-cart"></i> <span class="title">BOM</span>', ['/bom/bom-master/index'], ['class' => 'title']) ?>
                     </li>
                     <li>
                         <a href="">
@@ -121,8 +104,15 @@ AppAsset::register($this);
                         </ul>
                     </li>
                     <li>
-                        <?= Html::a('<i class="fa fa-shopping-cart"></i> <span class="title">BOM</span>', ['/bom/bom-master/index'], ['class' => 'title']) ?>
+                        <?= Html::a('<i class="fa fa-briefcase"></i> <span class="title">Purchase</span>', ['/purchase/purchase-master/index'], ['class' => 'title']) ?>
                     </li>
+                    <li>
+                        <?= Html::a('<i class="fa fa-shopping-cart"></i> <span class="title">Sale</span>', ['/sales/product-sale-master/index'], ['class' => 'title']) ?>
+                    </li>
+                    <li>
+                        <?= Html::a('<i class="fa fa-list"></i> Finished Product', ['/product/finished-product/index'], ['class' => 'title']) ?>
+                    </li>
+
                     <li>
                         <a href="">
                             <i class="fa fa-cubes"></i>
@@ -130,10 +120,10 @@ AppAsset::register($this);
                         </a>
                         <ul>
                             <li>
-                                <?= Html::a('<i class="fa fa-angle-double-right"></i> Row Material', ['/masters/row-material/index'], ['class' => 'title']) ?>
+                                <?= Html::a('<i class="fa fa-angle-double-right"></i> Material Category', ['/masters/row-material-category/index'], ['class' => 'title']) ?>
                             </li>
                             <li>
-                                <?= Html::a('<i class="fa fa-angle-double-right"></i> Supplier Wise Material', ['/material/supplierwise-row-material/index'], ['class' => 'title']) ?>
+                                <?= Html::a('<i class="fa fa-angle-double-right"></i> Row Material', ['/material/supplierwise-row-material/index'], ['class' => 'title']) ?>
                             </li>
                         </ul>
                     </li>
@@ -146,6 +136,9 @@ AppAsset::register($this);
                             <li>
                                 <?= Html::a('<i class="fa fa-angle-double-right"></i> Suppliers', ['/masters/supplier/index'], ['class' => 'title']) ?>
                             </li>
+                            <li>
+                                <?= Html::a('<i class="fa fa-angle-double-right"></i> Customers', ['/masters/customers/index'], ['class' => 'title']) ?>
+                            </li>
                         </ul>
                     </li>
                     <li>
@@ -154,6 +147,9 @@ AppAsset::register($this);
                             <span class="title">Masters</span>
                         </a>
                         <ul>
+                            <li>
+                                <?= Html::a('<i class="fa fa-angle-double-right"></i> Product Category', ['/product/product-category/index'], ['class' => 'title']) ?>
+                            </li>
                             <li>
                                 <?= Html::a('<i class="fa fa-angle-double-right"></i> Unit', ['/masters/unit/index'], ['class' => 'title']) ?>
                             </li>
@@ -165,9 +161,6 @@ AppAsset::register($this);
                             </li>
                             <li>
                                 <?= Html::a('<i class="fa fa-angle-double-right"></i> Warehouse', ['/masters/warehouse/index'], ['class' => 'title']) ?>
-                            </li>
-                            <li>
-                                <?= Html::a('<i class="fa fa-angle-double-right"></i> Material Category', ['/masters/row-material-category/index'], ['class' => 'title']) ?>
                             </li>
                         </ul>
                     </li>
@@ -257,24 +250,7 @@ AppAsset::register($this);
                         }
                         ?>
                         <li>
-                            <a href="">
-                                <i class="fa fa-file"></i>
-                                <span class="title">Product</span>
-                            </a>
-                            <ul>
-                                <li>
-                                    <?= Html::a('<i class="fa fa-angle-double-right"></i> Product Category', ['/product/product-category/index'], ['class' => 'title']) ?>
-                                </li>
-                                <li>
-                                    <?= Html::a('<i class="fa fa-angle-double-right"></i> Finished Product', ['/product/finished-product/index'], ['class' => 'title']) ?>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <?= Html::a('<i class="fa fa-briefcase"></i> <span class="title">Purchase</span>', ['/purchase/purchase-master/index'], ['class' => 'title']) ?>
-                        </li>
-                        <li>
-                            <?= Html::a('<i class="fa fa-shopping-cart"></i> <span class="title">Product Sale</span>', ['/sales/product-sale-master/index'], ['class' => 'title']) ?>
+                            <?= Html::a('<i class="fa fa-shopping-cart"></i> <span class="title">BOM</span>', ['/bom/bom-master/index'], ['class' => 'title']) ?>
                         </li>
                         <li>
                             <a href="">
@@ -291,8 +267,15 @@ AppAsset::register($this);
                             </ul>
                         </li>
                         <li>
-                            <?= Html::a('<i class="fa fa-shopping-cart"></i> <span class="title">BOM</span>', ['/bom/bom-master/index'], ['class' => 'title']) ?>
+                            <?= Html::a('<i class="fa fa-briefcase"></i> <span class="title">Purchase</span>', ['/purchase/purchase-master/index'], ['class' => 'title']) ?>
                         </li>
+                        <li>
+                            <?= Html::a('<i class="fa fa-shopping-cart"></i> <span class="title">Sale</span>', ['/sales/product-sale-master/index'], ['class' => 'title']) ?>
+                        </li>
+                        <li>
+                            <?= Html::a('<i class="fa fa-list"></i> Finished Product', ['/product/finished-product/index'], ['class' => 'title']) ?>
+                        </li>
+
                         <li>
                             <a href="">
                                 <i class="fa fa-cubes"></i>
@@ -300,10 +283,10 @@ AppAsset::register($this);
                             </a>
                             <ul>
                                 <li>
-                                    <?= Html::a('<i class="fa fa-angle-double-right"></i> Row Material', ['/masters/row-material/index'], ['class' => 'title']) ?>
+                                    <?= Html::a('<i class="fa fa-angle-double-right"></i> Material Category', ['/masters/row-material-category/index'], ['class' => 'title']) ?>
                                 </li>
                                 <li>
-                                    <?= Html::a('<i class="fa fa-angle-double-right"></i> Supplier Wise Material', ['/material/supplierwise-row-material/index'], ['class' => 'title']) ?>
+                                    <?= Html::a('<i class="fa fa-angle-double-right"></i> Row Material', ['/material/supplierwise-row-material/index'], ['class' => 'title']) ?>
                                 </li>
                             </ul>
                         </li>
@@ -316,6 +299,9 @@ AppAsset::register($this);
                                 <li>
                                     <?= Html::a('<i class="fa fa-angle-double-right"></i> Suppliers', ['/masters/supplier/index'], ['class' => 'title']) ?>
                                 </li>
+                                <li>
+                                    <?= Html::a('<i class="fa fa-angle-double-right"></i> Customers', ['/masters/customers/index'], ['class' => 'title']) ?>
+                                </li>
                             </ul>
                         </li>
                         <li>
@@ -324,6 +310,9 @@ AppAsset::register($this);
                                 <span class="title">Masters</span>
                             </a>
                             <ul>
+                                <li>
+                                    <?= Html::a('<i class="fa fa-angle-double-right"></i> Product Category', ['/product/product-category/index'], ['class' => 'title']) ?>
+                                </li>
                                 <li>
                                     <?= Html::a('<i class="fa fa-angle-double-right"></i> Unit', ['/masters/unit/index'], ['class' => 'title']) ?>
                                 </li>
@@ -335,9 +324,6 @@ AppAsset::register($this);
                                 </li>
                                 <li>
                                     <?= Html::a('<i class="fa fa-angle-double-right"></i> Warehouse', ['/masters/warehouse/index'], ['class' => 'title']) ?>
-                                </li>
-                                <li>
-                                    <?= Html::a('<i class="fa fa-angle-double-right"></i> Material Category', ['/masters/row-material-category/index'], ['class' => 'title']) ?>
                                 </li>
                             </ul>
                         </li>

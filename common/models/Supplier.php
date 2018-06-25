@@ -19,37 +19,34 @@ use Yii;
  * @property string $DOC
  * @property string $DOU
  */
-class Supplier extends \yii\db\ActiveRecord
-{
+class Supplier extends \yii\db\ActiveRecord {
+
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'supplier';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['address'], 'string'],
-            [['status', 'CB', 'UB'], 'integer'],
-            [['DOC', 'DOU'], 'safe'],
-            [['company_name', 'email', 'contact_person'], 'string', 'max' => 100],
-            [['phone'], 'string', 'max' => 20],
-            [['company_name', 'email','phone','address'], 'required'],
-            [['email'], 'email'],
+                [['address'], 'string'],
+                [['status', 'CB', 'UB', 'type'], 'integer'],
+                [['DOC', 'DOU'], 'safe'],
+                [['company_name', 'email', 'contact_person'], 'string', 'max' => 100],
+                [['phone'], 'string', 'max' => 20],
+                [['company_name', 'email', 'phone', 'address'], 'required'],
+                [['email'], 'email'],
         ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'company_name' => 'Company Name',
@@ -64,4 +61,5 @@ class Supplier extends \yii\db\ActiveRecord
             'DOU' => 'Dou',
         ];
     }
+
 }

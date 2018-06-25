@@ -4,10 +4,10 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\SupplierwiseRowMaterial */
+/* @var $model common\models\Supplier */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Supplierwise Row Materials', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Customers', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="row">
@@ -20,8 +20,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
             </div>
             <div class="panel-body">
-                <?= Html::a('<i class="fa-th-list"></i><span> Manage Row Material</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
-                <div class="panel-body"><div class="supplierwise-row-material-view">
+                <?= Html::a('<i class="fa-th-list"></i><span> Manage Customer</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                <div class="panel-body"><div class="supplier-view">
                         <p>
                             <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
                             <?=
@@ -40,16 +40,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             'model' => $model,
                             'attributes' => [
                                 'id',
-                                'master_row_material_id',
-                                'item_code',
-                                'item_name',
-                                'photo',
-                                'item_unit',
-                                'reference',
-                                'supplier',
-                                'purchase_price',
-                                'minimum_quantity',
-                                'comment:ntext',
+                                'company_name',
+                                'email:email',
+                                'phone',
+                                'address:ntext',
+                                'contact_person',
                                 'status',
                                 'CB',
                                 'UB',

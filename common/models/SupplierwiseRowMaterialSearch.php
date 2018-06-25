@@ -10,25 +10,23 @@ use common\models\SupplierwiseRowMaterial;
 /**
  * SupplierwiseRowMaterialSearch represents the model behind the search form about `common\models\SupplierwiseRowMaterial`.
  */
-class SupplierwiseRowMaterialSearch extends SupplierwiseRowMaterial
-{
+class SupplierwiseRowMaterialSearch extends SupplierwiseRowMaterial {
+
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['id', 'master_row_material_id', 'supplier', 'status', 'CB', 'UB', 'item_unit'], 'integer'],
-            [['item_code', 'item_name', 'photo', 'reference', 'minimum_quantity', 'comment', 'DOC', 'DOU'], 'safe'],
-            [['purchase_price'], 'number'],
+                [['id', 'material_ctegory', 'supplier', 'status', 'CB', 'UB', 'item_unit'], 'integer'],
+                [['item_code', 'item_name', 'photo', 'reference', 'minimum_quantity', 'comment', 'DOC', 'DOU'], 'safe'],
+                [['purchase_price'], 'number'],
         ];
     }
 
     /**
      * @inheritdoc
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -40,9 +38,8 @@ class SupplierwiseRowMaterialSearch extends SupplierwiseRowMaterial
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
-        $query = SupplierwiseRowMaterial::find()->orderBy(['id'=>SORT_DESC]);
+    public function search($params) {
+        $query = SupplierwiseRowMaterial::find()->orderBy(['id' => SORT_DESC]);
 
         // add conditions that should always apply here
 
@@ -61,7 +58,7 @@ class SupplierwiseRowMaterialSearch extends SupplierwiseRowMaterial
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'master_row_material_id' => $this->master_row_material_id,
+            'material_ctegory' => $this->material_ctegory,
             'supplier' => $this->supplier,
             'purchase_price' => $this->purchase_price,
             'item_unit' => $this->item_unit,
@@ -73,12 +70,13 @@ class SupplierwiseRowMaterialSearch extends SupplierwiseRowMaterial
         ]);
 
         $query->andFilterWhere(['like', 'item_code', $this->item_code])
-            ->andFilterWhere(['like', 'item_name', $this->item_name])
-            ->andFilterWhere(['like', 'photo', $this->photo])
-            ->andFilterWhere(['like', 'reference', $this->reference])
-            ->andFilterWhere(['like', 'minimum_quantity', $this->minimum_quantity])
-            ->andFilterWhere(['like', 'comment', $this->comment]);
+                ->andFilterWhere(['like', 'item_name', $this->item_name])
+                ->andFilterWhere(['like', 'photo', $this->photo])
+                ->andFilterWhere(['like', 'reference', $this->reference])
+                ->andFilterWhere(['like', 'minimum_quantity', $this->minimum_quantity])
+                ->andFilterWhere(['like', 'comment', $this->comment]);
 
         return $dataProvider;
     }
+
 }

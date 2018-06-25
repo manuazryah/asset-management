@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\RowMaterialCategorySearch */
+/* @var $searchModel common\models\SupplierSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Row Material Categories';
+$this->title = 'Customers';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="row-material-category-index">
+<div class="supplier-index">
 
     <div class="row">
         <div class="col-md-12">
@@ -22,8 +22,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 </div>
                 <div class="panel-body">
-                    <?= Html::a('<i class="fa-th-list"></i><span> Add Row Material Category</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                     <?= \common\components\AlertMessageWidget::widget() ?>
+                    <?= Html::a('<i class="fa-th-list"></i><span> Create Customer</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                     <?=
                     GridView::widget([
                         'dataProvider' => $dataProvider,
@@ -31,22 +31,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         'columns' => [
                                 ['class' => 'yii\grid\SerialColumn'],
 //                                                            'id',
-                            'category',
-                                [
-                                'attribute' => 'comment',
-                                'filter' => '',
-                                'value' => function ($model) {
-                                    return $model->comment;
-                                },
-                            ],
-                                [
-                                'attribute' => 'status',
-                                'format' => 'raw',
-                                'filter' => [1 => 'Enabled', 0 => 'disabled'],
-                                'value' => function ($model) {
-                                    return $model->status == 1 ? 'Enabled' : 'disabled';
-                                },
-                            ],
+                            'company_name',
+                            'email:email',
+                            'phone',
+                            'address:ntext',
+                            'contact_person',
+                            // 'status',
                             // 'CB',
                             // 'UB',
                             // 'DOC',
