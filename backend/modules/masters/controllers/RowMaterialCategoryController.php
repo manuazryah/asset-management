@@ -73,7 +73,6 @@ class RowMaterialCategoryController extends Controller {
      */
     public function actionCreate() {
         $model = new RowMaterialCategory();
-        $model->setScenario('create');
         if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)) {
             $files = UploadedFile::getInstance($model, 'photo');
             if (!empty($files)) {

@@ -6,51 +6,65 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model common\models\Supplier */
 /* @var $form yii\widgets\ActiveForm */
+$this->title = 'Add Supplier';
 ?>
+<div class="row">
+    <div class="col-md-12">
 
-<div class="supplier-form form-inline">
-    <?= \common\components\AlertMessageWidget::widget() ?>
-    <?php $form = ActiveForm::begin(); ?>
-    <div class="row">
-        <div class='col-md-6 col-sm-6 col-xs-12 left_padd'>
-            <?= $form->field($model, 'company_name')->textInput(['maxlength' => true]) ?>
+        <div class="panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
 
-        </div>
-        <div class='col-md-6 col-sm-6 col-xs-12 left_padd'>
-            <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+            </div>
+            <div class="panel-body">
+                    <div class="supplierwise-row-material-create">
+                        <div class="supplier-form form-inline">
+                            <?= \common\components\AlertMessageWidget::widget() ?>
+                            <?php $form = ActiveForm::begin(); ?>
+                            <div class="row">
+                                <div class='col-md-6 col-sm-6 col-xs-12 left_padd'>
+                                    <?= $form->field($model, 'company_name')->textInput(['maxlength' => true]) ?>
 
+                                </div>
+                                <div class='col-md-6 col-sm-6 col-xs-12 left_padd'>
+                                    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class='col-md-12 col-sm-12col-xs-12 left_padd'>
+                                    <?= $form->field($model, 'address')->textarea(['rows' => 6]) ?>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class='col-md-6 col-sm-6 col-xs-12 left_padd'>
+                                    <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
+
+                                </div>
+                                <div class='col-md-6 col-sm-6 col-xs-12 left_padd'>
+                                    <?= $form->field($model, 'contact_person')->textInput(['maxlength' => true]) ?>
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <?= Html::submitButton('Submit', ['class' => 'btn btn-success', 'id' => 'add_supplier']) ?>
+                            </div>
+
+
+                            <?php ActiveForm::end(); ?>
+
+                        </div>
+                    </div>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class='col-md-12 col-sm-12col-xs-12 left_padd'>
-            <?= $form->field($model, 'address')->textarea(['rows' => 6]) ?>
-
-        </div>
-    </div>
-    <div class="row">
-        <div class='col-md-6 col-sm-6 col-xs-12 left_padd'>
-            <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
-
-        </div>
-        <div class='col-md-6 col-sm-6 col-xs-12 left_padd'>
-            <?= $form->field($model, 'contact_person')->textInput(['maxlength' => true]) ?>
-
-        </div>
-    </div>
-
-
-    <div class="form-group">
-        <?= Html::submitButton('Submit', ['class' => 'btn btn-success', 'id' => 'add_supplier']) ?>
-    </div>
-
-
-    <?php ActiveForm::end(); ?>
-
 </div>
 <script>
 
     $('#add_supplier').click(function (event) {
-        alert('fgb');
         event.preventDefault();
         if (valid()) {
             var company_name = $('#supplier-company_name').val();
