@@ -33,31 +33,9 @@ use common\models\Unit;
         <td class="labell">PRODUCT CODE </td><td class="value">: <?= $product->product_code; ?> </td>
     </tr>
     <tr>
-        <td class="labell">FRAGRANCE TYPE </td><td class="value">: <?= Fragrance::findOne($product->fragrance_type)->name; ?> </td>
-        <td class="labell">PRICE </td><td class="value">: <?= $product->price ?></td>
-        <td class="labell">BRAND </td><td class="value">: <?= Brand::findOne($product->brand)->brand; ?> </td>
-
-    </tr>
-    <tr>
         <td class="labell">SIZE </td><td class="value">: <?= $product->size ?></td>
-        <td class="labell">UNIT </td><td class="value">: <?= Unit::findOne($product->unit)->unit_name; ?> </td>
-        <td class="labell">GENDER </td><td class="value">: 
-        <?php
-                if($product->gender != ''){
-                    if($product->gender == 1){
-                        echo 'Men';
-                    }elseif($product->gender == 2){
-                        echo 'Women';
-                    }
-                }
-                ?>
-        </td>
-
-    </tr>
-    <tr>
-        <td class="labell">REFERENCE </td><td class="value">: <?= $product->reference; ?> </td>
-        <td class="labell">COMMENT </td><td class="value">: <?= $product->comment; ?> </td>
-        <td class="labell">ITEM PHOTO </td><td class="value"> 
+        <td class="labell">PRICE </td><td class="value">: <?= $product->price ?></td>
+        <td class="labell">ITEM PHOTO </td><td class="value">
             <?php
             if ($product->item_photo != '') {
                 $dirPath = Yii::getAlias(Yii::$app->params['uploadPath']) . '/uploads/finished_product/' . $product->id . '.' . $product->item_photo;
@@ -69,6 +47,7 @@ use common\models\Unit;
             }
             ?>
         </td>
+
     </tr>
 
 </table>

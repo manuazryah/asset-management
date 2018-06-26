@@ -46,19 +46,18 @@ class FinishedProduct extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['product_category', 'fragrance_type', 'brand', 'size', 'unit', 'gender', 'status', 'CB', 'UB'], 'integer'],
-            [['price'], 'number'],
-            [['comment'], 'string'],
-            [['DOC', 'DOU'], 'safe'],
-            [['product_name', 'product_code', 'item_photo'], 'string', 'max' => 100],
-            [['reference'], 'string', 'max' => 500],
-            [['product_category'], 'exist', 'skipOnError' => true, 'targetClass' => ProductCategory::className(), 'targetAttribute' => ['product_category' => 'id']],
-            [['fragrance_type'], 'exist', 'skipOnError' => true, 'targetClass' => Fragrance::className(), 'targetAttribute' => ['fragrance_type' => 'id']],
-            [['unit'], 'exist', 'skipOnError' => true, 'targetClass' => Unit::className(), 'targetAttribute' => ['unit' => 'id']],
-            [['brand'], 'exist', 'skipOnError' => true, 'targetClass' => Brand::className(), 'targetAttribute' => ['brand' => 'id']],
-            [['product_category', 'product_name', 'product_code', 'fragrance_type', 'brand', 'size', 'unit', 'gender', 'price'], 'required'],
-            [['item_photo'], 'required', 'on' => 'create'],
-            [['item_photo'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg'],
+                [['product_category', 'fragrance_type', 'brand', 'size', 'unit', 'gender', 'status', 'CB', 'UB'], 'integer'],
+                [['price'], 'number'],
+                [['comment'], 'string'],
+                [['DOC', 'DOU'], 'safe'],
+                [['product_name', 'product_code', 'item_photo'], 'string', 'max' => 100],
+                [['reference'], 'string', 'max' => 500],
+                [['product_category'], 'exist', 'skipOnError' => true, 'targetClass' => ProductCategory::className(), 'targetAttribute' => ['product_category' => 'id']],
+                [['fragrance_type'], 'exist', 'skipOnError' => true, 'targetClass' => Fragrance::className(), 'targetAttribute' => ['fragrance_type' => 'id']],
+                [['unit'], 'exist', 'skipOnError' => true, 'targetClass' => Unit::className(), 'targetAttribute' => ['unit' => 'id']],
+                [['brand'], 'exist', 'skipOnError' => true, 'targetClass' => Brand::className(), 'targetAttribute' => ['brand' => 'id']],
+                [['product_category', 'product_name', 'fragrance_type', 'brand', 'size', 'unit', 'gender', 'price'], 'required'],
+                [['item_photo'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg, gif, bmp'],
         ];
     }
 

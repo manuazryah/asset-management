@@ -63,7 +63,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             <thead>
                                 <tr>
                                     <th data-priority="1" style="width:2%">#</th>
-                                    <th data-priority="1" style="width:10%">Master Row Material</th>
                                     <th data-priority="3" style="width:10%">Row Material</th>
                                     <th data-priority="1" style="width:8%">Quantity</th>
                                     <th data-priority="1" style="width:5%">Comment</th>
@@ -80,7 +79,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                         ?>
                                         <tr>
                                             <td><?= $i ?></td>
-                                            <td><?= $bom_detail->master_row_material_id != '' ? \common\models\RowMaterial::findOne($bom_detail->master_row_material_id)->item_name : '' ?></td>
                                             <td><?= $bom_detail->row_material_id != '' ? \common\models\SupplierwiseRowMaterial::findOne($bom_detail->row_material_id)->item_name : '' ?></td>
                                             <td><?= $bom_detail->quantity ?></td>
                                             <td><?= $bom_detail->comment ?></td>
@@ -92,12 +90,15 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <?php
                                     }
                                 }
+                                $romaterial_datas = ArrayHelper::map(\common\models\SupplierwiseRowMaterial::find()->where(['status' => 1])->all(), 'id', function($model) {
+                                            return $model['item_name'] . ' ( ' . $model['item_code'] . ' ) ';
+                                        }
+                                );
                                 ?>
                                 <tr class="formm">
                                     <?php $form = ActiveForm::begin(); ?>
                                     <td></td>
-                                    <td><?= $form->field($model, 'master_row_material_id')->dropDownList(ArrayHelper::map(common\models\RowMaterial::find()->where(['status' => 1])->all(), 'id', 'item_name'), ['prompt' => '-Select-'])->label(false); ?></td>
-                                    <td><?= $form->field($model, 'row_material_id')->dropDownList(ArrayHelper::map(common\models\SupplierwiseRowMaterial::find()->where(['status' => 1])->all(), 'id', 'item_name'), ['prompt' => '-Service-'])->label(false); ?></td>
+                                    <td><?= $form->field($model, 'row_material_id')->dropDownList($romaterial_datas, ['prompt' => '-Choose Material-'])->label(false); ?></td>
                                     <td><?= $form->field($model, 'quantity')->textInput(['placeholder' => 'Quantity', 'type' => 'number', 'min' => 1, 'value' => $model->quantity != '' ? $model->quantity : 1])->label(false) ?><span id="unit-text" style="margin-left:5px"></span></td>
                                     <td><?= $form->field($model, 'comment')->textarea(['placeholder' => 'Comment'])->label(false) ?></td>
                                     <td><?= Html::submitButton($model->isNewRecord ? 'Add' : 'Update', ['class' => 'btn btn-success']) ?>

@@ -25,38 +25,34 @@ use Yii;
  * @property SupplierwiseRowMaterial $rowMaterial
  * @property Unit $unit0
  */
-class BomDetails extends \yii\db\ActiveRecord
-{
+class BomDetails extends \yii\db\ActiveRecord {
+
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'bom_details';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['finished_product_id', 'master_row_material_id', 'row_material_id', 'quantity', 'unit', 'status', 'CB', 'UB'], 'integer'],
-            [['DOC', 'DOU'], 'safe'],
-            [['comment'], 'string', 'max' => 500],
-            [['row_material_id', 'quantity'], 'required'],
-            [['finished_product_id'], 'exist', 'skipOnError' => true, 'targetClass' => FinishedProduct::className(), 'targetAttribute' => ['finished_product_id' => 'id']],
-            [['master_row_material_id'], 'exist', 'skipOnError' => true, 'targetClass' => RowMaterial::className(), 'targetAttribute' => ['master_row_material_id' => 'id']],
-            [['row_material_id'], 'exist', 'skipOnError' => true, 'targetClass' => SupplierwiseRowMaterial::className(), 'targetAttribute' => ['row_material_id' => 'id']],
-            [['unit'], 'exist', 'skipOnError' => true, 'targetClass' => Unit::className(), 'targetAttribute' => ['unit' => 'id']],
+                [['finished_product_id', 'master_row_material_id', 'row_material_id', 'quantity', 'unit', 'status', 'CB', 'UB'], 'integer'],
+                [['DOC', 'DOU'], 'safe'],
+                [['comment'], 'string', 'max' => 500],
+                [['row_material_id', 'quantity'], 'required'],
+                [['finished_product_id'], 'exist', 'skipOnError' => true, 'targetClass' => FinishedProduct::className(), 'targetAttribute' => ['finished_product_id' => 'id']],
+                [['row_material_id'], 'exist', 'skipOnError' => true, 'targetClass' => SupplierwiseRowMaterial::className(), 'targetAttribute' => ['row_material_id' => 'id']],
+                [['unit'], 'exist', 'skipOnError' => true, 'targetClass' => Unit::className(), 'targetAttribute' => ['unit' => 'id']],
         ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'finished_product_id' => 'Finished Product ID',
@@ -76,32 +72,22 @@ class BomDetails extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getFinishedProduct()
-    {
+    public function getFinishedProduct() {
         return $this->hasOne(FinishedProduct::className(), ['id' => 'finished_product_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getMasterRowMaterial()
-    {
-        return $this->hasOne(RowMaterial::className(), ['id' => 'master_row_material_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRowMaterial()
-    {
+    public function getRowMaterial() {
         return $this->hasOne(SupplierwiseRowMaterial::className(), ['id' => 'row_material_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUnit0()
-    {
+    public function getUnit0() {
         return $this->hasOne(Unit::className(), ['id' => 'unit']);
     }
+
 }
