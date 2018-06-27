@@ -12,9 +12,8 @@ use yii\filters\VerbFilter;
 /**
  * BrandController implements the CRUD actions for Brand model.
  */
-class BrandController extends Controller
-{
-    
+class BrandController extends Controller {
+
     public function beforeAction($action) {
         if (!parent::beforeAction($action)) {
             return false;
@@ -25,12 +24,11 @@ class BrandController extends Controller
         }
         return true;
     }
-    
+
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
+    public function behaviors() {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -52,12 +50,21 @@ class BrandController extends Controller
             $model = $this->findModel($id);
         else
             $model = new Brand();
-        if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->save()) {
-            if (isset($id) && $id != '')
-                Yii::$app->session->setFlash('success', "Updated Successfully");
-            else
-                Yii::$app->session->setFlash('success', "Brand created Successfully");
-            $model = new Brand();
+        if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)) {
+            if ($model->set_as_default == 1) {
+                $exist = Brand::find()->where(['set_as_default' => 1])->one();
+                if (!empty($exist)) {
+                    $exist->set_as_default = 0;
+                    $exist->update();
+                }
+            }
+            if ($model->save()) {
+                if (isset($id) && $id != '')
+                    Yii::$app->session->setFlash('success', "Updated Successfully");
+                else
+                    Yii::$app->session->setFlash('success', "Brand created Successfully");
+                $model = new Brand();
+            }
             return $this->redirect(['index']);
         }
         return $this->render('index', [
@@ -72,10 +79,9 @@ class BrandController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+                    'model' => $this->findModel($id),
         ]);
     }
 
@@ -84,15 +90,14 @@ class BrandController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
+    public function actionCreate() {
         $model = new Brand();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
-                'model' => $model,
+                        'model' => $model,
             ]);
         }
     }
@@ -103,15 +108,14 @@ class BrandController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
-                'model' => $model,
+                        'model' => $model,
             ]);
         }
     }
@@ -122,9 +126,8 @@ class BrandController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
-    {
-       try {
+    public function actionDelete($id) {
+        try {
             if ($this->findModel($id)->delete()) {
                 Yii::$app->session->setFlash('success', "Brand removed Successfully");
             }
@@ -142,12 +145,12 @@ class BrandController extends Controller
      * @return Brand the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
         if (($model = Brand::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
 }

@@ -32,7 +32,7 @@ class Brand extends \yii\db\ActiveRecord
     {
         return [
             [['brand', 'CB', 'UB', 'DOC'], 'required'],
-            [['CB', 'UB', 'status'], 'integer'],
+            [['CB', 'UB', 'status','set_as_default'], 'integer'],
             [['DOC', 'DOU'], 'safe'],
             [['brand'], 'string', 'max' => 200],
         ];

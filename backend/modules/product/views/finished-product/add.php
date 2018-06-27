@@ -74,13 +74,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?php
                                 if (!empty($bom_details)) {
                                     $i = 0;
+                                    $deselct_ids = [];
                                     foreach ($bom_details as $bom_detail) {
                                         $i++;
                                         ?>
                                         <tr>
                                             <td><?= $i ?></td>
                                             <td><?= $bom_detail->row_material_id != '' ? \common\models\SupplierwiseRowMaterial::findOne($bom_detail->row_material_id)->item_name : '' ?></td>
-                                            <td><?= $bom_detail->quantity ?></td>
+                                            <td><?= $bom_detail->quantity ?><span style="float:right;"><?= $bom_detail->unit != '' ? \common\models\Unit::findOne($bom_detail->unit)->unit_name : '' ?></span></td>
                                             <td><?= $bom_detail->comment ?></td>
                                             <td>
                                                 <?= Html::a('<i class="fa fa-pencil"></i>', ['/product/finished-product/add', 'id' => $id, 'prfrma_id' => $bom_detail->id], ['class' => '', 'tittle' => 'Edit']) ?>
@@ -88,10 +89,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                             </td>
                                         </tr>
                                         <?php
+                                        $deselct_ids[] = $bom_detail->row_material_id;
                                     }
                                 }
-                                $romaterial_datas = ArrayHelper::map(\common\models\SupplierwiseRowMaterial::find()->where(['status' => 1])->all(), 'id', function($model) {
-                                            return $model['item_name'] . ' ( ' . $model['item_code'] . ' ) ';
+                                $romaterial_datas = ArrayHelper::map(\common\models\SupplierwiseRowMaterial::find()->where(['status' => 1])->andFilterWhere(['NOT IN','id',$deselct_ids])->all(), 'id', function($model) {
+                                            return ucfirst($model['item_name'] . ' ( ' . $model['item_code'] . ' ) ');
                                         }
                                 );
                                 ?>
@@ -99,7 +101,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <?php $form = ActiveForm::begin(); ?>
                                     <td></td>
                                     <td><?= $form->field($model, 'row_material_id')->dropDownList($romaterial_datas, ['prompt' => '-Choose Material-'])->label(false); ?></td>
-                                    <td><?= $form->field($model, 'quantity')->textInput(['placeholder' => 'Quantity', 'type' => 'number', 'min' => 1, 'value' => $model->quantity != '' ? $model->quantity : 1])->label(false) ?><span id="unit-text" style="margin-left:5px"></span></td>
+                                    <td>
+                                        <div class="form-group field-bomdetails-quantity required">
+
+                                            <input type="number" id="bomdetails-quantity" class="form-control" name="BomDetails[quantity]" value="1" placeholder="Quantity" min="1" aria-required="true">
+                                            <span id="unit-text"></span>
+                                            <div class="help-block"></div>
+                                        </div>
                                     <td><?= $form->field($model, 'comment')->textarea(['placeholder' => 'Comment'])->label(false) ?></td>
                                     <td><?= Html::submitButton($model->isNewRecord ? 'Add' : 'Update', ['class' => 'btn btn-success']) ?>
                                     </td>
@@ -144,19 +152,27 @@ $this->params['breadcrumbs'][] = $this->title;
     }.formm td{
         padding: 5px !important;
     }
-
+    .field-bomdetails-quantity{
+        position: relative;
+    }
+    #unit-text{
+        margin-left: 5px;
+        position: absolute;
+        top: 8px;
+        right: 25px;
+    }
 </style>
 <script>
     $("document").ready(function () {
-        $(document).on('change', '#bomdetails-master_row_material_id', function () {
+        $(document).on('change', '#bomdetails-row_material_id', function () {
             $.ajax({
                 type: 'POST',
                 cache: false,
                 async: false,
                 data: {item_id: $(this).val()},
-                url: '<?= Yii::$app->homeUrl; ?>product/finished-product/get-supplierwise-material',
+                url: '<?= Yii::$app->homeUrl; ?>product/finished-product/get-unit',
                 success: function (data) {
-                    $('#bomdetails-row_material_id').html(data);
+                    $('#unit-text').text(data);
                 }
             });
         });

@@ -73,7 +73,6 @@ class FinishedProductController extends Controller {
      */
     public function actionCreate() {
         $model = new FinishedProduct();
-        $model->setScenario('create');
         if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)) {
             $files = UploadedFile::getInstance($model, 'item_photo');
             if (!empty($files)) {
@@ -201,16 +200,17 @@ class FinishedProductController extends Controller {
         }
     }
     
-    public function actionGetSupplierwiseMaterial() {
+    public function actionGetUnit() {
         if (Yii::$app->request->isAjax) {
             $id = $_POST['item_id'];
-            $supplier_material = \common\models\SupplierwiseRowMaterial::find()->where(['master_row_material_id' => $id])->all();
-            $options = '<option value="">-Choose Item-</option>';
-            foreach ($supplier_material as $supplier_material_data) {
-                $options .= "<option value='" . $supplier_material_data->id . "'>" . $supplier_material_data->item_name . "</option>";
+            $result = '';
+            $supplier_material = \common\models\SupplierwiseRowMaterial::find()->where(['id' => $id])->one();
+            if(!empty($supplier_material)){
+                if($supplier_material->item_unit != ''){
+                    $result = \common\models\Unit::findOne($supplier_material->item_unit)->unit_name;
+                }
             }
-
-            echo $options;
+            echo $result;
         }
     }
      public function actionGetDeleteDetail($id) {

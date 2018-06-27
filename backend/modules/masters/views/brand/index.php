@@ -23,7 +23,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 </div>
                 <div class="panel-body">
-                    <?= \common\components\AlertMessageWidget::widget() ?>
                     <?=
                     $this->render('_form', [
                         'model' => $model,

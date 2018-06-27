@@ -42,6 +42,14 @@ Use common\models\Brand;
 
         </div>
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+            <?php
+            if ($model->isNewRecord) {
+               $deault_brand= Brand::find()->where(['set_as_default'=>1])->one();
+               if(!empty($deault_brand)){
+                   $model->brand = $deault_brand->id;
+               }
+            }
+            ?>
             <?php $brands = ArrayHelper::map(Brand::findAll(['status' => 1]), 'id', 'brand'); ?>
             <?= $form->field($model, 'brand')->dropDownList($brands, ['prompt' => '-Choose Brand-']) ?>
 
@@ -52,23 +60,20 @@ Use common\models\Brand;
             <?= $form->field($model, 'size')->textInput(['maxlength' => true]) ?>
         </div>
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+            <?php
+            if ($model->isNewRecord) {
+               $deault_unit = Unit::find()->where(['set_as_default'=>1])->one();
+               if(!empty($deault_unit)){
+                   $model->unit = $deault_unit->id;
+               }
+            }
+            ?>
             <?php $units = ArrayHelper::map(Unit::findAll(['status' => 1]), 'id', 'unit_name'); ?>
             <?= $form->field($model, 'unit')->dropDownList($units, ['prompt' => '-Choose Unit-']) ?>
 
         </div>
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
-            <?= $form->field($model, 'gender')->dropDownList(['1' => 'Men', '2' => 'Women','3'=>'Unisex','4'=>'Oriental']) ?>
-
-        </div>
-    </div>
-    <div class="row">
-        <div class='col-md-12 col-sm-12 col-xs-12 left_padd'>
-            <?= $form->field($model, 'comment')->textarea(['rows' => 2]) ?>
-
-        </div>
-    </div>
-    <div class="row">
-        <div class='col-md-6 col-sm-6 col-xs-12 left_padd'>
+            <?php // $form->field($model, 'gender')->dropDownList(['1' => 'Men', '2' => 'Women','3'=>'Unisex','4'=>'Oriental']) ?>
             <?php
             if ($model->item_photo != '') {
                 $label = 'Change Photo';
@@ -84,17 +89,21 @@ Use common\models\Brand;
                 if ($model->item_photo != '') {
                     $dirPath = Yii::getAlias(Yii::$app->params['uploadPath']) . '/uploads/finished_product/' . $model->id . '.' . $model->item_photo;
                     if (file_exists($dirPath)) {
-                        echo '<img width="100" class="img-responsive" src="' . Yii::$app->homeUrl . 'uploads/finished_product/' . $model->id . '.' . $model->item_photo . '?'.rand().'"/>';
+                        echo '<img width="100" class="img-responsive" src="' . Yii::$app->homeUrl . 'uploads/finished_product/' . $model->id . '.' . $model->item_photo . '?' . rand() . '"/>';
                     } else {
                         echo '';
                     }
                 }
                 ?>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class='col-md-12 col-sm-12 col-xs-12'>
+            <?= $form->field($model, 'comment')->textarea(['rows' => 2]) ?>
 
         </div>
     </div>
-
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => 'btn btn-success']) ?>

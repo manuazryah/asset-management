@@ -28,27 +28,41 @@ use common\models\Unit;
 </style>
 <table class="appoint">
     <tr>
-        <td class="labell">PRODUCT CATEGORY </td><td class="value">: <?= ProductCategory::findOne($product->product_category)->product_category; ?> </td>
         <td class="labell">PRODUCT NAME </td><td class="value">: <?= $product->product_name ?></td>
         <td class="labell">PRODUCT CODE </td><td class="value">: <?= $product->product_code; ?> </td>
+        <td class="labell">SIZE </td><td class="value">: <?= $product->size ?></td>
     </tr>
     <tr>
-        <td class="labell">SIZE </td><td class="value">: <?= $product->size ?></td>
         <td class="labell">PRICE </td><td class="value">: <?= $product->price ?></td>
         <td class="labell">ITEM PHOTO </td><td class="value">
             <?php
             if ($product->item_photo != '') {
                 $dirPath = Yii::getAlias(Yii::$app->params['uploadPath']) . '/uploads/finished_product/' . $product->id . '.' . $product->item_photo;
                 if (file_exists($dirPath)) {
-                    echo '<img width="50" class="img-responsive" src="' . Yii::$app->homeUrl . 'uploads/finished_product/' . $product->id . '.' . $product->item_photo . '"/>';
+                    echo '<img width="50" class="img-responsive zoom" src="' . Yii::$app->homeUrl . 'uploads/finished_product/' . $product->id . '.' . $product->item_photo . '"/>';
                 } else {
                     echo '';
                 }
             }
             ?>
         </td>
-
+        <td></td>
+        <td></td>
     </tr>
 
 </table>
+<style>
+    .zoom {
+        transition: transform .8s;
+    }
+
+    .zoom:hover {
+        z-index: 2;
+        position: relative;
+        /*top: -35px;*/
+        -ms-transform: scale(3.5); /* IE 9 */
+        -webkit-transform: scale(3.5); /* Safari 3-8 */
+        transform: scale(3.5); 
+    }
+</style>
 

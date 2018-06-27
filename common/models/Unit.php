@@ -32,7 +32,7 @@ class Unit extends \yii\db\ActiveRecord
     {
         return [
             [['id', 'unit_name'], 'required'],
-            [['id', 'CB', 'UB', 'status'], 'integer'],
+            [['id', 'CB', 'UB', 'status','set_as_default'], 'integer'],
             [['DOC', 'DOU'], 'safe'],
             [['unit_name'], 'string', 'max' => 255],
             [['unit_name'], 'unique'],

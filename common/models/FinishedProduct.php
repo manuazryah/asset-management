@@ -56,7 +56,7 @@ class FinishedProduct extends \yii\db\ActiveRecord {
                 [['fragrance_type'], 'exist', 'skipOnError' => true, 'targetClass' => Fragrance::className(), 'targetAttribute' => ['fragrance_type' => 'id']],
                 [['unit'], 'exist', 'skipOnError' => true, 'targetClass' => Unit::className(), 'targetAttribute' => ['unit' => 'id']],
                 [['brand'], 'exist', 'skipOnError' => true, 'targetClass' => Brand::className(), 'targetAttribute' => ['brand' => 'id']],
-                [['product_category', 'product_name', 'fragrance_type', 'brand', 'size', 'unit', 'gender', 'price'], 'required'],
+                [['product_category', 'product_name', 'fragrance_type', 'brand', 'size', 'unit', 'price'], 'required'],
                 [['item_photo'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg, gif, bmp'],
         ];
     }

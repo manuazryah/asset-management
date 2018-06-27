@@ -13,7 +13,7 @@ use yii\filters\VerbFilter;
  * UnitController implements the CRUD actions for Unit model.
  */
 class UnitController extends Controller {
-    
+
     public function beforeAction($action) {
         if (!parent::beforeAction($action)) {
             return false;
@@ -50,12 +50,21 @@ class UnitController extends Controller {
             $model = $this->findModel($id);
         else
             $model = new Unit();
-        if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->save()) {
-            if (isset($id) && $id != '')
-                Yii::$app->session->setFlash('success', "Updated Successfully");
-            else
-                Yii::$app->session->setFlash('success', "Units created Successfully");
-            $model = new Unit();
+        if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)) {
+            if($model->set_as_default == 1){
+                $exist = Unit::find()->where(['set_as_default'=>1])->one();
+                if(!empty($exist)){
+                    $exist->set_as_default = 0;
+                    $exist->update();
+                }
+            }
+            if ($model->save()) {
+                if (isset($id) && $id != '')
+                    Yii::$app->session->setFlash('success', "Updated Successfully");
+                else
+                    Yii::$app->session->setFlash('success', "Units created Successfully");
+                $model = new Unit();
+            }
             return $this->redirect(['index']);
         }
         return $this->render('index', [
