@@ -13,7 +13,7 @@ use yii\filters\VerbFilter;
  * WarehouseController implements the CRUD actions for Warehouse model.
  */
 class WarehouseController extends Controller {
-    
+
     public function beforeAction($action) {
         if (!parent::beforeAction($action)) {
             return false;
@@ -50,13 +50,16 @@ class WarehouseController extends Controller {
             $model = $this->findModel($id);
         else
             $model = new Warehouse();
-        if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->save()) {
-            if (isset($id) && $id != '')
-                Yii::$app->session->setFlash('success', "Warehouse Updated Successfully");
-            else
-                Yii::$app->session->setFlash('success', "Warehouse Created Successfully");
-            $model = new Warehouse();
-            return $this->redirect(['index']);
+        if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)) {
+            $model->warehouse_name = ucfirst($model->warehouse_name);
+            if ($model->save()) {
+                if (isset($id) && $id != '')
+                    Yii::$app->session->setFlash('success', "Warehouse Updated Successfully");
+                else
+                    Yii::$app->session->setFlash('success', "Warehouse Created Successfully");
+                $model = new Warehouse();
+                return $this->redirect(['index']);
+            }
         }
         return $this->render('index', [
                     'searchModel' => $searchModel,

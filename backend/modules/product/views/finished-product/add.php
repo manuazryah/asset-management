@@ -63,6 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <thead>
                                 <tr>
                                     <th data-priority="1" style="width:2%">#</th>
+                                    <th data-priority="3" style="width:10%">Material Category</th>
                                     <th data-priority="3" style="width:10%">Row Material</th>
                                     <th data-priority="1" style="width:8%">Quantity</th>
                                     <th data-priority="1" style="width:5%">Comment</th>
@@ -72,14 +73,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
                             <tbody>
                                 <?php
+                                $deselct_ids = [];
                                 if (!empty($bom_details)) {
                                     $i = 0;
-                                    $deselct_ids = [];
                                     foreach ($bom_details as $bom_detail) {
                                         $i++;
                                         ?>
                                         <tr>
                                             <td><?= $i ?></td>
+                                            <td><?= $bom_detail->row_material_category != '' ? \common\models\RowMaterialCategory::findOne($bom_detail->row_material_category)->category : '' ?></td>
                                             <td><?= $bom_detail->row_material_id != '' ? \common\models\SupplierwiseRowMaterial::findOne($bom_detail->row_material_id)->item_name : '' ?></td>
                                             <td><?= $bom_detail->quantity ?><span style="float:right;"><?= $bom_detail->unit != '' ? \common\models\Unit::findOne($bom_detail->unit)->unit_name : '' ?></span></td>
                                             <td><?= $bom_detail->comment ?></td>
@@ -92,14 +94,16 @@ $this->params['breadcrumbs'][] = $this->title;
                                         $deselct_ids[] = $bom_detail->row_material_id;
                                     }
                                 }
-                                $romaterial_datas = ArrayHelper::map(\common\models\SupplierwiseRowMaterial::find()->where(['status' => 1])->andFilterWhere(['NOT IN','id',$deselct_ids])->all(), 'id', function($model) {
+                                $romaterial_datas = ArrayHelper::map(\common\models\SupplierwiseRowMaterial::find()->where(['status' => 1])->andFilterWhere(['NOT IN', 'id', $deselct_ids])->all(), 'id', function($model) {
                                             return ucfirst($model['item_name'] . ' ( ' . $model['item_code'] . ' ) ');
                                         }
                                 );
+                                $romaterial_category = ArrayHelper::map(\common\models\RowMaterialCategory::find()->where(['status' => 1])->all(), 'id', 'category');
                                 ?>
                                 <tr class="formm">
                                     <?php $form = ActiveForm::begin(); ?>
                                     <td></td>
+                                    <td><?= $form->field($model, 'row_material_category')->dropDownList($romaterial_category, ['prompt' => '-Choose Material-'])->label(false); ?></td>
                                     <td><?= $form->field($model, 'row_material_id')->dropDownList($romaterial_datas, ['prompt' => '-Choose Material-'])->label(false); ?></td>
                                     <td>
                                         <div class="form-group field-bomdetails-quantity required">
@@ -173,6 +177,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 url: '<?= Yii::$app->homeUrl; ?>product/finished-product/get-unit',
                 success: function (data) {
                     $('#unit-text').text(data);
+                }
+            });
+        });
+
+        $(document).on('change', '#bomdetails-row_material_category', function () {
+            var product_id = '<?php echo $id; ?>';
+            $.ajax({
+                type: 'POST',
+                cache: false,
+                async: false,
+                data: {category: $(this).val(), product_id: product_id},
+                url: '<?= Yii::$app->homeUrl; ?>product/finished-product/get-material',
+                success: function (data) {
+                    $('#bomdetails-row_material_id').html(data);
                 }
             });
         });

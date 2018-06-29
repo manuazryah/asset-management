@@ -562,6 +562,7 @@ a {
     border: 1px solid;
     padding: 5px 10px;
     text-decoration: none;
+    background: #b8d9f3;
 }
 .diplay-amount {
     float: right;
@@ -641,7 +642,7 @@ a {
     font-size: 15px;
     font-weight: 600;
     border-radius: .25em;
-    padding: 7px 20px;
+    padding: 6px 20px;
 }
 .btn-warning:hover, .btn-warning:focus, .btn-warning.focus, .btn-warning:active, .btn-warning.active, .open>.dropdown-toggle.btn-warning {
     color: #fff;
@@ -1483,4 +1484,29 @@ table.table tr td:last-child {
 }
 .right-div{
     float: right;
+}
+.box_btn{
+    display: none;
+    margin-top: 25px;
+    border: 1px solid #04af04;
+    text-align: center;
+    padding: 6px 0px;
+    background: #a1e0a1;
+    font-weight: 600;
+    color: black;
+    cursor: pointer;
+}
+.box_btn_remove{
+    display: none;
+    margin-top: 25px;
+    border: 1px solid #f32a27;
+    text-align: center;
+    padding: 6px 0px;
+    background: #ea9c9c;
+    font-weight: 600;
+    color: black;
+    cursor: pointer;
+}
+.page-loading-overlay {
+    background: #02020252;
 }

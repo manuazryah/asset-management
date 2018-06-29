@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\models\StockView;
+use yii\helpers\Json;
 
 /**
  * BomMasterController implements the CRUD actions for BomMaster model.
@@ -652,6 +653,27 @@ class BomMasterController extends Controller {
             $unit = $row_material->item_unit != '' ? \common\models\Unit::findOne($row_material->item_unit)->unit_name : '';
             $arr_variable1 = array('comment' => $comment, 'avail' => $avail, 'reserve' => $avail_reserve, 'unit' => $unit);
             $data['result'] = $arr_variable1;
+            return json_encode($data);
+        }
+    }
+
+    /**
+     * This function add another row in sales invoice form.
+     * return next row html to form
+     */
+    public function actionAddAnotherRow() {
+        if (Yii::$app->request->isAjax) {
+            $row_count = $_POST['rowCount'];
+            $current_row_id = 1;
+            $next = $row_count + 1;
+            $supplier_materials = \common\models\SupplierwiseRowMaterial::find()->where(['status' => 1])->all();
+            $next_row = $this->renderPartial('next_row', [
+                'next' => $next,
+                'supplier_materials' => $supplier_materials,
+                'current_row_id' => $current_row_id,
+            ]);
+            $new_row = array('next_row_html' => $next_row, 'next' => $next);
+            $data['result'] = $new_row;
             return json_encode($data);
         }
     }

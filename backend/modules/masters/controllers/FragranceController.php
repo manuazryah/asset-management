@@ -12,9 +12,8 @@ use yii\filters\VerbFilter;
 /**
  * FragranceController implements the CRUD actions for Fragrance model.
  */
-class FragranceController extends Controller
-{
-    
+class FragranceController extends Controller {
+
     public function beforeAction($action) {
         if (!parent::beforeAction($action)) {
             return false;
@@ -25,12 +24,11 @@ class FragranceController extends Controller
         }
         return true;
     }
-    
+
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
+    public function behaviors() {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -52,13 +50,16 @@ class FragranceController extends Controller
             $model = $this->findModel($id);
         else
             $model = new Fragrance();
-        if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->save()) {
-            if (isset($id) && $id != '')
-                Yii::$app->session->setFlash('success', "Updated Successfully");
-            else
-                Yii::$app->session->setFlash('success', "Fragrance created Successfully");
-            $model = new Fragrance();
-            return $this->redirect(['index']);
+        if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)) {
+            $model->name = ucfirst($model->name);
+            if ($model->save()) {
+                if (isset($id) && $id != '')
+                    Yii::$app->session->setFlash('success', "Updated Successfully");
+                else
+                    Yii::$app->session->setFlash('success', "Fragrance created Successfully");
+                $model = new Fragrance();
+                return $this->redirect(['index']);
+            }
         }
         return $this->render('index', [
                     'searchModel' => $searchModel,
@@ -72,10 +73,9 @@ class FragranceController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+                    'model' => $this->findModel($id),
         ]);
     }
 
@@ -84,15 +84,14 @@ class FragranceController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
+    public function actionCreate() {
         $model = new Fragrance();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
-                'model' => $model,
+                        'model' => $model,
             ]);
         }
     }
@@ -103,15 +102,14 @@ class FragranceController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
-                'model' => $model,
+                        'model' => $model,
             ]);
         }
     }
@@ -122,8 +120,7 @@ class FragranceController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
         try {
             if ($this->findModel($id)->delete()) {
                 Yii::$app->session->setFlash('success', "Fragrance removed Successfully");
@@ -142,12 +139,12 @@ class FragranceController extends Controller
      * @return Fragrance the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
         if (($model = Fragrance::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
 }

@@ -52,7 +52,7 @@ class SupplierwiseRowMaterial extends \yii\db\ActiveRecord {
                 [['item_unit'], 'exist', 'skipOnError' => true, 'targetClass' => Unit::className(), 'targetAttribute' => ['item_unit' => 'id']],
                 [['supplier'], 'exist', 'skipOnError' => true, 'targetClass' => Supplier::className(), 'targetAttribute' => ['supplier' => 'id']],
                 [['item_code', 'item_name', 'material_ctegory', 'item_unit', 'supplier'], 'required'],
-                [['photo'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg'],
+                [['photo'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg, gif, bmp'],
         ];
     }
 

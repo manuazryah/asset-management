@@ -35,7 +35,7 @@ class ProductSaleMaster extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id'], 'required'],
+            [['invoice_no'], 'required'],
             [['id', 'status', 'CB', 'UB'], 'integer'],
             [['date', 'DOC', 'DOU'], 'safe'],
             [['invoice_no'], 'string', 'max' => 100],

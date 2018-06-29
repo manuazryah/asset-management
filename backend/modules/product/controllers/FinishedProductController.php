@@ -15,7 +15,7 @@ use common\models\BomDetails;
  * FinishedProductController implements the CRUD actions for FinishedProduct model.
  */
 class FinishedProductController extends Controller {
-    
+
     public function beforeAction($action) {
         if (!parent::beforeAction($action)) {
             return false;
@@ -146,7 +146,7 @@ class FinishedProductController extends Controller {
             $model->unit = $row_material->item_unit;
             if ($model->save()) {
                 return $this->redirect(['add', 'id' => $id]);
-            } 
+            }
         }
 
         return $this->render('add', [
@@ -163,14 +163,13 @@ class FinishedProductController extends Controller {
 
     public function actionDeleteDetail($id) {
         $bom_details = BomDetails::findOne($id);
-        if(!empty($bom_details)){
-            $finished_product = FinishedProduct::find()->where(['id'=>$bom_details->finished_product_id])->one();
+        if (!empty($bom_details)) {
+            $finished_product = FinishedProduct::find()->where(['id' => $bom_details->finished_product_id])->one();
             $bom_details->delete();
             return $this->redirect(['add', 'id' => $finished_product->id]);
-        }else{
-             return $this->redirect(['index']);
+        } else {
+            return $this->redirect(['index']);
         }
-        
     }
 
     /**
@@ -199,27 +198,52 @@ class FinishedProductController extends Controller {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-    
+
     public function actionGetUnit() {
         if (Yii::$app->request->isAjax) {
             $id = $_POST['item_id'];
             $result = '';
             $supplier_material = \common\models\SupplierwiseRowMaterial::find()->where(['id' => $id])->one();
-            if(!empty($supplier_material)){
-                if($supplier_material->item_unit != ''){
+            if (!empty($supplier_material)) {
+                if ($supplier_material->item_unit != '') {
                     $result = \common\models\Unit::findOne($supplier_material->item_unit)->unit_name;
                 }
             }
             echo $result;
         }
     }
-     public function actionGetDeleteDetail($id) {
-         $model = BomDetails::find()->where(['id'=>$id])->one();
-         if(!empty($model)){
-             $model->delete();
-         }
-         return $this->redirect(Yii::$app->request->referrer);
-     }
-    
+
+    public function actionGetDeleteDetail($id) {
+        $model = BomDetails::find()->where(['id' => $id])->one();
+        if (!empty($model)) {
+            $model->delete();
+        }
+        return $this->redirect(Yii::$app->request->referrer);
+    }
+
+    /*
+     * This function get row material based on material category change
+     * return row material
+     */
+
+    public function actionGetMaterial() {
+        if (Yii::$app->request->isAjax) {
+            $product_id = $_POST['product_id'];
+            $category = $_POST['category'];
+            $bom_details = BomDetails::findAll(['finished_product_id' => $product_id]);
+            $deselct_ids = [];
+            if (!empty($bom_details)) {
+                foreach ($bom_details as $bom_detail) {
+                    $deselct_ids[] = $bom_detail->row_material_id;
+                }
+            }
+            $romaterial_datas = \common\models\SupplierwiseRowMaterial::find()->where(['status' => 1, 'material_ctegory' => $category])->andFilterWhere(['NOT IN', 'id', $deselct_ids])->all();
+            $options = '<option value="">-Choose a Material-</option>';
+            foreach ($romaterial_datas as $romaterial_data) {
+                $options .= "<option value='" . $romaterial_data->id . "'>" . ucfirst($romaterial_data->item_name) . ' ( ' . $romaterial_data->item_code . ' )' . "</option>";
+            }
+            return $options;
+        }
+    }
 
 }

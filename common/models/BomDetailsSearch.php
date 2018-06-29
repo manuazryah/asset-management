@@ -18,7 +18,7 @@ class BomDetailsSearch extends BomDetails
     public function rules()
     {
         return [
-            [['id', 'finished_product_id', 'master_row_material_id', 'row_material_id', 'quantity', 'status', 'CB', 'UB'], 'integer'],
+            [['id', 'finished_product_id', 'row_material_category', 'row_material_id', 'quantity', 'status', 'CB', 'UB'], 'integer'],
             [['unit', 'comment', 'DOC', 'DOU'], 'safe'],
         ];
     }
@@ -61,7 +61,7 @@ class BomDetailsSearch extends BomDetails
         $query->andFilterWhere([
             'id' => $this->id,
             'finished_product_id' => $this->finished_product_id,
-            'master_row_material_id' => $this->master_row_material_id,
+            'row_material_category' => $this->row_material_category,
             'row_material_id' => $this->row_material_id,
             'quantity' => $this->quantity,
             'status' => $this->status,

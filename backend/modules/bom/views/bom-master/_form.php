@@ -55,6 +55,7 @@ $model->bom_no = $this->context->getBomNo();
                         <?php
                         $products = \common\models\FinishedProduct::find()->where(['status' => 1])->all();
                         ?>
+                        <label class="control-label">Product Name</label>
                         <select class="form-control product_id" name="create[1][product]" id="product_id-1" required>
                             <option value="">Select Product</option>
                             <?php
@@ -72,26 +73,29 @@ $model->bom_no = $this->context->getBomNo();
                 </div>
                 <div class="col-md-3">
                     <div class="formrow">
+                        <label class="control-label">Quantity</label>
                         <input type="number"  min="1" autocomplete="off"  step="any" class="form-control product_qty" name="create[1][product_qty]" placeholder="Quantity" id="product_qty-1" required>
                     </div>
                 </div>
                 <div class="col-md-5">
                     <div class="formrow">
+                        <label class="control-label">Product Comment</label>
                         <input type="text" class="form-control product_comment" name="create[1][product_comment]" placeholder="Product Comment" id="product_comment-1">
                     </div>
                 </div>
                 <div class="col-md-1">
                     <div class="formrow">
-                        <a class="btn btn-secondary box_btn" id="box_btn-1" style="display:none;">Add</a>
+                        <a class="box_btn" id="box_btn-1" style="">Add</a>
+                        <a class="box_btn_remove" id="box_btn_remove-1" style="">Cancel</a>
                     </div>
                 </div>
                 <div class="clearfix"></div>
-                <div class="col-md-12">
+                <div class="col-md-12" style="margin-bottom:15px;">
                     <div>Product Comment : <span id="exist_product_comment-1"> </span></div>
                 </div>
                 <div class="clearfix"></div>
             </div>
-            <div class="row table_row" id="table_row-1">
+            <div class="row table_row table-responsive" id="table_row-1" style="border:none;">
                 <div id="bom-material-details-1" class="bom-material-details">
 
                 </div>
@@ -142,6 +146,10 @@ $model->bom_no = $this->context->getBomNo();
             $("#product_qty-" + current_row_id).prop("readonly", true);
             $("#box_btn-" + current_row_id).css('display', 'none');
             $("#table_row-" + current_row_id).css('display', 'block');
+            $("#box_btn_remove-" + current_row_id).css('display', 'block');
+        });
+        $(document).on('click', '.box_btn_remove', function (e) {
+            location.reload();
         });
         $(document).on('keyup mouseup', '.product_qty', function (e) {
             var current_row_id = $(this).attr('id').match(/\d+/); // 123456
@@ -197,6 +205,29 @@ $model->bom_no = $this->context->getBomNo();
                 e.preventDefault();
             }
         });
+
+        $(document).on('click', '#add_another_line', function (e) {
+            var rowCount = $('#add-materials >tbody >tr').length;
+            $.ajax({
+                type: 'POST',
+                cache: false,
+                async: false,
+                data: {rowCount: rowCount},
+                url: homeUrl + 'bom/bom-master/add-another-row',
+                success: function (data) {
+                    var res = $.parseJSON(data);
+                    console.log(res);
+                    $('#add-materials tr:last').after(res.result['next_row_html']);
+                    $("#material_cout_row-1").val(res.result['next']);
+                    e.preventDefault();
+                }
+            });
+        });
+        $(document).on('click', '#del', function (e) {
+            var bid = this.id; // button ID
+            var trid = $(this).closest('tr').attr('id'); // table row ID
+            $(this).closest('tr').remove();
+        });
     });
 
     function materialChange(item_id, current_row_id, material_row_id) {
@@ -216,6 +247,7 @@ $model->bom_no = $this->context->getBomNo();
                 $('#material_qty_' + current_row_id + '-' + material_row_id).attr({
                     "max": res.result['avail'] - res.result['reserve'], // substitute your own
                 });
+                $('#material_qty_' + current_row_id + '-' + material_row_id).focus();
             }
         });
         return true;
@@ -249,6 +281,7 @@ $model->bom_no = $this->context->getBomNo();
                 var res = $.parseJSON(data);
                 $("#bom-material-details-" + current_row_id).html(res.result['new_row']);
                 $("#product_qty-" + current_row_id).val(1);
+                $("#product_qty-" + current_row_id).focus();
                 $("#product-" + current_row_id).val(item_id);
                 $("#exist_product_comment-" + current_row_id).text(res.result['product_comment']);
                 $("#box_btn-" + current_row_id).css('display', 'block');

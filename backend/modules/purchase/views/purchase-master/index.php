@@ -10,7 +10,7 @@ use kartik\daterange\DateRangePicker;
 /* @var $searchModel common\models\PurchaseMasterSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Purchase Masters';
+$this->title = 'Purchase';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="purchase-master-index">
@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="panel-body">
                     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-                    <?= Html::a('<i class="fa-th-list"></i><span> Create Purchase Master</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                    <?= Html::a('<i class="fa-th-list"></i><span> Create Purchase</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                     <?=
                     GridView::widget([
                         'dataProvider' => $dataProvider,

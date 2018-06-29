@@ -10,13 +10,18 @@ use kartik\date\DatePicker;
 /* @var $this yii\web\View */
 /* @var $model common\models\EstimatedProforma */
 
-$this->title = 'Product Sale';
+$this->title = 'Sale';
 $this->params['breadcrumbs'][] = ['label' => ' Pre-Funding', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <style>
     .form-group {
         margin-bottom: 0px;
+    }
+    .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+        cursor: not-allowed;
+        background-color: #fff;
+        opacity: 1;
     }
 </style>
 <div class="row">
@@ -25,17 +30,18 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="panel panel-default">
 
             <div class="panel-heading">
-                <h2  class="appoint-title panel-title"><?= Html::encode($this->title) . '</b>' ?></h2>
-                <div class="diplay-amount"><i class="fa fa-inr" aria-hidden="true"></i> <span id="total-order-amount">00.00</span></div>
+                <h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
+
             </div>
             <?php //Pjax::begin();       ?>
             <div class="panel-body">
-                <?= Html::a('<i class="fa-th-list"></i><span> Manage Product Sale</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                <?= Html::a('<i class="fa-th-list"></i><span> Manage Sale</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                 <div class="modal fade" id="modal-6">
                     <div class="modal-dialog" id="modal-pop-up">
 
                     </div>
                 </div>
+                <?= \common\components\AlertMessageWidget::widget() ?>
                 <?php
                 $form = ActiveForm::begin();
                 ?>
@@ -107,19 +113,18 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <div class="help-block"></div>
                                 </div>
                                 <div class="stock-check" id="stock-check-1" style="display:none;">
-                                    <p style="text-align: center;font-weight: bold;color: black;">Stock :<span class="stock-exist" id="stock-exist-1"></span></p>
+                                    <p style="font-size: 10px;font-weight: bold;color: #ef6262;">Stock :<span class="stock-exist" id="stock-exist-1"></span></p>
                                 </div>
-                                <input type="hidden" value=""  class="form-control" id="sales-qty-count-1" name="sales_qty_count[1]" readonly/>
                             </td>
                             <td>
                                 <div class="form-group">
-                                    <input type="text" id="productsale_unit-1" class="form-control stockadjdtl-item_cost" name="ProductSaleDetailsUnit[1]" aria-invalid="false" readonly>
+                                    <input type="text" id="productsale_unit-1" class="form-control productsale_unit" name="ProductSaleDetailsUnit[1]" aria-invalid="false" readonly>
                                     <div class="help-block"></div>
                                 </div>
                             </td>
                             <td>
                                 <div class="form-group">
-                                    <input type="text" id="productsale_comment-1" class="form-control stockadjdtl-item_cost" name="ProductSaleDetailsComment[1]" aria-invalid="false">
+                                    <input type="text" id="productsale_comment-1" class="form-control productsale_comment" name="ProductSaleDetailsComment[1]" aria-invalid="false">
                                     <div class="help-block"></div>
                                 </div>
                             </td>
@@ -129,15 +134,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         </tr>
 
                         </tbody>
-                        <tfoot>
-                            <tr>
-                                <th data-priority="3" style="width: 25;">Item Total</th>
-                                <th data-priority="6" style=""></th>
-                                <th data-priority="6" style=""></th>
-                                <th data-priority="6" style=""><input type="text" id="sub_total" class="amount-receipt-1" name="sub_total" style="width: 100%;" readonly/></th>
-                                <th data-priority="1" style="width: 1%;"></th>
-                            </tr>
-                        </tfoot>
                     </table>
                 </div>
                 <a href="" id="add_another_line"><i class="fa fa-plus" aria-hidden="true"></i> Add Another Line</a>
@@ -163,7 +159,6 @@ $this->params['breadcrumbs'][] = $this->title;
 <script>
     $(document).ready(function () {
         $(document).on('change', '.product_id', function (e) {
-            alert('sdg');
             var flag = 0;
             var count = 0;
             var current_row_id = $(this).attr('id').match(/\d+/); // 123456
@@ -172,7 +167,7 @@ $this->params['breadcrumbs'][] = $this->title;
             var row_count = $('#next_item_id').val();
             if (row_count > 1) {
                 for (i = 1; i <= row_count; i++) {
-                    var item_val = $('#product_id-' + i).val();
+                    var item_val = $('#productsale_id-' + i).val();
                     if (item_val == item_id) {
                         count = count + 1;
                     }
@@ -184,10 +179,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         flag = 0;
                     }
                 } else {
-                    $('#product_id-' + current_row_id).val('');
-                    $('#sales-qty-count-' + current_row_id).val('');
+                    $('#productsale_id-' + current_row_id).val('');
                     $('#stock-check-' + current_row_id).css('display', 'none');
-                    $("#stock-check-" + current_row_id + " span").text('');
+                    $("#stock-exist-" + current_row_id + " span").text('');
                     $('#productsale_qty-' + current_row_id).val('');
                     $("#productsale_unit-" + current_row_id).val('');
                     $('#productsale_comment-' + current_row_id).val('');
@@ -198,10 +192,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 productChange(item_id, current_row_id, next_row_id);
             } else {
                 alert('This Item is already Choosed');
-                $('#product_id-' + current_row_id).val('');
-                $('#sales-qty-count-' + current_row_id).val('');
+                $('#productsale_id-' + current_row_id).val('');
                 $('#stock-check-' + current_row_id).css('display', 'none');
-                $("#stock-check-" + current_row_id + " span").text('');
+                $("#stock-exist-" + current_row_id + " span").text('');
                 $('#productsale_qty-' + current_row_id).val('');
                 $("#productsale_unit-" + current_row_id).val('');
                 $('#productsale_comment-' + current_row_id).val('');
@@ -215,6 +208,17 @@ $this->params['breadcrumbs'][] = $this->title;
             $(this).closest('tr').remove();
             calculateSubtotal();
         });
+        $(document).on('keyup mouseup', '.productsale_qty', function (e) {
+            var current_row_id = $(this).attr('id').match(/\d+/); // 123456
+            var stock = $("#stock-exist-" + current_row_id).text();
+            if (stock && stock != '') {
+                var qty = $('#productsale_qty-' + current_row_id).val();
+                if (parseInt(qty) > parseInt(stock)) {
+                    alert('Quantity exeeds the availabel quantity');
+                    $('#productsale_qty-' + current_row_id).val(stock);
+                }
+            }
+        });
         $(document).on('click', '#add_another_line', function (e) {
             var rowCount = $('#add-invoicee >tbody >tr').length;
             var next_row_id = $('#next_item_id').val();
@@ -224,21 +228,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 cache: false,
                 async: false,
                 data: {next_row_id: next_row_id},
-                url: '<?= Yii::$app->homeUrl; ?>stock/stock-adj-dtl/add-another-row',
+                url: '<?= Yii::$app->homeUrl; ?>sales/product-sale-master/add-another-row',
                 success: function (data) {
                     var res = $.parseJSON(data);
                     console.log(res);
                     $('#add-invoicee tr:last').after(res.result['next_row_html']);
                     $("#next_item_id").val(next);
-                    $('.stockadjdtl-qty').attr('type', 'number');
-                    $('.stockadjdtl-qty').attr('min', 1);
-                    $('#stockadjdtl-item_code-' + rowCount).removeClass("add-next");
-                    $('#stockadjdtl-item_code-' + next).select2({
-                        allowClear: true
-                    }).on('select2-open', function ()
-                    {
-                        $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
-                    });
+                    $('.productsale_qty').attr('type', 'number');
+                    $('.productsale_qty').attr('min', 1);
                     e.preventDefault();
                 }
             });
@@ -251,50 +248,18 @@ $this->params['breadcrumbs'][] = $this->title;
             cache: false,
             async: false,
             data: {item_id: item_id},
-            url: '<?= Yii::$app->homeUrl; ?>stock/product-sale-master/get-items',
+            url: '<?= Yii::$app->homeUrl; ?>sales/product-sale-master/get-items',
             success: function (data) {
                 var res = $.parseJSON(data);
-                console.log(res);
-                if (data != 1) {
-                    $('#stockadjdtl-qty-' + current_row_id).val(1);
-                    $("#stockadjdtl-item_cost-" + current_row_id).val(res.result['item_rate']);
-                    if ($('#stockadjdtl-qty-' + current_row_id).val() != "" && $("#stockadjdtl-item_cost-" + current_row_id).val() != "") {
-                        lineTotalAmount(current_row_id);
-                    }
-                } else {
-                    $('#sales-qty-count-' + current_row_id).val('');
-                    $('#stock-check-' + current_row_id).css('display', 'none');
-                    $("#stock-check-" + current_row_id + " span").text('');
-                    $('#stockadjdtl-qty-' + current_row_id).val('');
-                    $("#stockadjdtl-item_cost-" + current_row_id).val('');
-                    $('#stockadjdtl-item_total-' + current_row_id).val('');
-                    $("#stockadjdtl-item_code-" + current_row_id).select2('val', '');
+                $("#productsale_unit-" + current_row_id).val(res.result['unit']);
+                $("#stock-exist-" + current_row_id).text(res.result['avail_qty']);
+                $('#stock-check-' + current_row_id).css('display', 'block');
+                if (res.result['avail_qty'] > 0) {
+                    $('#productsale_qty-' + current_row_id).val(1);
                 }
-                calculateSubtotal();
+                $('#productsale_qty-' + current_row_id).attr('max', res.result['avail_qty']);
             }
         });
         return true;
-    }
-    function lineTotalAmount(current_row_id) {
-        var qty = $('#stockadjdtl-qty-' + current_row_id).val();
-        var rate = $('#stockadjdtl-item_cost-' + current_row_id).val();
-        total_amount = parseFloat(qty) * parseFloat(rate);
-        $('#stockadjdtl-item_total-' + current_row_id).val(total_amount.toFixed(2));
-        calculateSubtotal();
-    }
-    function calculateSubtotal() {
-
-        var row_count = $('#next_item_id').val();
-        var sub_total = 0;
-        for (i = 1; i <= row_count; i++) {
-            var amount = $('#stockadjdtl-item_total-' + i).val();
-            if (!amount && amount == '' || amount == null) {
-
-                amount = 0;
-            }
-            sub_total = parseFloat(sub_total) + parseFloat(amount);
-        }
-        $('#sub_total').val(sub_total.toFixed(2));
-        $('#total-order-amount').text(sub_total.toFixed(2));
     }
 </script>

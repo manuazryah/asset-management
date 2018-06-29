@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel common\models\ProductSaleMasterSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Product Sale';
+$this->title = 'Sale';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="product-sale-master-index">
@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="panel-body">
                     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-                    <?= Html::a('<i class="fa-th-list"></i><span> New Invoice</span>', ['add'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                    <?= Html::a('<i class="fa-th-list"></i><span> New Sale</span>', ['add'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                     <?=
                     GridView::widget([
                         'dataProvider' => $dataProvider,

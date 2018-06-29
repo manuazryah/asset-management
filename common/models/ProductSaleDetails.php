@@ -38,8 +38,7 @@ class ProductSaleDetails extends \yii\db\ActiveRecord
     {
         return [
             [['master_id', 'material', 'quantity', 'status', 'CB', 'UB'], 'integer'],
-            [['DOC', 'DOU'], 'safe'],
-            [['unit'], 'string', 'max' => 100],
+            [['DOC', 'DOU','unit'], 'safe'],
             [['comment'], 'string', 'max' => 500],
             [['master_id'], 'exist', 'skipOnError' => true, 'targetClass' => ProductSaleMaster::className(), 'targetAttribute' => ['master_id' => 'id']],
         ];

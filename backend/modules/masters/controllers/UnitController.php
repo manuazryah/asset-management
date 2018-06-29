@@ -58,6 +58,7 @@ class UnitController extends Controller {
                     $exist->update();
                 }
             }
+            $model->unit_name = ucfirst($model->unit_name);
             if ($model->save()) {
                 if (isset($id) && $id != '')
                     Yii::$app->session->setFlash('success', "Updated Successfully");

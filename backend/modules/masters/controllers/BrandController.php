@@ -58,6 +58,7 @@ class BrandController extends Controller {
                     $exist->update();
                 }
             }
+            $model->brand = ucfirst($model->brand);
             if ($model->save()) {
                 if (isset($id) && $id != '')
                     Yii::$app->session->setFlash('success', "Updated Successfully");

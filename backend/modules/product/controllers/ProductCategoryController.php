@@ -13,7 +13,7 @@ use yii\filters\VerbFilter;
  * ProductCategoryController implements the CRUD actions for ProductCategory model.
  */
 class ProductCategoryController extends Controller {
-    
+
     public function beforeAction($action) {
         if (!parent::beforeAction($action)) {
             return false;
@@ -50,13 +50,16 @@ class ProductCategoryController extends Controller {
             $model = $this->findModel($id);
         else
             $model = new ProductCategory();
-        if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->save()) {
-            if (isset($id) && $id != '')
-                Yii::$app->session->setFlash('success', "Updated Successfully");
-            else
-                Yii::$app->session->setFlash('success', "Product Category created Successfully");
-            $model = new ProductCategory();
-            return $this->redirect(['index']);
+        if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)) {
+            $model->product_category = ucfirst($model->product_category);
+            if ($model->save()) {
+                if (isset($id) && $id != '')
+                    Yii::$app->session->setFlash('success', "Updated Successfully");
+                else
+                    Yii::$app->session->setFlash('success', "Product Category created Successfully");
+                $model = new ProductCategory();
+                return $this->redirect(['index']);
+            }
         }
         return $this->render('index', [
                     'searchModel' => $searchModel,

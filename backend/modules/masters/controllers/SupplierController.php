@@ -75,6 +75,7 @@ class SupplierController extends Controller {
 
         if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)) {
             $model->type = 1;
+            $model->company_name = ucfirst($model->company_name);
             if ($model->validate() && $model->save()) {
                 Yii::$app->session->setFlash('success', "Supplier Created Successfully");
                 $model = new Supplier();

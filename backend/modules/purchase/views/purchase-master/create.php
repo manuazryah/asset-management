@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\PurchaseMaster */
 
-$this->title = 'Create Purchase Master';
+$this->title = 'Purchase';
 $this->params['breadcrumbs'][] = ['label' => 'Purchase Masters', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         </div>
                         <div class="panel-body">
-                                <?=  Html::a('<i class="fa-th-list"></i><span> Manage Purchase Master</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                                <?=  Html::a('<i class="fa-th-list"></i><span> Manage Purchase</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                                 <div class="panel-body"><div class="purchase-master-create">
                                                 <?= $this->render('_form', [
                                                 'model' => $model,

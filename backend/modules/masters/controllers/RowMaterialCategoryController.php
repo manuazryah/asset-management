@@ -14,7 +14,7 @@ use yii\web\UploadedFile;
  * RowMaterialCategoryController implements the CRUD actions for RowMaterialCategory model.
  */
 class RowMaterialCategoryController extends Controller {
-    
+
     public function beforeAction($action) {
         if (!parent::beforeAction($action)) {
             return false;
@@ -25,7 +25,6 @@ class RowMaterialCategoryController extends Controller {
         }
         return true;
     }
-    
 
     /**
      * @inheritdoc
@@ -78,6 +77,7 @@ class RowMaterialCategoryController extends Controller {
             if (!empty($files)) {
                 $model->photo = $files->extension;
             }
+            $model->category = ucfirst($model->category);
             if ($model->validate() && $model->save()) {
                 if (!empty($files)) {
                     $this->upload($model, $files);
@@ -136,7 +136,7 @@ class RowMaterialCategoryController extends Controller {
      * @return mixed
      */
     public function actionDelete($id) {
-       try {
+        try {
             if ($this->findModel($id)->delete()) {
                 Yii::$app->session->setFlash('success', "Row Material Category removed Successfully");
             }

@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             </div>
             <div class="panel-body">
-                <?= Html::a('<i class="fa-th-list"></i><span> Manage Purchase Master</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                <?= Html::a('<i class="fa-th-list"></i><span> Manage Purchase</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                 <div class="panel-body">
                     <div class="purchase-master-view">
                         <?php if (!empty($model)) { ?>
