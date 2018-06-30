@@ -45,7 +45,7 @@ $model->bom_no = $this->context->getBomNo();
 
         </div>
     </div>
-    <h5 style="color: #313131;font-weight: 600;">BOM Details</h5>
+    <h5 style="color: #313131;font-weight: 600;font-size: 15px;">BOM Details</h5>
     <div id="p_scents">
         <input type="hidden" id="bom_row_count" value="1"/>
         <div class="append-box">

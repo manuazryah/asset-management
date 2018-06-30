@@ -83,7 +83,7 @@ $this->params['breadcrumbs'][] = 'Update';
 
                                 </div>
                             </div>
-                            <h5 style="color: #313131;font-weight: 600;font-size: 15px;">BOM Details</h5>
+                            <h5 style="color: #313131;font-weight: 600;">BOM Details</h5>
                             <div id="p_scents">
                                 <input type="hidden" id="bom_row_count" value="1"/>
                                 <?php
@@ -97,7 +97,6 @@ $this->params['breadcrumbs'][] = 'Update';
                                                         <?php
                                                         $products = \common\models\FinishedProduct::find()->where(['status' => 1])->all();
                                                         ?>
-                                                        <label class="control-label">Product Name</label>
                                                         <select class="form-control product_id" name="update[<?= $bom->id ?>][product]" id="product_id-<?= $bom->id ?>" required readonly>
                                                             <option value="">Select Product</option>
                                                             <?php
@@ -115,13 +114,11 @@ $this->params['breadcrumbs'][] = 'Update';
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="formrow">
-                                                        <label class="control-label">Quantity</label>
                                                         <input type="number"  min="1" autocomplete="off"  step="any" class="form-control product_qty" name="update[<?= $bom->id ?>][product_qty]" placeholder="Quantity" id="product_qty-1" value="<?= $bom->qty ?>" required readonly>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-5">
                                                     <div class="formrow">
-                                                        <label class="control-label">Product Comment</label>
                                                         <input type="text" class="form-control product_comment" name="update[<?= $bom->id ?>][product_comment]" placeholder="Product Comment" id="product_comment-1" value="<?= $bom->comment ?>">
                                                     </div>
                                                 </div>
@@ -136,68 +133,64 @@ $this->params['breadcrumbs'][] = 'Update';
                                                 </div>
                                                 <div class="clearfix"></div>
                                             </div>
-                                            <div class="clearfix"></div>
                                             <div class="row table_row" id="table_row-<?= $bom->id ?>">
                                                 <div id="bom-material-details-<?= $bom->id ?>" class="bom-material-details">
                                                     <?php
                                                     $material_details = \common\models\BomMaterialDetails::find()->where(['bom_id' => $bom->id])->all();
                                                     ?>
                                                     <input type="hidden" name="material_row_count" id="material_row_count" value="<?= count($material_details) ?>"/>
-                                                    <table class="table table-1" id="add-materials">
-                                                        <thead>
-                                                            <tr style="border: none;">
-                                                                <th>Material</th>
-                                                                <th>Quantity</th>
-                                                                <th>Unit</th>
-                                                                <th>Comment</th>
-                                                                <th></th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <?php
-                                                            if (!empty($material_details)) {
-                                                                $k = 0;
-                                                                foreach ($material_details as $value) {
-                                                                    $avail = 0;
-                                                                    $avail_reserve = $value->quantity;
-                                                                    $k++;
-                                                                    $row_material = \common\models\SupplierwiseRowMaterial::findOne($value->material);
-                                                                    $stock_view = common\models\StockView::find()->where(['material_id' => $row_material->id])->one();
-                                                                    if (!empty($stock_view)) {
-                                                                        $avail = $stock_view->available_qty;
-                                                                    }
-                                                                    ?>
-                                                                    <tr style="border: none;">
-                                                                        <td>
-                                                                            <select id="invoice-material_id_1-<?= $k ?>" class="form-control" name="updatematerial[<?= $value->id ?>][material_id]" disabled>
-                                                                                <option value="">Select Material</option>
-                                                                                <?php foreach ($supplier_materials as $supplier_material) { ?>
-                                                                                    <option value="<?= $row_material->id ?>" <?= $supplier_material->id == $row_material->id ? 'selected' : '' ?>><?= $supplier_material->item_name ?></option>
-                                                                                <?php }
-                                                                                ?>
-                                                                            </select>
-                                                                            <span>Comment : <?= $value->comment ?></span>
-                                                                        </td>
-                                                                        <td>
-                                                                            <input id="material_qty_val_<?= $bom->id ?>-<?= $k ?>" type="hidden" autocomplete="off" class="form-control" name="updatematerial[<?= $value->id ?>][material_qty_val]" value="<?= $value->quantity ?>"placeholder="Material" required readonly>
-                                                                            <input id="material_qty_<?= $bom->id ?>-<?= $k ?>" data-val="<?= $bom->id ?>" type="number"  max="<?= $avail + $avail_reserve ?>" autocomplete="off" class="form-control material_qty" name="updatematerial[<?= $value->id ?>][material_qty]" value="<?= $value->quantity ?>" placeholder="Qty" required>
-                                                                            <span title="Available Quantity">AVL : <span id="material_avail_qty_<?= $bom->id ?>-<?= $k ?>"><?= $avail ?></span> </span><span title="Reserved Quantity" style="float:right">RES : <span id="material_reserve_qty_<?= $bom->id ?>-<?= $k ?>"><?= $avail_reserve ?></span></span>
-                                                                        </td>
-                                                                        <td>
-                                                                            <span><?= $row_material->item_unit != '' ? \common\models\Unit::findOne($row_material->item_unit)->unit_name : '' ?></span>
-                                                                        </td>
-                                                                        <td>
-                                                                            <input id="material_comment_<?= $bom->id ?>" type="text" autocomplete="off" class="form-control" name="updatematerial[<?= $value->id ?>][material_comment]" value="<?= $value->comment ?>" placeholder="Comment">
-                                                                        </td>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <?php
+                                                    <table class="table table-1">
+                                                        <?php
+                                                        if (!empty($material_details)) {
+                                                            $k = 0;
+                                                            foreach ($material_details as $value) {
+                                                                $avail = 0;
+                                                                $avail_reserve = $value->quantity;
+                                                                $k++;
+                                                                $row_material = \common\models\SupplierwiseRowMaterial::findOne($value->material);
+                                                                $stock_view = common\models\StockView::find()->where(['material_id' => $row_material->id])->one();
+                                                                if (!empty($stock_view)) {
+                                                                    $avail = $stock_view->available_qty;
                                                                 }
+                                                                ?>
+                                                                <tr style="border: none;">
+                                                                    <td style="padding: 6px 0px;width: 50%;">
+                                                                        <div class="col-md-8">
+                                                                            <div class="formrow">
+                                                                                <select class="form-control" name="updatematerial[<?= $value->id ?>][material_id]" disabled>
+                                                                                    <option value="">Select Material</option>
+                                                                                    <?php foreach ($supplier_materials as $supplier_material) { ?>
+                                                                                        <option value="<?= $row_material->id ?>" <?= $supplier_material->id == $row_material->id ? 'selected' : '' ?>><?= $supplier_material->item_name ?></option>
+                                                                                    <?php }
+                                                                                    ?>
+                                                                                </select>
+                                                                                <span>Comment : <?= $value->comment ?></span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="formrow">
+                                                                                <input id="material_qty_val_<?= $bom->id ?>-<?= $k ?>" type="hidden" autocomplete="off" class="form-control" name="updatematerial[<?= $value->id ?>][material_qty_val]" value="<?= $value->quantity ?>"placeholder="Material" required readonly>
+                                                                                <input id="material_qty_<?= $bom->id ?>-<?= $k ?>" data-val="<?= $bom->id ?>" type="number"  max="<?= $avail + $avail_reserve ?>" autocomplete="off" class="form-control material_qty" name="updatematerial[<?= $value->id ?>][material_qty]" value="<?= $value->quantity ?>" placeholder="Qty" required>
+                                                                                <span title="Available Quantity">AVL : <span id="material_avail_qty_<?= $bom->id ?>-<?= $k ?>"><?= $avail ?></span> </span><span title="Reserved Quantity" style="float:right">RES : <span id="material_reserve_qty_<?= $bom->id ?>-<?= $k ?>"><?= $avail_reserve ?></span></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td style="padding: 12px 0px;">
+                                                                        <span><?= $row_material->item_unit != '' ? \common\models\Unit::findOne($row_material->item_unit)->unit_name : '' ?></span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="col-md-12">
+                                                                            <div class="formrow">
+                                                                                <input id="material_comment_<?= $bom->id ?>" type="text" autocomplete="off" class="form-control" name="updatematerial[<?= $value->id ?>][material_comment]" value="<?= $value->comment ?>" placeholder="Comment">
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <?php
                                                             }
-                                                            ?>
-                                                        </tbody>
+                                                        }
+                                                        ?>
                                                     </table>
-                                                     <a href="" id="add_another_line"><i class="fa fa-plus" aria-hidden="true"></i> Add Another Material</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -230,6 +223,25 @@ $this->params['breadcrumbs'][] = 'Update';
 </div>
 <script>
     $(document).ready(function () {
+        $(document).on('click', '#addbomdetails', function (event) {
+            var row_id = $('#bom_row_count').val();
+            var next = parseInt(row_id) + 1;
+            $.ajax({
+                type: 'POST',
+                cache: false,
+                async: false,
+                data: {next: next},
+                url: '<?= Yii::$app->homeUrl ?>bom/bom-master/get-bom',
+                success: function (data) {
+                    $('#p_scents').append(data);
+                }
+            });
+            counter++;
+        });
+        $(document).on('click', '.ibtnDel', function () {
+            $(this).parents('.append-box').remove();
+            return false;
+        });
         $(document).on('change', '.product_id', function (e) {
             var current_row_id = $(this).attr('id').match(/\d+/); // 123456
             var item_id = $(this).val();
@@ -256,6 +268,17 @@ $this->params['breadcrumbs'][] = 'Update';
             }
             itemChange(item_id, current_row_id);
         });
+        $(document).on('click', '.box_btn', function (e) {
+            var current_row_id = $(this).attr('id').match(/\d+/); // 123456
+            $("#product_id-" + current_row_id).prop("disabled", true);
+            $("#product_qty-" + current_row_id).prop("readonly", true);
+            $("#box_btn-" + current_row_id).css('display', 'none');
+            $("#table_row-" + current_row_id).css('display', 'block');
+        });
+        $(document).on('keyup mouseup', '.product_qty', function (e) {
+            var current_row_id = $(this).attr('id').match(/\d+/); // 123456
+            calculateQty(current_row_id);
+        });
         $(document).on('keyup mouseup', '.material_qty', function (e) {
             var current_row_id = $(this).attr('id').match(/\d+/); // 123456
             var array = $(this).attr('id').split("-");
@@ -270,94 +293,11 @@ $this->params['breadcrumbs'][] = 'Update';
                     alert('Quantity exeeds the available quantity');
                     $('#material_qty_' + current_row_id + '-' + row_id).val(material_availqty_val + material_reserve_val);
                 } else {
-                    $('#material_qty_' + current_row_id + '-' + row_id).val('');
+                    $('#material_qty_' + current_row_id + '-' + row_id).val(0);
                 }
-            }
-        });
-        
-        $(document).on('click', '#add_another_line', function (e) {
-            var rowCount = $('#add-materials >tbody >tr').length;
-            $.ajax({
-                type: 'POST',
-                cache: false,
-                async: false,
-                data: {rowCount: rowCount},
-                url: homeUrl + 'bom/bom-master/add-another-row',
-                success: function (data) {
-                    var res = $.parseJSON(data);
-                    $('#add-materials tr:last').after(res.result['next_row_html']);
-                    $("#material_row_count").val(res.result['next']);
-                    e.preventDefault();
-                }
-            });
-        });
-        $(document).on('click', '#del', function (e) {
-            var bid = this.id; // button ID
-            var trid = $(this).closest('tr').attr('id'); // table row ID
-            $(this).closest('tr').remove();
-        });
-        
-        $(document).on('change', '.invoice-material_id', function (e) {
-            var flag = 0;
-            var count = 0;
-            var idd = $(this).attr('id');
-            var current_row_id = $(this).attr('id').match(/\d+/); // 123456
-            var array = idd.split('-');
-            var material_row_id = array[2];
-            var row_count = $('#material_row_count').val();
-            var item_id = $(this).val();
-            if (row_count > 1) {
-                for (i = 1; i <= row_count; i++) {
-                    var item_val = $('#invoice-material_id_' + current_row_id + '-' + i).val();
-                    if (item_val == item_id) {
-                        count = count + 1;
-                    }
-                }
-                if (count > 1) {
-                    flag = 1;
-                } else {
-                    flag = 0;
-                }
-            }
-            if (flag == 0) {
-                materialChange(item_id, current_row_id, material_row_id);
-            } else {
-                alert('This Item is already Choosed');
-                $('#invoice-material_id_' + current_row_id + '-' + material_row_id).val('');
-                $('#material_avail_qty_' + current_row_id + '-' + material_row_id).text('');
-                $('#material_reserve_qty_' + current_row_id + '-' + material_row_id).text('');
-                $('#material_unit_' + current_row_id + '-' + material_row_id).text('');
-                $('#material_comment_' + current_row_id + '-' + material_row_id).text('');
-                $('#material_qty_' + current_row_id + '-' + material_row_id).attr({
-                    "max": '', // substitute your own
-                });
-                e.preventDefault();
             }
         });
     });
-    
-    function materialChange(item_id, current_row_id, material_row_id) {
-        $.ajax({
-            type: 'POST',
-            cache: false,
-            async: false,
-            data: {item_id: item_id},
-            url: '<?= Yii::$app->homeUrl; ?>bom/bom-master/get-material',
-            success: function (data) {
-                var res = $.parseJSON(data);
-                $('#material_comment_' + current_row_id + '-' + material_row_id).text(res.result['comment']);
-                $('#material_avail_qty_' + current_row_id + '-' + material_row_id).text(res.result['avail']);
-                $('#material_reserve_qty_' + current_row_id + '-' + material_row_id).text(res.result['reserve']);
-                $('#material_unit_' + current_row_id + '-' + material_row_id).text(res.result['unit']);
-                $('#material_qty_val_' + current_row_id + '-' + material_row_id).val(1);
-                $('#material_qty_' + current_row_id + '-' + material_row_id).attr({
-                    "max": res.result['avail'] - res.result['reserve'], // substitute your own
-                });
-                $('#material_qty_' + current_row_id + '-' + material_row_id).focus();
-            }
-        });
-        return true;
-    }
     function calculateQty(current_row_id) {
         var rowCount = $('.table-' + current_row_id + ' tr').length;
         var product_qty = $('#product_qty-' + current_row_id).val();

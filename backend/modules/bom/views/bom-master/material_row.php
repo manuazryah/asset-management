@@ -57,4 +57,4 @@
     </tbody>
     <input type="hidden" id="material_cout_row-<?= $current_row_id ?>" value="<?= $k ?>"/>
 </table>
-<a href="" id="add_another_line"><i class="fa fa-plus" aria-hidden="true"></i> Add Another Line</a>
+<a href="" id="add_another_line"><i class="fa fa-plus" aria-hidden="true"></i> Add Another Material</a>

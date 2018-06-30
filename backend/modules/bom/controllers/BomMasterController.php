@@ -306,9 +306,10 @@ class BomMasterController extends Controller {
         if ($model->load(Yii::$app->request->post())) {
             $model->date = date("Y-m-d", strtotime($model->date));
             $data = Yii::$app->request->post();
+            $key = 1;
             $transaction = Yii::$app->db->beginTransaction();
             try {
-                if ($model->save() && $this->UpdateBomDetails($model, $data) && $this->UpdateBomMaterial($model, $data)) {
+                if ($model->save() && $this->UpdateBomDetails($model, $data) && $this->UpdateBomMaterial($model, $data) && $this->AddNewBomMaterial($model, $data)) {
                     $transaction->commit();
                     Yii::$app->session->setFlash('success', "Invoice Updated successfully");
                 } else {
@@ -326,6 +327,24 @@ class BomMasterController extends Controller {
                         'model_bom' => $model_bom,
                         'supplier_materials' => $supplier_materials,
             ]);
+        }
+    }
+
+    public function AddNewBomMaterial($model, $data) {
+        $flag = 0;
+        $bom_details = \common\models\Bom::find()->where(['master_id' => $model->id])->one();
+        if (!empty($data['creatematerial'])) {
+            $key = 1;
+            if ($this->BomMaterial($model, $bom_details, $key, $data['creatematerial'][$key])) {
+                $flag = 1;
+            }
+        } else {
+            $flag = 1;
+        }
+        if ($flag == 1) {
+            return TRUE;
+        } else {
+            return FALSE;
         }
     }
 
