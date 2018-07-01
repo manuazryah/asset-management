@@ -5,7 +5,6 @@ use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use common\models\SupplierwiseRowMaterial;
 use common\models\Warehouse;
-use common\models\ShelfDetails;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\StockRegisterSearch */
@@ -32,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
                         'columns' => [
-                            ['class' => 'yii\grid\SerialColumn'],
+                                ['class' => 'yii\grid\SerialColumn'],
 //                            'id',
 //                            'document_line_id',
                             [
@@ -44,14 +43,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                         return 'Purchase';
                                     } elseif ($model->type == 2) {
                                         return 'BOM';
-                                    }else{
-                                         return '';
+                                    } else {
+                                        return '';
                                     }
                                 },
                             ],
                             'invoice_no',
                             'invoice_date',
-                            [
+                                [
                                 'attribute' => 'item_id',
                                 'label' => 'Item Name',
                                 'value' => 'item.item_name',
@@ -64,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'value' => 'warehouse0.warehouse_name',
                                 'filter' => ArrayHelper::map(Warehouse::find()->asArray()->all(), 'id', 'warehouse_name'),
                             ],
-                            [
+                                [
                                 'attribute' => 'shelf',
                                 'value' => 'shelf0.shelf_name',
                                 'filter' => ArrayHelper::map(ShelfDetails::find()->asArray()->all(), 'id', 'shelf_name'),
@@ -76,7 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     return $model->weight_in != '' ? $model->weight_in : '';
                                 },
                             ],
-                            [
+                                [
                                 'attribute' => 'weight_out',
                                 'value' => function ($model) {
                                     return $model->weight_out != '' ? $model->weight_out : '';

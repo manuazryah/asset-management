@@ -23,6 +23,7 @@ $this->params['breadcrumbs'][] = 'Update';
             </div>
             <div class="panel-body">
                 <?= Html::a('<i class="fa-th-list"></i><span> Manage Bom Master</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                <?= Html::a('<i class="fa-print"></i><span> Generate Job Order</span>', ['job-order', 'id' => $model->id], ['class' => 'btn btn-secondary btn-icon btn-icon-standalone']) ?>
                 <ul class="nav nav-tabs nav-tabs-justified">
                     <li  class="active">
                         <?php
@@ -197,7 +198,7 @@ $this->params['breadcrumbs'][] = 'Update';
                                                             ?>
                                                         </tbody>
                                                     </table>
-                                                     <a href="" id="add_another_line"><i class="fa fa-plus" aria-hidden="true"></i> Add Another Material</a>
+                                                    <a href="" id="add_another_line"><i class="fa fa-plus" aria-hidden="true"></i> Add Another Material</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -274,7 +275,7 @@ $this->params['breadcrumbs'][] = 'Update';
                 }
             }
         });
-        
+
         $(document).on('click', '#add_another_line', function (e) {
             var rowCount = $('#add-materials >tbody >tr').length;
             $.ajax({
@@ -296,7 +297,7 @@ $this->params['breadcrumbs'][] = 'Update';
             var trid = $(this).closest('tr').attr('id'); // table row ID
             $(this).closest('tr').remove();
         });
-        
+
         $(document).on('change', '.invoice-material_id', function (e) {
             var flag = 0;
             var count = 0;
@@ -335,7 +336,7 @@ $this->params['breadcrumbs'][] = 'Update';
             }
         });
     });
-    
+
     function materialChange(item_id, current_row_id, material_row_id) {
         $.ajax({
             type: 'POST',

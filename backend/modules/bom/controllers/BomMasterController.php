@@ -697,4 +697,15 @@ class BomMasterController extends Controller {
         }
     }
 
+    /**
+     * This function generate job order
+     * @return new row
+     */
+    public function actionJobOrder($id) {
+        $model = $this->findModel($id);
+        return $this->renderPartial('job-order', [
+//                        'model' => $model,
+        ]);
+    }
+
 }

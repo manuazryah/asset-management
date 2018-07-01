@@ -89,17 +89,39 @@ AppAsset::register($this);
                     <li>
                         <?= Html::a('<i class="fa fa-shopping-cart"></i> <span class="title">BOM</span>', ['/bom/bom-master/index'], ['class' => 'title']) ?>
                     </li>
-                    <li>
+                    <li class="has-sub">
                         <a href="">
                             <i class="fa fa-folder"></i>
-                            <span class="title">Stock Details</span>
+                            <span class="title">Stock Detail</span>
                         </a>
                         <ul>
-                            <li>
-                                <?= Html::a('<i class="fa fa-angle-double-right"></i> Stock Register', ['/stock/stock-register/index'], ['class' => 'title']) ?>
+                            <li class="has-sub">
+                                <a href="">
+                                    <i class="fa fa-circle-thin"></i>
+                                    <span class="title">Stock Register</span>
+                                </a>
+                                <ul style="display: none;">
+                                    <li>
+                                        <?= Html::a('<i class="fa fa-angle-double-right"></i> Row Material', ['/stock/stock-register/index'], ['class' => 'title']) ?>
+                                    </li>
+                                    <li>
+                                        <?= Html::a('<i class="fa fa-angle-double-right"></i> Products', ['/stock/product-stock-register/index'], ['class' => 'title']) ?>
+                                    </li>
+                                </ul>
                             </li>
-                            <li>
-                                <?= Html::a('<i class="fa fa-angle-double-right"></i> Stock View', ['/stock/stock-view/index'], ['class' => 'title']) ?>
+                            <li class="has-sub">
+                                <a href="">
+                                    <i class="fa fa-circle-thin"></i>
+                                    <span class="title">Stock View</span>
+                                </a>
+                                <ul style="display: none;">
+                                    <li>
+                                        <?= Html::a('<i class="fa fa-angle-double-right"></i> Row Material', ['/stock/stock-view/index'], ['class' => 'title']) ?>
+                                    </li>
+                                    <li>
+                                        <?= Html::a('<i class="fa fa-angle-double-right"></i> Products', ['/stock/product-stock-view/index'], ['class' => 'title']) ?>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
                     </li>
@@ -252,17 +274,39 @@ AppAsset::register($this);
                         <li>
                             <?= Html::a('<i class="fa fa-shopping-cart"></i> <span class="title">BOM</span>', ['/bom/bom-master/index'], ['class' => 'title']) ?>
                         </li>
-                        <li>
+                        <li class="has-sub">
                             <a href="">
                                 <i class="fa fa-folder"></i>
-                                <span class="title">Stock Details</span>
+                                <span class="title">Stock Detail</span>
                             </a>
                             <ul>
-                                <li>
-                                    <?= Html::a('<i class="fa fa-angle-double-right"></i> Stock Register', ['/stock/stock-register/index'], ['class' => 'title']) ?>
+                                <li class="has-sub">
+                                    <a href="">
+                                        <i class="fa fa-circle-thin"></i>
+                                        <span class="title">Stock Register</span>
+                                    </a>
+                                    <ul style="display: none;">
+                                        <li>
+                                            <?= Html::a('<i class="fa fa-angle-double-right"></i> Row Material', ['/stock/stock-register/index'], ['class' => 'title']) ?>
+                                        </li>
+                                        <li>
+                                            <?= Html::a('<i class="fa fa-angle-double-right"></i> Products', ['/stock/product-stock-register/index'], ['class' => 'title']) ?>
+                                        </li>
+                                    </ul>
                                 </li>
-                                <li>
-                                    <?= Html::a('<i class="fa fa-angle-double-right"></i> Stock View', ['/stock/stock-view/index'], ['class' => 'title']) ?>
+                                <li class="has-sub">
+                                    <a href="">
+                                        <i class="fa fa-circle-thin"></i>
+                                        <span class="title">Stock View</span>
+                                    </a>
+                                    <ul style="display: none;">
+                                        <li>
+                                            <?= Html::a('<i class="fa fa-angle-double-right"></i> Row Material', ['/stock/stock-view/index'], ['class' => 'title']) ?>
+                                        </li>
+                                        <li>
+                                            <?= Html::a('<i class="fa fa-angle-double-right"></i> Products', ['/stock/product-stock-view/index'], ['class' => 'title']) ?>
+                                        </li>
+                                    </ul>
                                 </li>
                             </ul>
                         </li>
