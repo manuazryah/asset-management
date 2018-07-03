@@ -38,8 +38,8 @@ class Supplier extends \yii\db\ActiveRecord {
                 [['DOC', 'DOU'], 'safe'],
                 [['company_name', 'email', 'contact_person'], 'string', 'max' => 100],
                 [['phone'], 'string', 'max' => 20],
-                [['company_name', 'email', 'phone', 'address'], 'required'],
-                [['email'], 'email'],
+                [['company_name','address'], 'required'],
+//                [['email'], 'email'],
         ];
     }
 
@@ -49,10 +49,10 @@ class Supplier extends \yii\db\ActiveRecord {
     public function attributeLabels() {
         return [
             'id' => 'ID',
-            'company_name' => 'Company Name',
+            'company_name' => 'Name',
             'email' => 'Email',
             'phone' => 'Phone',
-            'address' => 'Address',
+            'address' => 'Location',
             'contact_person' => 'Contact Person',
             'status' => 'Status',
             'CB' => 'Cb',

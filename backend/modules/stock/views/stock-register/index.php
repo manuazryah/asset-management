@@ -63,11 +63,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'value' => 'warehouse0.warehouse_name',
                                 'filter' => ArrayHelper::map(Warehouse::find()->asArray()->all(), 'id', 'warehouse_name'),
                             ],
-                                [
-                                'attribute' => 'shelf',
-                                'value' => 'shelf0.shelf_name',
-                                'filter' => ArrayHelper::map(ShelfDetails::find()->asArray()->all(), 'id', 'shelf_name'),
-                            ],
                             // 'item_cost',
                             [
                                 'attribute' => 'weight_in',

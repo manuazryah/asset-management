@@ -92,7 +92,7 @@ AppAsset::register($this);
                     <li class="has-sub">
                         <a href="">
                             <i class="fa fa-folder"></i>
-                            <span class="title">Stock Detail</span>
+                            <span class="title">Stock</span>
                         </a>
                         <ul>
                             <li class="has-sub">
@@ -277,7 +277,7 @@ AppAsset::register($this);
                         <li class="has-sub">
                             <a href="">
                                 <i class="fa fa-folder"></i>
-                                <span class="title">Stock Detail</span>
+                                <span class="title">Stock</span>
                             </a>
                             <ul>
                                 <li class="has-sub">
