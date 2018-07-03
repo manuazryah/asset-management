@@ -19,33 +19,31 @@ use Yii;
  *
  * @property MaterialAdjustmentDetails[] $materialAdjustmentDetails
  */
-class MaterialAdjustmentMaster extends \yii\db\ActiveRecord
-{
+class MaterialAdjustmentMaster extends \yii\db\ActiveRecord {
+
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'material_adjustment_master';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['transaction', 'status', 'CB', 'UB', 'DOC'], 'integer'],
-            [['document_date', 'DOU'], 'safe'],
-            [['document_no'], 'string', 'max' => 100],
+                [['transaction', 'document_date', 'document_no'], 'required'],
+                [['transaction', 'status', 'CB', 'UB', 'DOC'], 'integer'],
+                [['document_date', 'DOU'], 'safe'],
+                [['document_no'], 'string', 'max' => 100],
         ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'transaction' => 'Transaction',
@@ -62,8 +60,8 @@ class MaterialAdjustmentMaster extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getMaterialAdjustmentDetails()
-    {
+    public function getMaterialAdjustmentDetails() {
         return $this->hasMany(MaterialAdjustmentDetails::className(), ['master_id' => 'id']);
     }
+
 }

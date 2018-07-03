@@ -3,7 +3,6 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use common\models\Warehouse;
-use common\models\ShelfDetails;
 use common\models\Supplier;
 use common\models\SupplierwiseRowMaterial;
 use yii\helpers\ArrayHelper;
@@ -15,7 +14,7 @@ use kartik\date\DatePicker;
 ?>
 
 <div class="purchase-master-form form-inline">
-<?= \common\components\AlertMessageWidget::widget() ?>
+    <?= \common\components\AlertMessageWidget::widget() ?>
     <?php $form = ActiveForm::begin(); ?>
     <div class="row">
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
@@ -149,6 +148,19 @@ use kartik\date\DatePicker;
             itemChange(item_id, current_row_id);
         });
         $(document).on('keyup mouseup', '.invoice-qty', function (e) {
+            var current_row_id = $(this).attr('id').match(/\d+/); // 123456
+            var qty = $(this).val();
+            var price = $('#invoice-price-' + current_row_id).val();
+            var item = $('#invoice-item_id-' + current_row_id).val();
+            if (item == '') {
+                $('.salesinvoicedetails-qty-' + current_row_id).val('');
+                e.preventDefault();
+            }
+            if (qty != "" && item != '' && price != '') {
+                lineTotalAmount(current_row_id);
+            }
+        });
+        $(document).on('keyup mouseup', '.invoice-price', function (e) {
             var current_row_id = $(this).attr('id').match(/\d+/); // 123456
             var qty = $(this).val();
             var price = $('#invoice-price-' + current_row_id).val();

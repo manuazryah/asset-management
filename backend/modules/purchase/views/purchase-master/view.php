@@ -45,7 +45,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <th>SNo.</th>
                                     <th>Material</th>
                                     <th>Warehouse</th>
-                                    <th>Shelf</th>
                                     <th class="flt-right">Quantity</th>
                                     <th class="flt-right">Price</th>
                                     <th class="flt-right">Total</th>
@@ -62,7 +61,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <td><?= $i ?></td>
                                         <td><?= $value->material != '' ? \common\models\SupplierwiseRowMaterial::findOne($value->material)->item_name : '' ?></td>
                                         <td><?= $value->warehouse != '' ? \common\models\Warehouse::findOne($value->warehouse)->warehouse_name : '' ?></td>
-                                        <td><?= $value->shelf != '' ? \common\models\ShelfDetails::findOne($value->shelf)->shelf_name : '' ?></td>
                                         <td class="flt-right"><?= $value->qty ?></td>
                                         <td class="flt-right"><?= $value->price ?></td>
                                         <td class="flt-right"><?= $value->total ?></td>
@@ -74,7 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 }
                                 ?>
                                 <tr>
-                                    <th colspan="4">Total</th>
+                                    <th colspan="3">Total</th>
                                     <th class="flt-right"><?= $qty_tot ?></th>
                                     <th class="flt-right"><?= sprintf('%0.3f', $price_tot); ?></th>
                                     <th class="flt-right"><?= sprintf('%0.3f', $amount_tot); ?></th>

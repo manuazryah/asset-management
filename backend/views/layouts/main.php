@@ -123,6 +123,17 @@ AppAsset::register($this);
                                     </li>
                                 </ul>
                             </li>
+                            <li class="has-sub">
+                                <a href="">
+                                    <i class="fa fa-circle-thin"></i>
+                                    <span class="title">Stock Adjustment</span>
+                                </a>
+                                <ul style="display: none;">
+                                    <li>
+                                        <?= Html::a('<i class="fa fa-angle-double-right"></i> Row Material', ['/stock/material-adjustment-master/index'], ['class' => 'title']) ?>
+                                    </li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
                     <li>
@@ -305,6 +316,17 @@ AppAsset::register($this);
                                         </li>
                                         <li>
                                             <?= Html::a('<i class="fa fa-angle-double-right"></i> Products', ['/stock/product-stock-view/index'], ['class' => 'title']) ?>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="has-sub">
+                                    <a href="">
+                                        <i class="fa fa-circle-thin"></i>
+                                        <span class="title">Stock Adjustment</span>
+                                    </a>
+                                    <ul style="display: none;">
+                                        <li>
+                                            <?= Html::a('<i class="fa fa-angle-double-right"></i> Row Material', ['/stock/material-adjustment-master/index'], ['class' => 'title']) ?>
                                         </li>
                                     </ul>
                                 </li>
