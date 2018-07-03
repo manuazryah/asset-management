@@ -1,72 +1,154 @@
-<html>
-    <head>
-        <style>
-            tr{ page-break-inside:avoid; page-break-after:auto; }
-
-            @page {
-                size: A4;
-            }
-            .footer { position: fixed; bottom: 0px;border-top: 1px solid;width: 100%;text-align: center; }
-            .header { position: fixed; top: 0px;border-bottom: 1px solid;width: 100%;text-align: center; }
-            /*.pagenum:before { content: counter(page); }*/
-        </style>
-    </head>
-    <body>
-        <div class="header">Header</div>
-        <div class="footer">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</div>
-        <div class="main-content">
-            <table cellpadding="10">
-                <tr>
-                    <td>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </body>
-</html>
+<div id="print">
+    <style>
+        @page {
+            size: A4;
+        }
+        .main-tbl{
+            width: 100%;
+        }
+        .header h2{
+            text-align: center;
+        }
+        .order-head{
+            width: 100%;
+        }
+        .material-table{
+            width: 100%;
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        .material-table th{
+            border: 1px solid black;
+            text-align: left;
+            padding: 5px 10px;
+        }
+        .material-table td{
+            border: 1px solid black;
+            padding: 5px 10px;
+        }
+        .material-details{
+            margin: 20px 0px;
+            /*min-height: 200px;*/
+        }
+        .flt-left{
+            float: left;
+        }
+        .product-box{
+            border: 1px solid black;
+            min-width: 100px;
+            min-height: 25px;
+            margin-left: 20px;
+        }
+        .finished-pro-qty span{
+            font-size: 20px;
+        }
+        .finished-pro-qty{
+            margin: 15px 0px;
+        }
+        .signature{
+            margin: 15px 0px;
+        }
+        .signature table{
+            width: 100%;
+        }
+    </style>
+    <table class="main-tbl">
+        <thead>
+            <tr>
+                <th>
+                    <div class="header">
+                        <h2>JOB Order</h2>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td id="content">
+                    <table class="order-head">
+                        <tr>
+                            <td>BOM No</td>
+                            <td>:</td>
+                            <td><?= $model->bom_no ?></td>
+                            <td>Date</td>
+                            <td>:</td>
+                            <td><?= $model->date ?></td>
+                        </tr>
+                        <tr>
+                            <td>Product Name</td>
+                            <td>:</td>
+                            <td><?= $model_bom->product != '' ? \common\models\FinishedProduct::findOne($model_bom->product)->product_name : '' ?></td>
+                            <td>Quantity</td>
+                            <td>:</td>
+                            <td><?= $model_bom->qty ?></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="material-details">
+                        <table class="material-table">
+                            <tr>
+                                <th>Material</th>
+                                <th>Quantity Required</th>
+                                <th>Actual Quantity</th>
+                            </tr>
+                            <?php
+                            if (!empty($model_bom_material)) {
+                                foreach ($model_bom_material as $bom_material) {
+                                    if (!empty($bom_material)) {
+                                        ?>
+                                        <tr>
+                                            <td><?= $bom_material->material != ''? \common\models\SupplierwiseRowMaterial::findOne($bom_material->material)->item_name :'' ?></td>
+                                            <td><?= $bom_material->quantity ?></td>
+                                            <td><?= $bom_material->actual_qty ?></td>
+                                        </tr>
+                                        <?php
+                                    }
+                                }
+                            }
+                            ?>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="finished-pro-qty">
+                        <div style="float: right;">
+                            <div class="flt-left"><span>Finished Product Qty</span></div>
+                            <div class="flt-left product-box"></div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="signature">
+                        <table>
+                            <tr>
+                                <th>Operations Signature</th>
+                                <th>Faculty Manager Signature</th>
+                                <th>Comment</th>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    function printContent(el) {
+        var restorepage = document.body.innerHTML;
+        var printcontent = document.getElementById(el).innerHTML;
+        document.body.innerHTML = printcontent;
+        window.print();
+        document.body.innerHTML = restorepage;
+    }
+</script>
+<div class="print" style="text-align: center;">
+        <button onclick="printContent('print')" style="font-weight: bold !important;">Print</button>
+        <button onclick="window.close();" style="font-weight: bold !important;">Close</button>
+    </div>

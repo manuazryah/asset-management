@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                             'comment',
                             ['class' => 'yii\grid\ActionColumn',
-                                'template' => '{view}{update}',
+                                'template' => '{view}{update}{joborder}',
                                 'contentOptions' => ['style' => 'width:100px;'],
                                 'buttons' => [
                                     'update' => function ($url, $model) {
@@ -63,6 +63,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                                     'class' => '',
                                         ]);
                                     },
+                                    'joborder' => function ($url, $model) {
+                                        return Html::a('<span class="fa fa-print"></span>', $url, [
+                                                    'title' => Yii::t('app', 'Generate Job Order'),
+                                                    'target' => '_blank',
+                                        ]);
+                                    },
                                 ],
                                 'urlCreator' => function ($action, $model) {
                                     if ($action === 'update') {
@@ -77,6 +83,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                     }
                                     if ($action === 'view') {
                                         $url = Url::to(['view', 'id' => $model->id]);
+                                        return $url;
+                                    }
+                                    if ($action === 'joborder') {
+                                        $url = Url::to(['job-order', 'id' => $model->id]);
                                         return $url;
                                     }
                                 }],

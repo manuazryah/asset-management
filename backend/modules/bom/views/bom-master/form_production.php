@@ -23,6 +23,7 @@ $this->params['breadcrumbs'][] = 'Update';
             </div>
             <div class="panel-body">
                 <?= Html::a('<i class="fa-th-list"></i><span> Manage Bom Master</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                <?= Html::a('<i class="fa-print"></i><span> Generate Job Order</span>', ['job-order', 'id' => $model->id], ['class' => 'btn btn-secondary btn-icon btn-icon-standalone','target'=>'blank']) ?>
                 <ul class="nav nav-tabs nav-tabs-justified">
                     <li>
                         <?php

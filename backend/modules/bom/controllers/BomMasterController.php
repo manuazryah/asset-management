@@ -703,8 +703,12 @@ class BomMasterController extends Controller {
      */
     public function actionJobOrder($id) {
         $model = $this->findModel($id);
+        $model_bom = \common\models\Bom::find()->where(['master_id' => $model->id])->one();
+        $model_bom_material = \common\models\BomMaterialDetails::find()->where(['bom_id' => $model_bom->id])->all();
         return $this->renderPartial('job-order', [
-//                        'model' => $model,
+                        'model' => $model,
+                        'model_bom' => $model_bom,
+                        'model_bom_material' => $model_bom_material,
         ]);
     }
 
