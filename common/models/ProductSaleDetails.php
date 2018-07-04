@@ -37,7 +37,7 @@ class ProductSaleDetails extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['master_id', 'material', 'quantity', 'status', 'CB', 'UB'], 'integer'],
+            [['master_id', 'material', 'quantity', 'status', 'CB', 'UB','warehouse'], 'integer'],
             [['DOC', 'DOU','unit'], 'safe'],
             [['comment'], 'string', 'max' => 500],
             [['master_id'], 'exist', 'skipOnError' => true, 'targetClass' => ProductSaleMaster::className(), 'targetAttribute' => ['master_id' => 'id']],

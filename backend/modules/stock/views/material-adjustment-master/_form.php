@@ -70,6 +70,8 @@ use common\models\SupplierwiseRowMaterial;
                 <td>
                     <input style="width: 70% !important" type="number" id="invoice-qty-1" value="" class="form-control invoice-qty" name="create[qty][1]" placeholder="Qty" min="1" aria-invalid="false" autocomplete="off"  step="any" required>
                     <span id="invoice-unit-1"></span>
+                    <div style="display: none;"class="avail-stock-div" id="avail-stock-div-1"><strong>AVL:<span id="avail-stock-1"></span></strong></div>
+                    <input type="hidden" id="invoice-avail-qty-1" value="0"/>
                 </td>
                 <td>
                     <input type="text" id="invoice-price-1" value="" class="form-control invoice-price flt-right" name="create[price][1]" placeholder="Price" aria-invalid="false" autocomplete="off" required>
@@ -143,18 +145,71 @@ use common\models\SupplierwiseRowMaterial;
         });
 
         $(document).on('change', '.invoice-item_id', function (e) {
+            var flag = 0;
+            var count = 0;
             var current_row_id = $(this).attr('id').match(/\d+/); // 123456
+            var row_count = $('#next_item_id').val();
             var item_id = $(this).val();
-            itemChange(item_id, current_row_id);
+            if (row_count > 1) {
+                for (i = 1; i <= row_count; i++) {
+                    var item_val = $('#invoice-item_id-' + i).val();
+                    if (item_val == item_id) {
+                        count = count + 1;
+                    }
+                }
+                if (count > 1) {
+                    flag = 1;
+                } else {
+                    flag = 0;
+                }
+            }
+            if (flag == 0) {
+                itemChange(item_id, current_row_id);
+            } else {
+                alert('This Item is already Choosed');
+                $('#invoice-item_id-' + current_row_id).val('');
+                $('#invoice-qty-' + current_row_id).val('');
+                $('#invoice-avail-qty-' + current_row_id).val(0);
+                $("#avail-stock-div-" + current_row_id).css("display", "none");
+                $('#invoice-qty-' + current_row_id).attr('max', '');
+                $('#invoice-unit-' + current_row_id).text('');
+                $('#invoice-price-' + current_row_id).val('');
+                $('#invoice-total-' + current_row_id).val('');
+                $('#invoice-warehouse-' + current_row_id).val('');
+                e.preventDefault();
+            }
+        });
+        $(document).on('change', '#materialadjustmentmaster-transaction', function (e) {
+            var transaction = $("#materialadjustmentmaster-transaction").val();
+            var row_count = $('#next_item_id').val();
+            for (i = 1; i <= row_count; i++) {
+                if (transaction == 2) {
+                    var avail_qty = $('#invoice-avail-qty-' + i).val();
+                    $("#avail-stock-div-" + i).css("display", "block");
+                    $('#invoice-qty-' + i).attr('max', avail_qty);
+                } else {
+                    $("#avail-stock-div-" + i).css("display", "none");
+                    $('#invoice-qty-' + i).attr('max', '');
+                }
+            }
         });
         $(document).on('keyup mouseup', '.invoice-qty', function (e) {
             var current_row_id = $(this).attr('id').match(/\d+/); // 123456
             var qty = $(this).val();
+            var transaction = $("#materialadjustmentmaster-transaction").val();
             var price = $('#invoice-price-' + current_row_id).val();
             var item = $('#invoice-item_id-' + current_row_id).val();
             if (item == '') {
-                $('.salesinvoicedetails-qty-' + current_row_id).val('');
+                $('#salesinvoicedetails-qty-' + current_row_id).val('');
                 e.preventDefault();
+            } else {
+                if (transaction == 2) {
+                    var material_availqty_val = parseInt($("#invoice-avail-qty-" + current_row_id).val());
+                    if (qty > material_availqty_val) {
+                        alert('Quantity exeeds the available quantity');
+                        $('#invoice-qty-' + current_row_id).val(material_availqty_val);
+                    }
+                }
             }
             if (qty != "" && item != '' && price != '') {
                 lineTotalAmount(current_row_id);
@@ -175,6 +230,7 @@ use common\models\SupplierwiseRowMaterial;
         });
     });
     function itemChange(item_id, current_row_id) {
+        var transaction = $("#materialadjustmentmaster-transaction").val();
         $.ajax({
             type: 'POST',
             cache: false,
@@ -186,6 +242,15 @@ use common\models\SupplierwiseRowMaterial;
                 $("#invoice-qty-" + current_row_id).val('1');
                 $("#invoice-price-" + current_row_id).val(res.result['price']);
                 $("#invoice-unit-" + current_row_id).text(res.result['unit']);
+                $("#invoice-avail-qty-" + current_row_id).val(res.result['avail_qty']);
+                $("#avail-stock-" + current_row_id).text(res.result['avail_qty']);
+                if (transaction == 2) {
+                    $("#avail-stock-div-" + current_row_id).css("display", "block");
+                    $('#invoice-qty-' + current_row_id).attr('max', res.result['avail_qty']);
+                } else {
+                    $("#avail-stock-div-" + current_row_id).css("display", "none");
+                    $('#invoice-qty-' + current_row_id).attr('max', '');
+                }
                 lineTotalAmount(current_row_id);
             }
         });

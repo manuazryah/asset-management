@@ -12,6 +12,8 @@
     <td>
         <input style="width: 70% !important" type="number" id="invoice-qty-<?= $next ?>" value="" class="form-control invoice-qty" name="create[qty][<?= $next ?>]" placeholder="Qty" min="1" aria-invalid="false" autocomplete="off"  step="any" required>
         <span id="invoice-unit-<?= $next ?>"></span>
+        <div style="display: none;"class="avail-stock-div" id="avail-stock-div-<?= $next ?>"><strong>AVL:<span id="avail-stock-<?= $next ?>"></span></strong></div>
+        <input type="hidden" id="invoice-avail-qty-<?= $next ?>" value="0"/>
     </td>
     <td>
         <input type="text" id="invoice-price-<?= $next ?>" value="" class="form-control invoice-price flt-right" name="create[price][<?= $next ?>]" placeholder="Price" aria-invalid="false" autocomplete="off" required>

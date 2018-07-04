@@ -43,7 +43,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                         return 'Purchase';
                                     } elseif ($model->type == 2) {
                                         return 'BOM';
-                                    } else {
+                                    } elseif ($model->type == 3) {
+                                        return 'Opening Stock';
+                                    }elseif ($model->type == 4) {
+                                        return 'Addition';
+                                    }elseif ($model->type == 5) {
+                                        return 'Deduction';
+                                    }else {
                                         return '';
                                     }
                                 },

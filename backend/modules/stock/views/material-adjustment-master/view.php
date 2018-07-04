@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\MaterialAdjustmentMaster */
 
-$this->title = $model->id;
+$this->title = $model->document_no;
 $this->params['breadcrumbs'][] = ['label' => 'Material Adjustment Masters', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -20,18 +20,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
             </div>
             <div class="panel-body">
-                <?= Html::a('<i class="fa-th-list"></i><span> Manage Purchase</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                <?= Html::a('<i class="fa-th-list"></i><span> Manage Material Adjustment</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                 <div class="panel-body">
                     <div class="purchase-master-view">
                         <?php if (!empty($model)) { ?>
                             <table class="table table-borderless purchase-view-head">
                                 <tr>
-                                    <th>Transaction Date</th>
+                                    <th>Document Date</th>
                                     <th>:</th>
-                                    <th><?= date("d-M-Y", strtotime($model->date)) ?></th>
-                                    <th>Transaction No</th>
+                                    <th><?= date("d-M-Y", strtotime($model->document_date)) ?></th>
+                                    <th>Document No</th>
                                     <th>:</th>
-                                    <th><?= $model->invoice_no ?></th>
+                                    <th><?= $model->document_no ?></th>
                                     <th>Transaction</th>
                                     <th>:</th>
                                     <th>

@@ -285,6 +285,7 @@ class BomMasterController extends Controller {
             $stock_view = StockView::find()->where(['material_id' => $stock->item_id])->one();
             $stock_view->available_qty -= $stock->weight_out;
             $stock_view->reserved_qty -= $aditional->quantity;
+            $stock_view->available_qty += $aditional->quantity;
         }
         if ($stock_view->save()) {
             return TRUE;
@@ -428,8 +429,8 @@ class BomMasterController extends Controller {
         $supplier_materials = \common\models\SupplierwiseRowMaterial::find()->all();
         if ($model->load(Yii::$app->request->post())) {
             $model->status = 3;
-            $model->date = date("Y-m-d", strtotime($model->date));
             $data = Yii::$app->request->post();
+            $model->date = date("Y-m-d", strtotime($model->date));
             $transaction = Yii::$app->db->beginTransaction();
             try {
                 if ($model->save() && $this->ProductionBomDetails($model, $data) && $this->ProductionBomMaterial($model, $data) && $this->ProductStock($data)) {

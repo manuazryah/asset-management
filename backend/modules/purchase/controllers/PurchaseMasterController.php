@@ -315,12 +315,9 @@ class PurchaseMasterController extends Controller {
                 $unit = '';
                 $price = '';
                 $item_datas = \common\models\SupplierwiseRowMaterial::find()->where(['id' => $item_id])->one();
-                $row_material = \common\models\RowMaterial::find()->where(['id' => $item_datas->master_row_material_id])->one();
                 if (!empty($item_datas)) {
                     $price = $item_datas->purchase_price;
-                    if (!empty($row_material)) {
-                        $unit = $row_material->item_unit != '' ? \common\models\Unit::findOne($row_material->item_unit)->unit_name : '';
-                    }
+                        $unit = $item_datas->item_unit != '' ? \common\models\Unit::findOne($item_datas->item_unit)->unit_name : '';
                 }
                 $arr_variable1 = array('unit' => $unit, 'price' => $price);
                 $data1['result'] = $arr_variable1;

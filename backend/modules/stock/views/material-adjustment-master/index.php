@@ -30,9 +30,24 @@ $this->params['breadcrumbs'][] = $this->title;
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
                         'columns' => [
-                                ['class' => 'yii\grid\SerialColumn'],
+                            ['class' => 'yii\grid\SerialColumn'],
 //                            'id',
-                            'transaction',
+                            [
+                                'attribute' => 'transaction',
+                                'format' => 'raw',
+                                'filter' => [0 => 'Opening', 1 => 'Addition', 2 => 'Deduction'],
+                                'value' => function ($model) {
+                                    if ($model->transaction == 0) {
+                                        return 'Opening';
+                                    } elseif ($model->transaction == 1) {
+                                        return 'Addition';
+                                    } elseif ($model->transaction == 2) {
+                                        return 'Deduction';
+                                    } else {
+                                        return '';
+                                    }
+                                },
+                            ],
                             'document_no',
                             'document_date',
 //                            'status',
@@ -40,7 +55,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             // 'UB',
                             // 'DOC',
                             // 'DOU',
-                            ['class' => 'yii\grid\ActionColumn'],
+                            ['class' => 'yii\grid\ActionColumn',
+                                'template' => '{view}',
+                            ],
                         ],
                     ]);
                     ?>

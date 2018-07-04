@@ -39,7 +39,7 @@ class ProductStockRegister extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['product_id', 'stock_in', 'stock_out', 'warehouse', 'unit', 'status', 'CB', 'UB'], 'integer'],
+            [['product_id', 'stock_in', 'stock_out', 'warehouse', 'unit', 'status', 'CB', 'UB','type','document_line_id'], 'integer'],
             [['DOC', 'DOU'], 'safe'],
             [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => FinishedProduct::className(), 'targetAttribute' => ['product_id' => 'id']],
             [['warehouse'], 'exist', 'skipOnError' => true, 'targetClass' => Warehouse::className(), 'targetAttribute' => ['warehouse' => 'id']],

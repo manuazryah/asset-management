@@ -132,6 +132,9 @@ AppAsset::register($this);
                                     <li>
                                         <?= Html::a('<i class="fa fa-angle-double-right"></i> Row Material', ['/stock/material-adjustment-master/index'], ['class' => 'title']) ?>
                                     </li>
+                                    <li>
+                                        <?= Html::a('<i class="fa fa-angle-double-right"></i> Product', ['/stock/product-adjustment-master/index'], ['class' => 'title']) ?>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>
@@ -327,6 +330,9 @@ AppAsset::register($this);
                                     <ul style="display: none;">
                                         <li>
                                             <?= Html::a('<i class="fa fa-angle-double-right"></i> Row Material', ['/stock/material-adjustment-master/index'], ['class' => 'title']) ?>
+                                        </li>
+                                        <li>
+                                            <?= Html::a('<i class="fa fa-angle-double-right"></i> Product', ['/stock/product-adjustment-master/index'], ['class' => 'title']) ?>
                                         </li>
                                     </ul>
                                 </li>

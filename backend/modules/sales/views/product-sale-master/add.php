@@ -96,7 +96,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <tr class="filter" id="item-row-1">
                             <td>
                                 <div class="form-group field-stockadjdtl-item_code has-success">
-                                    <select id="productsale_id-1" class="form-control product_id add-next" name="ProductSaleDetailsMaterial[1]" aria-invalid="false">
+                                    <select id="productsale_id-1" class="form-control product_id add-next" name="ProductSaleDetailsMaterial[1]" aria-invalid="false" required>
                                         <option value="">-Choose a Product-</option>
                                         <?php foreach ($items as $value) { ?>
                                             <option value="<?= $value->id ?>"><?= $value->product_name ?></option>
@@ -109,8 +109,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             </td>
                             <td>
                                 <div class="form-group">
-                                    <input type="number" id="productsale_qty-1" class="form-control productsale_qty" name="ProductSaleDetailsQty[1]" placeholder="Qty" min="1" aria-invalid="false" autocomplete="off">
-                                    <div class="help-block"></div>
+                                    <input type="number" id="productsale_qty-1" class="form-control productsale_qty" name="ProductSaleDetailsQty[1]" placeholder="Qty" min="1" aria-invalid="false" autocomplete="off" required="">
+                                    <div style="display: none;"class="avail-stock-div" id="avail-stock-div-1"><strong>AVL:<span id="avail-stock-1"></span></strong></div>
+                                    <input type="hidden" id="invoice-avail-qty-1" value="0"/>
                                 </div>
                                 <div class="stock-check" id="stock-check-1" style="display:none;">
                                     <p style="font-size: 10px;font-weight: bold;color: #ef6262;">Stock :<span class="stock-exist" id="stock-exist-1"></span></p>
@@ -193,8 +194,9 @@ $this->params['breadcrumbs'][] = $this->title;
             } else {
                 alert('This Item is already Choosed');
                 $('#productsale_id-' + current_row_id).val('');
-                $('#stock-check-' + current_row_id).css('display', 'none');
-                $("#stock-exist-" + current_row_id + " span").text('');
+                $('#invoice-avail-qty-' + current_row_id).val(0);
+                $("#avail-stock-div-" + current_row_id).css("display", "none");
+                $('#productsale_qty-' + current_row_id).attr('max', '');
                 $('#productsale_qty-' + current_row_id).val('');
                 $("#productsale_unit-" + current_row_id).val('');
                 $('#productsale_comment-' + current_row_id).val('');
@@ -240,6 +242,22 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             });
         });
+
+        $(document).on('keyup mouseup', '.productsale_qty', function (e) {
+            var current_row_id = $(this).attr('id').match(/\d+/); // 123456
+            var qty = $(this).val();
+            var item = $('#productsale_id-' + current_row_id).val();
+            if (item == '') {
+                $('#productsale_qty-' + current_row_id).val('');
+                e.preventDefault();
+            } else {
+                var material_availqty_val = parseInt($("#invoice-avail-qty-" + current_row_id).val());
+                if (qty > material_availqty_val) {
+                    alert('Quantity exeeds the available quantity');
+                    $('#productsale_qty-' + current_row_id).val(material_availqty_val);
+                }
+            }
+        });
     });
     function productChange(item_id, current_row_id, next_row_id) {
         var next = parseInt(next_row_id) + 1;
@@ -252,11 +270,10 @@ $this->params['breadcrumbs'][] = $this->title;
             success: function (data) {
                 var res = $.parseJSON(data);
                 $("#productsale_unit-" + current_row_id).val(res.result['unit']);
-                $("#stock-exist-" + current_row_id).text(res.result['avail_qty']);
-                $('#stock-check-' + current_row_id).css('display', 'block');
-                if (res.result['avail_qty'] > 0) {
-                    $('#productsale_qty-' + current_row_id).val(1);
-                }
+                $("#invoice-avail-qty-" + current_row_id).val(res.result['avail_qty']);
+                $("#productsale_qty-" + current_row_id).val('');
+                $("#avail-stock-" + current_row_id).text(res.result['avail_qty']);
+                $("#avail-stock-div-" + current_row_id).css("display", "block");
                 $('#productsale_qty-' + current_row_id).attr('max', res.result['avail_qty']);
             }
         });

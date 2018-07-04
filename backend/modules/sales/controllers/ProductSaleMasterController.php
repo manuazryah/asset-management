@@ -89,11 +89,14 @@ class ProductSaleMasterController extends Controller {
             try {
                 if ($model_master->save() && $this->AddSaleDetails($arr, $model_master)) {
                     $transaction->commit();
+                    Yii::$app->session->setFlash('success', "Invoice Created successfully");
                 } else {
                     $transaction->rollBack();
+                    Yii::$app->session->setFlash('error', "There was a problem creating new invoice. Please try again.");
                 }
             } catch (Exception $e) {
                 $transaction->rollBack();
+                Yii::$app->session->setFlash('error', "There was a problem creating new invoice. Please try again.");
             }
             return $this->redirect(Yii::$app->request->referrer);
         }
@@ -163,7 +166,9 @@ class ProductSaleMasterController extends Controller {
     public function AddStockRegister($aditional) {
         $flag = 0;
         $stock = new ProductStockRegister();
+        $stock->document_line_id = $aditional->id;
         $stock->product_id = $aditional->material;
+        $stock->type = 1;
         $stock->stock_out = $aditional->quantity;
         $stock->unit = $aditional->unit;
         $stock->status = 1;
