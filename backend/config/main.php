@@ -46,6 +46,9 @@ return [
         'sales' => [
             'class' => 'backend\modules\sales\Module',
         ],
+        'reports' => [
+            'class' => 'backend\modules\reports\Module',
+        ],
     ],
     'components' => [
         'request' => [

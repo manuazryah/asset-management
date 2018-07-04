@@ -179,6 +179,17 @@ AppAsset::register($this);
                     </li>
                     <li>
                         <a href="">
+                            <i class="fa fa-print"></i>
+                            <span class="title">Reports</span>
+                        </a>
+                        <ul>
+                            <li>
+                                <?= Html::a('<i class="fa fa-angle-double-right"></i>Purchase Report', ['/reports/purchase-report/index'], ['class' => 'title']) ?>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="">
                             <i class="fa fa-database"></i>
                             <span class="title">Masters</span>
                         </a>
@@ -373,6 +384,17 @@ AppAsset::register($this);
                                 </li>
                                 <li>
                                     <?= Html::a('<i class="fa fa-angle-double-right"></i> Customers', ['/masters/customers/index'], ['class' => 'title']) ?>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="">
+                                <i class="fa fa-print"></i>
+                                <span class="title">Reports</span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <?= Html::a('<i class="fa fa-angle-double-right"></i>Purchase Report', ['/reports/purchase-report/index'], ['class' => 'title']) ?>
                                 </li>
                             </ul>
                         </li>
