@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel common\models\ProductSaleMasterSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Sale';
+$this->title = 'Sales List';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="product-sale-master-index">
@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
                         'columns' => [
-                            ['class' => 'yii\grid\SerialColumn'],
+                                ['class' => 'yii\grid\SerialColumn'],
 //                                                            'id',
                             'date',
                             'invoice_no',
@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             [
                                 'class' => 'yii\grid\ActionColumn',
                                 'template' => '{view}',
-                                ],
+                            ],
                         ],
                     ]);
                     ?>

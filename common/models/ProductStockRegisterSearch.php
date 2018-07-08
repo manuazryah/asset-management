@@ -10,24 +10,22 @@ use common\models\ProductStockRegister;
 /**
  * ProductStockRegisterSearch represents the model behind the search form about `common\models\ProductStockRegister`.
  */
-class ProductStockRegisterSearch extends ProductStockRegister
-{
+class ProductStockRegisterSearch extends ProductStockRegister {
+
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['id', 'product_id', 'stock_in', 'stock_out', 'warehouse', 'unit', 'status', 'CB', 'UB'], 'integer'],
-            [['DOC', 'DOU'], 'safe'],
+                [['id', 'product_id', 'stock_in', 'stock_out', 'warehouse', 'unit', 'status', 'CB', 'UB'], 'integer'],
+                [['DOC', 'DOU'], 'safe'],
         ];
     }
 
     /**
      * @inheritdoc
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -39,9 +37,8 @@ class ProductStockRegisterSearch extends ProductStockRegister
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
-        $query = ProductStockRegister::find();
+    public function search($params) {
+        $query = ProductStockRegister::find()->orderBy(['id' => SORT_DESC]);
 
         // add conditions that should always apply here
 
@@ -74,4 +71,5 @@ class ProductStockRegisterSearch extends ProductStockRegister
 
         return $dataProvider;
     }
+
 }

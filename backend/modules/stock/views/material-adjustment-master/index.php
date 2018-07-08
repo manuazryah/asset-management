@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel common\models\MaterialAdjustmentMasterSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Material Stock Adjustment';
+$this->title = 'Adjust Material Stock';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="material-adjustment-master-index">
@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
                         'columns' => [
-                            ['class' => 'yii\grid\SerialColumn'],
+                                ['class' => 'yii\grid\SerialColumn'],
 //                            'id',
                             [
                                 'attribute' => 'transaction',

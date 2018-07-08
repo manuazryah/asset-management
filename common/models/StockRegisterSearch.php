@@ -10,25 +10,23 @@ use common\models\StockRegister;
 /**
  * StockRegisterSearch represents the model behind the search form about `common\models\StockRegister`.
  */
-class StockRegisterSearch extends StockRegister
-{
+class StockRegisterSearch extends StockRegister {
+
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['id', 'type', 'document_line_id', 'item_id', 'warehouse', 'shelf', 'weight_in', 'weight_out', 'balance_qty', 'status', 'CB', 'UB'], 'integer'],
-            [['invoice_no', 'invoice_date', 'item_code', 'item_name', 'DOC', 'DOU'], 'safe'],
-            [['item_cost'], 'number'],
+                [['id', 'type', 'document_line_id', 'item_id', 'warehouse', 'shelf', 'weight_in', 'weight_out', 'balance_qty', 'status', 'CB', 'UB'], 'integer'],
+                [['invoice_no', 'invoice_date', 'item_code', 'item_name', 'DOC', 'DOU'], 'safe'],
+                [['item_cost'], 'number'],
         ];
     }
 
     /**
      * @inheritdoc
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -40,9 +38,8 @@ class StockRegisterSearch extends StockRegister
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
-        $query = StockRegister::find();
+    public function search($params) {
+        $query = StockRegister::find()->orderBy(['id' => SORT_DESC]);
 
         // add conditions that should always apply here
 
@@ -79,9 +76,10 @@ class StockRegisterSearch extends StockRegister
         ]);
 
         $query->andFilterWhere(['like', 'invoice_no', $this->invoice_no])
-            ->andFilterWhere(['like', 'item_code', $this->item_code])
-            ->andFilterWhere(['like', 'item_name', $this->item_name]);
+                ->andFilterWhere(['like', 'item_code', $this->item_code])
+                ->andFilterWhere(['like', 'item_name', $this->item_name]);
 
         return $dataProvider;
     }
+
 }

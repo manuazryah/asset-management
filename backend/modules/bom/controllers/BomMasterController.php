@@ -48,6 +48,11 @@ class BomMasterController extends Controller {
     public function actionIndex() {
         $searchModel = new BomMasterSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if (!empty(Yii::$app->request->queryParams['BomMasterSearch']['status'])) {
+            $dataProvider->query->andWhere(['status' => Yii::$app->request->queryParams['BomMasterSearch']['status']]);
+        } else {
+            $dataProvider->query->andWhere(['<>', 'status', 3]);
+        }
 
         return $this->render('index', [
                     'searchModel' => $searchModel,
@@ -302,6 +307,9 @@ class BomMasterController extends Controller {
      */
     public function actionUpdate($id) {
         $model = $this->findModel($id);
+        if ($model->status == 2) {
+            return $this->redirect('index');
+        }
         $model_bom = \common\models\Bom::find()->where(['master_id' => $model->id])->all();
         $supplier_materials = \common\models\SupplierwiseRowMaterial::find()->all();
         if ($model->load(Yii::$app->request->post())) {
@@ -631,6 +639,7 @@ class BomMasterController extends Controller {
         if (Yii::$app->request->isAjax) {
             $item_id = $_POST['item_id'];
             $current_row_id = $_POST['current_row_id'];
+            $product_qty = $_POST['product_qty'];
             $finished_products = \common\models\FinishedProduct::find()->where(['id' => $item_id])->one();
             $material_details = \common\models\BomDetails::find()->where(['finished_product_id' => $finished_products->id])->all();
             $supplier_materials = \common\models\SupplierwiseRowMaterial::find()->all();
@@ -639,6 +648,7 @@ class BomMasterController extends Controller {
                 'material_details' => $material_details,
                 'current_row_id' => $current_row_id,
                 'supplier_materials' => $supplier_materials,
+                'product_qty' => $product_qty,
             ]);
             $arr_variable1 = array('new_row' => $new_row, 'product_comment' => $finished_products->comment);
             $data['result'] = $arr_variable1;
@@ -707,9 +717,9 @@ class BomMasterController extends Controller {
         $model_bom = \common\models\Bom::find()->where(['master_id' => $model->id])->one();
         $model_bom_material = \common\models\BomMaterialDetails::find()->where(['bom_id' => $model_bom->id])->all();
         return $this->renderPartial('job-order', [
-                        'model' => $model,
-                        'model_bom' => $model_bom,
-                        'model_bom_material' => $model_bom_material,
+                    'model' => $model,
+                    'model_bom' => $model_bom,
+                    'model_bom_material' => $model_bom_material,
         ]);
     }
 

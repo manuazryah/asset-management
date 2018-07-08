@@ -2,9 +2,10 @@
     <td>
         <select id="invoice-item_id-<?= $next ?>" class="form-control invoice-item_id" name="create[item_id][<?= $next ?>]" required>
             <option value="">-Choose a Item-</option>
-            <?php foreach ($item_datas as $item_data) {
+            <?php
+            foreach ($item_datas as $key => $item_data) {
                 ?>
-                <option value="<?= $item_data->id ?>"><?= $item_data->item_name ?></option>
+                <option value="<?= $key ?>"><?= $item_data ?></option>
             <?php }
             ?>
         </select>

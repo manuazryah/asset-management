@@ -18,38 +18,36 @@ use Yii;
  *
  * @property SupplierwiseRowMaterial $material
  */
-class StockView extends \yii\db\ActiveRecord
-{
+class StockView extends \yii\db\ActiveRecord {
+
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'stock_view';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['material_id', 'available_qty', 'status', 'CB', 'UB','reserved_qty'], 'integer'],
-            [['DOC', 'DOU'], 'safe'],
-            [['material_id'], 'exist', 'skipOnError' => true, 'targetClass' => SupplierwiseRowMaterial::className(), 'targetAttribute' => ['material_id' => 'id']],
+                [['material_id', 'available_qty', 'status', 'CB', 'UB', 'reserved_qty'], 'integer'],
+                [['DOC', 'DOU'], 'safe'],
+                [['material_id'], 'exist', 'skipOnError' => true, 'targetClass' => SupplierwiseRowMaterial::className(), 'targetAttribute' => ['material_id' => 'id']],
         ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'material_id' => 'Material ID',
             'available_qty' => 'Available Qty',
             'status' => 'Status',
+            'reserved_qty' => 'Reserved Quantity',
             'CB' => 'Cb',
             'UB' => 'Ub',
             'DOC' => 'Doc',
@@ -60,8 +58,8 @@ class StockView extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getMaterial()
-    {
+    public function getMaterial() {
         return $this->hasOne(SupplierwiseRowMaterial::className(), ['id' => 'material_id']);
     }
+
 }

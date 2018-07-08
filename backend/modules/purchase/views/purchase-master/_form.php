@@ -57,12 +57,18 @@ use kartik\date\DatePicker;
             <input type="hidden" value="1" name="next_item_id" id="next_item_id"/>
             <tr class="filter" id="item-row-1">
                 <td>
-                    <?php $item_datas = SupplierwiseRowMaterial::findAll(['status' => 1]); ?>
+                    <?php
+                    $item_datas = ArrayHelper::map(SupplierwiseRowMaterial::find()->where(['status' => 1])->all(), 'id', function($model) {
+                                return $model['item_name'] . ' - ' . common\models\RowMaterialCategory::findOne($model['material_ctegory'])->category;
+                            }
+                    );
+                    ?>
                     <select id="invoice-item_id-1" class="form-control invoice-item_id" name="create[item_id][1]" required>
                         <option value="">-Choose a Item-</option>
-                        <?php foreach ($item_datas as $item_data) {
+                        <?php
+                        foreach ($item_datas as $key => $item_data) {
                             ?>
-                            <option value="<?= $item_data->id ?>"><?= $item_data->item_name ?></option>
+                            <option value="<?= $key ?>"><?= $item_data ?></option>
                         <?php }
                         ?>
                     </select>
@@ -115,8 +121,18 @@ use kartik\date\DatePicker;
     <?php ActiveForm::end(); ?>
 
 </div>
+<link rel="stylesheet" href="<?= Yii::$app->homeUrl; ?>css/select2.css">
+<link rel="stylesheet" href="<?= Yii::$app->homeUrl; ?>css/select2-bootstrap.css">
+<script src="<?= Yii::$app->homeUrl; ?>js/select2.min.js"></script>
 <script>
     $(document).ready(function () {
+
+        $('#invoice-item_id-1').select2({
+            allowClear: true
+        }).on('select2-open', function ()
+        {
+            $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+        });
         $(document).on('click', '#add_another_line', function (e) {
             e.preventDefault();
             var next_row_id = $('#next_item_id').val();
@@ -132,6 +148,12 @@ use kartik\date\DatePicker;
                     console.log(res);
                     $('#add-invoicee tr:last').after(res.result['next_row_html']);
                     $("#next_item_id").val(next);
+                    $('#invoice-item_id-' + next).select2({
+                        allowClear: true
+                    }).on('select2-open', function ()
+                    {
+                        $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+                    });
                 }
             });
         });
@@ -187,6 +209,7 @@ use kartik\date\DatePicker;
                 $("#invoice-price-" + current_row_id).val(res.result['price']);
                 $("#invoice-unit-" + current_row_id).text(res.result['unit']);
                 lineTotalAmount(current_row_id);
+                $('#invoice-qty-' + current_row_id).focus();
             }
         });
         return true;

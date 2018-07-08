@@ -29,14 +29,15 @@ $this->params['breadcrumbs'][] = $this->title;
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
                         'columns' => [
-                            ['class' => 'yii\grid\SerialColumn'],
-                            [
+                                ['class' => 'yii\grid\SerialColumn'],
+                                [
                                 'attribute' => 'material_id',
                                 'label' => 'Item Name',
                                 'value' => 'material.item_name',
                                 'filter' => ArrayHelper::map(SupplierwiseRowMaterial::find()->asArray()->all(), 'id', 'item_name'),
                             ],
                             'available_qty',
+                            'reserved_qty',
 //            'status',
 //            'CB',
                         // 'UB',

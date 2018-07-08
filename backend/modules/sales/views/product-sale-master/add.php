@@ -10,7 +10,7 @@ use kartik\date\DatePicker;
 /* @var $this yii\web\View */
 /* @var $model common\models\EstimatedProforma */
 
-$this->title = 'Sale';
+$this->title = 'New Sale';
 $this->params['breadcrumbs'][] = ['label' => ' Pre-Funding', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <?php //Pjax::begin();       ?>
             <div class="panel-body">
-                <?= Html::a('<i class="fa-th-list"></i><span> Manage Sale</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                <?= Html::a('<i class="fa-th-list"></i><span> Sales List</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                 <div class="modal fade" id="modal-6">
                     <div class="modal-dialog" id="modal-pop-up">
 

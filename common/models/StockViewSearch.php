@@ -10,24 +10,22 @@ use common\models\StockView;
 /**
  * StockViewSearch represents the model behind the search form about `common\models\StockView`.
  */
-class StockViewSearch extends StockView
-{
+class StockViewSearch extends StockView {
+
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['id', 'material_id', 'available_qty', 'status', 'CB', 'UB'], 'integer'],
-            [['DOC', 'DOU'], 'safe'],
+                [['id', 'material_id', 'available_qty', 'status', 'CB', 'UB'], 'integer'],
+                [['DOC', 'DOU'], 'safe'],
         ];
     }
 
     /**
      * @inheritdoc
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -39,9 +37,8 @@ class StockViewSearch extends StockView
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
-        $query = StockView::find();
+    public function search($params) {
+        $query = StockView::find()->orderBy(['id' => SORT_DESC]);
 
         // add conditions that should always apply here
 
@@ -71,4 +68,5 @@ class StockViewSearch extends StockView
 
         return $dataProvider;
     }
+
 }

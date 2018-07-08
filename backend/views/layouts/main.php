@@ -87,7 +87,7 @@ AppAsset::register($this);
                     }
                     ?>
                     <li>
-                        <?= Html::a('<i class="fa fa-shopping-cart"></i> <span class="title">BOM</span>', ['/bom/bom-master/index'], ['class' => 'title']) ?>
+                        <?= Html::a('<i class="fa fa-shopping-cart"></i> <span class="title">Job Order(BOM)</span>', ['/bom/bom-master/index'], ['class' => 'title']) ?>
                     </li>
                     <li class="has-sub">
                         <a href="">
@@ -297,7 +297,7 @@ AppAsset::register($this);
                         }
                         ?>
                         <li>
-                            <?= Html::a('<i class="fa fa-shopping-cart"></i> <span class="title">BOM</span>', ['/bom/bom-master/index'], ['class' => 'title']) ?>
+                            <?= Html::a('<i class="fa fa-shopping-cart"></i> <span class="title">Job Order(BOM)</span>', ['/bom/bom-master/index'], ['class' => 'title']) ?>
                         </li>
                         <li class="has-sub">
                             <a href="">

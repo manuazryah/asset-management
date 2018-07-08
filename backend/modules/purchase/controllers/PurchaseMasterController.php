@@ -10,12 +10,13 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\models\PurchaseDetails;
 use common\models\StockView;
+use yii\helpers\ArrayHelper;
 
 /**
  * PurchaseMasterController implements the CRUD actions for PurchaseMaster model.
  */
 class PurchaseMasterController extends Controller {
-    
+
     public function beforeAction($action) {
         if (!parent::beforeAction($action)) {
             return false;
@@ -286,7 +287,10 @@ class PurchaseMasterController extends Controller {
         if (Yii::$app->request->isAjax) {
             $next_row_id = $_POST['next_row_id'];
             $next = $next_row_id + 1;
-            $item_datas = \common\models\SupplierwiseRowMaterial::findAll(['status' => 1]);
+            $item_datas = ArrayHelper::map(\common\models\SupplierwiseRowMaterial::find()->where(['status' => 1])->all(), 'id', function($model) {
+                        return $model['item_name'] . ' - ' . \common\models\RowMaterialCategory::findOne($model['material_ctegory'])->category;
+                    }
+            );
             $warehouse_datas = \common\models\Warehouse::findAll(['status' => 1]);
             $shelf_datas = \common\models\ShelfDetails::findAll(['status' => 1]);
             $next_row = $this->renderPartial('next_row', [
@@ -317,7 +321,7 @@ class PurchaseMasterController extends Controller {
                 $item_datas = \common\models\SupplierwiseRowMaterial::find()->where(['id' => $item_id])->one();
                 if (!empty($item_datas)) {
                     $price = $item_datas->purchase_price;
-                        $unit = $item_datas->item_unit != '' ? \common\models\Unit::findOne($item_datas->item_unit)->unit_name : '';
+                    $unit = $item_datas->item_unit != '' ? \common\models\Unit::findOne($item_datas->item_unit)->unit_name : '';
                 }
                 $arr_variable1 = array('unit' => $unit, 'price' => $price);
                 $data1['result'] = $arr_variable1;

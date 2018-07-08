@@ -26,7 +26,7 @@
                     }
                 }
                 ?>
-        <tr style="border: none;">
+                <tr style="border: none;">
                     <td>
                         <select id="invoice-material_id_<?= $current_row_id ?>-<?= $k ?>" class="form-control invoice-material_id" name="creatematerial[<?= $current_row_id ?>][material_id][]" required>
                             <option value="">Select Material</option>
@@ -38,9 +38,10 @@
                         <span id="material_comment_<?= $current_row_id ?>-<?= $k ?>">Comment : <?= $row_material->comment ?></span>
                     </td>
                     <td>
-                         <input id="material_qty_val_<?= $current_row_id ?>-<?= $k ?>" type="hidden" autocomplete="off" class="form-control" name="creatematerial[<?= $current_row_id ?>][material_qty_val][]" value="<?= $value->quantity ?>"placeholder="Material" required readonly>
-                            <input id="material_qty_<?= $current_row_id ?>-<?= $k ?>" data-val="<?= $current_row_id ?>" type="number" min="1" max="<?= $avail - $avail_reserve ?>" autocomplete="off" class="form-control material_qty" name="creatematerial[<?= $current_row_id ?>][material_qty][]" value="<?= $value->quantity ?>"placeholder="Qty" required>
-                            <span title="Available Quantity">AVL : <span id="material_avail_qty_<?= $current_row_id ?>-<?= $k ?>"><?= $avail ?></span> </span><span title="Reserved Quantity" style="float:right">RES : <span id="material_reserve_qty_<?= $current_row_id ?>-<?= $k ?>"><?= $avail_reserve ?></span></span>
+                        <input id="material_qty_val_<?= $current_row_id ?>-<?= $k ?>" type="hidden" autocomplete="off" class="form-control" name="creatematerial[<?= $current_row_id ?>][material_qty_val][]" value="<?= $value->quantity ?>"placeholder="Material" required readonly>
+                        <input id="material_qty_<?= $current_row_id ?>-<?= $k ?>" data-val="<?= $current_row_id ?>" type="number" min="1" max="<?= $avail - $avail_reserve ?>" autocomplete="off" class="form-control material_qty" name="creatematerial[<?= $current_row_id ?>][material_qty][]" value="<?= $value->quantity ?>"placeholder="Qty" required>
+                        <span title="Available Quantity">AVL : <span id="material_avail_qty_<?= $current_row_id ?>-<?= $k ?>"><?= $avail ?></span> </span><span title="Reserved Quantity" style="float:right">RES : <span id="material_reserve_qty_<?= $current_row_id ?>-<?= $k ?>"><?= $avail_reserve ?></span></span><br>
+                        <span title="Requested Quantity" style="color:red;" id="material_requested_qty_<?= $current_row_id ?>-<?= $k ?>"></span>
                     </td>
                     <td>
                         <span id="material_unit_<?= $current_row_id ?>-<?= $k ?>"><?= $value->unit != '' ? \common\models\Unit::findOne($value->unit)->unit_name : '' ?></span>
@@ -48,7 +49,7 @@
                     <td>
                         <input id="material_comment_<?= $current_row_id ?>" type="text" autocomplete="off" class="form-control" name="creatematerial[<?= $current_row_id ?>][material_comment][]" value=""placeholder="Comment">
                     </td>
-                    <td></td>
+                    <td style="margin-top:6px;"><a id="del" style="border: 1px solid red;padding: 5px 10px;color: red;background: #ecc8c8;" ><i class="fa fa-times material-row-delete" title="Remove Row"></i></a></td>
                 </tr>
                 <?php
             }

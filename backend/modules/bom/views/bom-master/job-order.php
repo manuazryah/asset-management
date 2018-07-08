@@ -51,6 +51,10 @@
         .signature table{
             width: 100%;
         }
+        #print{
+            border: 1px solid #9a9898;
+            padding: 10px 15px;
+        }
     </style>
     <table class="main-tbl">
         <thead>
@@ -100,7 +104,7 @@
                                     if (!empty($bom_material)) {
                                         ?>
                                         <tr>
-                                            <td><?= $bom_material->material != ''? \common\models\SupplierwiseRowMaterial::findOne($bom_material->material)->item_name :'' ?></td>
+                                            <td><?= $bom_material->material != '' ? \common\models\SupplierwiseRowMaterial::findOne($bom_material->material)->item_name : '' ?></td>
                                             <td><?= $bom_material->quantity ?></td>
                                             <td><?= $bom_material->actual_qty ?></td>
                                         </tr>
@@ -149,6 +153,6 @@
     }
 </script>
 <div class="print" style="text-align: center;">
-        <button onclick="printContent('print')" style="font-weight: bold !important;">Print</button>
-        <button onclick="window.close();" style="font-weight: bold !important;">Close</button>
-    </div>
+    <button onclick="printContent('print')" style="font-weight: bold !important;">Print</button>
+    <button onclick="window.close();" style="font-weight: bold !important;">Close</button>
+</div>

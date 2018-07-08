@@ -9,7 +9,7 @@ use yii\helpers\Url;
 /* @var $searchModel common\models\BomMasterSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'BOM';
+$this->title = 'Job Order(BOM) List';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bom-master-index">
@@ -26,15 +26,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="panel-body">
                     <?= \common\components\AlertMessageWidget::widget() ?>
 
-                    <?= Html::a('<i class="fa-th-list"></i><span> Create Bom</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                    <?= Html::a('<i class="fa-th-list"></i><span> Create Job Order</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                     <?=
                     GridView::widget([
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
                         'columns' => [
-                            ['class' => 'yii\grid\SerialColumn'],
+                                ['class' => 'yii\grid\SerialColumn'],
                             'bom_no',
-                            [
+                                [
                                 'attribute' => 'date',
                                 'value' => function ($data) {
                                     return date("Y-m-d", strtotime($data->date));
@@ -44,8 +44,24 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ],
                                 'filter' => DateRangePicker::widget(['model' => $searchModel, 'attribute' => 'date', 'pluginOptions' => ['format' => 'd-m-Y', 'autoUpdateInput' => false]]),
                             ],
+                                [
+                                'attribute' => 'status',
+                                'format' => 'raw',
+                                'filter' => [1 => 'Pending', 2 => 'Production', 3 => 'Completed'],
+                                'value' => function ($model) {
+                                    if ($model->status == 1) {
+                                        return 'Pending';
+                                    } elseif ($model->status == 2) {
+                                        return 'Production';
+                                    } elseif ($model->status == 3) {
+                                        return 'Completed';
+                                    } else {
+                                        return '';
+                                    }
+                                },
+                            ],
                             'comment',
-                            ['class' => 'yii\grid\ActionColumn',
+                                ['class' => 'yii\grid\ActionColumn',
                                 'template' => '{view}{update}{joborder}',
                                 'contentOptions' => ['style' => 'width:100px;'],
                                 'buttons' => [
@@ -72,12 +88,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ],
                                 'urlCreator' => function ($action, $model) {
                                     if ($action === 'update') {
-                                        if($model->status ==2){
+                                        if ($model->status == 2) {
                                             $url = Url::to(['production', 'id' => $model->id]);
-                                        }elseif($model->status ==1){
+                                        } elseif ($model->status == 1) {
                                             $url = Url::to(['update', 'id' => $model->id]);
-                                        }else{
-                                            $url='';
+                                        } else {
+                                            $url = '';
                                         }
                                         return $url;
                                     }

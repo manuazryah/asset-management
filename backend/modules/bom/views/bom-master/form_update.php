@@ -7,7 +7,7 @@ use kartik\date\DatePicker;
 /* @var $this yii\web\View */
 /* @var $model common\models\BomMaster */
 
-$this->title = 'Update Bom';
+$this->title = 'Update Job Order(BOM)';
 $this->params['breadcrumbs'][] = ['label' => 'Bom Masters', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
@@ -22,8 +22,8 @@ $this->params['breadcrumbs'][] = 'Update';
 
             </div>
             <div class="panel-body">
-                <?= Html::a('<i class="fa-th-list"></i><span> Manage Bom Master</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
-                <?= Html::a('<i class="fa-print"></i><span> Generate Job Order</span>', ['job-order', 'id' => $model->id], ['class' => 'btn btn-secondary btn-icon btn-icon-standalone','target'=>'blank']) ?>
+                <?= Html::a('<i class="fa-th-list"></i><span> Manage Job Order</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                <?= Html::a('<i class="fa-print"></i><span> Generate Job Order</span>', ['job-order', 'id' => $model->id], ['class' => 'btn btn-secondary btn-icon btn-icon-standalone', 'target' => 'blank']) ?>
                 <ul class="nav nav-tabs nav-tabs-justified">
                     <li  class="active">
                         <?php

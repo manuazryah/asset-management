@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     </li>
                     <li>
-                        <a><span class="visible-xs"><i class="fa-home"></i></span><span class="hidden-xs">BOM Details</span></a>
+                        <a><span class="visible-xs"><i class="fa-home"></i></span><span class="hidden-xs">Target</span></a>
 
                     </li>
 

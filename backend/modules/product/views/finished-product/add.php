@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </li>
                     <li class="active">
                         <?php
-                        echo Html::a('<span class="visible-xs"><i class="fa-home"></i></span><span class="hidden-xs">BOM Details</span>', ['finished-product/add', 'id' => $finished_product->id]);
+                        echo Html::a('<span class="visible-xs"><i class="fa-home"></i></span><span class="hidden-xs">Target</span>', ['finished-product/add', 'id' => $finished_product->id]);
                         ?>
 
                     </li>
@@ -94,7 +94,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         $deselct_ids[] = $bom_detail->row_material_id;
                                     }
                                 }
-                                $romaterial_datas = ArrayHelper::map(\common\models\SupplierwiseRowMaterial::find()->where(['status' => 1])->andFilterWhere(['NOT IN', 'id', $deselct_ids])->all(), 'id', function($model) {
+                                $romaterial_datas = ArrayHelper::map(\common\models\SupplierwiseRowMaterial::find()->where(['status' => 1])->all(), 'id', function($model) {
                                             return ucfirst($model['item_name'] . ' ( ' . $model['item_code'] . ' ) ');
                                         }
                                 );

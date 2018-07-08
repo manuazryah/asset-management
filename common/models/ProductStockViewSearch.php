@@ -10,24 +10,22 @@ use common\models\ProductStockView;
 /**
  * ProductStockViewSearch represents the model behind the search form about `common\models\ProductStockView`.
  */
-class ProductStockViewSearch extends ProductStockView
-{
+class ProductStockViewSearch extends ProductStockView {
+
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['id', 'product_id', 'available_qty', 'unit', 'status', 'CB', 'UB'], 'integer'],
-            [['DOC', 'DOU'], 'safe'],
+                [['id', 'product_id', 'available_qty', 'unit', 'status', 'CB', 'UB'], 'integer'],
+                [['DOC', 'DOU'], 'safe'],
         ];
     }
 
     /**
      * @inheritdoc
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -39,9 +37,8 @@ class ProductStockViewSearch extends ProductStockView
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
-        $query = ProductStockView::find();
+    public function search($params) {
+        $query = ProductStockView::find()->orderBy(['id' => SORT_DESC]);
 
         // add conditions that should always apply here
 
@@ -72,4 +69,5 @@ class ProductStockViewSearch extends ProductStockView
 
         return $dataProvider;
     }
+
 }

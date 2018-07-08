@@ -13,6 +13,9 @@ $model->bom_no = $this->context->getBomNo();
     .table_row{
         display: none;
     }
+    .control-label {
+        color: #6b6b6b;
+    }
 </style>
 <div class="bom-master-form form-inline">
     <?= \common\components\AlertMessageWidget::widget() ?>
@@ -138,7 +141,8 @@ $model->bom_no = $this->context->getBomNo();
         $(document).on('change', '.product_id', function (e) {
             var current_row_id = $(this).attr('id').match(/\d+/); // 123456
             var item_id = $(this).val();
-            itemChange(item_id, current_row_id);
+            var product_qty = $('#product_qty-' + current_row_id).val();
+            itemChange(item_id, current_row_id, product_qty);
         });
         $(document).on('click', '.box_btn', function (e) {
             var current_row_id = $(this).attr('id').match(/\d+/); // 123456
@@ -265,17 +269,19 @@ $model->bom_no = $this->context->getBomNo();
                         $('#material_qty_' + current_row_id + '-' + i).val(qt_val);
                     } else {
                         $('#material_qty_' + current_row_id + '-' + i).val(material_availqty_val);
+                        $('#material_requested_qty_' + current_row_id + '-' + i).text('Requested Quantity : ' + parseFloat(product_qty) * parseFloat(material_qty_val));
+
                     }
                 }
             }
         }
     }
-    function itemChange(item_id, current_row_id) {
+    function itemChange(item_id, current_row_id, product_qty) {
         $.ajax({
             type: 'POST',
             cache: false,
             async: false,
-            data: {item_id: item_id, current_row_id: parseInt(current_row_id)},
+            data: {item_id: item_id, current_row_id: parseInt(current_row_id), product_qty: parseInt(product_qty)},
             url: '<?= Yii::$app->homeUrl; ?>bom/bom-master/get-items',
             success: function (data) {
                 var res = $.parseJSON(data);
