@@ -1510,3 +1510,20 @@ table.table tr td:last-child {
 .page-loading-overlay {
     background: #02020252;
 }
+.panel-footer{
+    display:none;
+}
+.kv-table-caption {
+    border: 1px solid #e6e4e4 !important;
+}
+.grid-view .panel-primary .panel-heading {
+    display: none;
+}
+.add-material{
+    color: #00a6f3 !important;
+    font-weight: 600 !important;
+    margin-bottom: 30px;
+}
+.add-material:hover{
+    background-color: white !important;
+}

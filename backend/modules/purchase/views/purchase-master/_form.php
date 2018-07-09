@@ -7,6 +7,8 @@ use common\models\Supplier;
 use common\models\SupplierwiseRowMaterial;
 use yii\helpers\ArrayHelper;
 use kartik\date\DatePicker;
+use yii\helpers\Url;
+use common\components\ModalViewWidget;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\PurchaseMaster */
@@ -15,6 +17,9 @@ use kartik\date\DatePicker;
 
 <div class="purchase-master-form form-inline">
     <?= \common\components\AlertMessageWidget::widget() ?>
+    <?php
+    echo ModalViewWidget::widget();
+    ?>
     <?php $form = ActiveForm::begin(); ?>
     <div class="row">
         <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
@@ -71,7 +76,7 @@ use kartik\date\DatePicker;
                             <option value="<?= $key ?>"><?= $item_data ?></option>
                         <?php }
                         ?>
-                    </select>
+                    </select><br/>
                 </td>
                 <td>
                     <input style="width: 70% !important" type="number" id="invoice-qty-1" value="" class="form-control invoice-qty" name="create[qty][1]" placeholder="Qty" min="1" aria-invalid="false" autocomplete="off"  step="any" required>
@@ -111,6 +116,7 @@ use kartik\date\DatePicker;
             </thead>
         </table>
     </div>
+    <?= Html::button('<span> Add New Material</span>', ['value' => Url::to('../purchase-master/add-material'), 'class' => 'btn btn-icon btn-white add-material modalButton']) ?>
     <a href="" id="add_another_line"><i class="fa fa-plus" aria-hidden="true"></i> Add Another Line</a>
 
     <div class="form-group">
@@ -121,6 +127,15 @@ use kartik\date\DatePicker;
     <?php ActiveForm::end(); ?>
 
 </div>
+<script>
+    $("document").ready(function () {
+        $(document).on('click', '.modalButton', function () {
+            $('#modal').modal('show')
+                    .find('#modalContent')
+                    .load($(this).attr("value"));
+        });
+    });
+</script>
 <link rel="stylesheet" href="<?= Yii::$app->homeUrl; ?>css/select2.css">
 <link rel="stylesheet" href="<?= Yii::$app->homeUrl; ?>css/select2-bootstrap.css">
 <script src="<?= Yii::$app->homeUrl; ?>js/select2.min.js"></script>

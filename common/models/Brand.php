@@ -31,7 +31,7 @@ class Brand extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['brand', 'CB', 'UB', 'DOC'], 'required'],
+            [['brand'], 'required'],
             [['CB', 'UB', 'status','set_as_default'], 'integer'],
             [['DOC', 'DOU'], 'safe'],
             [['brand'], 'string', 'max' => 200],

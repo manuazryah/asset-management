@@ -117,6 +117,9 @@ $model->bom_no = $this->context->getBomNo();
     <?php ActiveForm::end(); ?>
 
 </div>
+<link rel="stylesheet" href="<?= Yii::$app->homeUrl; ?>css/select2.css">
+<link rel="stylesheet" href="<?= Yii::$app->homeUrl; ?>css/select2-bootstrap.css">
+<script src="<?= Yii::$app->homeUrl; ?>js/select2.min.js"></script>
 <script>
     $(document).ready(function () {
         $(document).on('click', '#addbomdetails', function (event) {
@@ -146,6 +149,15 @@ $model->bom_no = $this->context->getBomNo();
         });
         $(document).on('click', '.box_btn', function (e) {
             var current_row_id = $(this).attr('id').match(/\d+/); // 123456
+            var rowCount = $('.table-' + current_row_id + ' tr').length;
+            for (i = 1; i <= rowCount; i++) {
+                $('#invoice-material_id_' + current_row_id + '-' + i).select2({
+                    allowClear: true
+                }).on('select2-open', function ()
+                {
+                    $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+                });
+            }
             $("#product_id-" + current_row_id).prop("disabled", true);
             $("#product_qty-" + current_row_id).prop("readonly", true);
             $("#box_btn-" + current_row_id).css('display', 'none');
@@ -223,6 +235,12 @@ $model->bom_no = $this->context->getBomNo();
                     console.log(res);
                     $('#add-materials tr:last').after(res.result['next_row_html']);
                     $("#material_cout_row-1").val(res.result['next']);
+                    $('#invoice-material_id_1-' + res.result['next']).select2({
+                        allowClear: true
+                    }).on('select2-open', function ()
+                    {
+                        $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+                    });
                     e.preventDefault();
                 }
             });

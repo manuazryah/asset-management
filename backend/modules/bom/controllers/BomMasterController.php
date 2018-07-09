@@ -709,6 +709,31 @@ class BomMasterController extends Controller {
     }
 
     /**
+     * This function Remove Material from material details.
+     */
+    public function actionRemoveMaterialDetails() {
+        $flag = 0;
+        if (Yii::$app->request->isAjax) {
+            $material_id = $_POST['material_id'];
+            $material_details = \common\models\BomMaterialDetails::find()->where(['id' => $material_id])->one();
+            if (!empty($material_details)) {
+                $reseve = $material_details->quantity;
+                $stock_view = StockView::find()->where(['material_id' => $material_details->material])->one();
+                if($material_details->delete()){
+                    $stock_view->reserved_qty -= $reseve;
+                    $stock_view->available_qty += $reseve;
+                    if($stock_view->update()){
+                        $flag = 1;
+                    }
+                }
+            } else {
+                $flag = 0;
+            }
+        }
+        return $flag;
+    }
+
+    /**
      * This function generate job order
      * @return new row
      */

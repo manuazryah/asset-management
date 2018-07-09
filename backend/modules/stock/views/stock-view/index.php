@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use yii\helpers\ArrayHelper;
 use common\models\SupplierwiseRowMaterial;
 
@@ -24,27 +24,47 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 </div>
                 <div class="panel-body">
-                    <?=
-                    GridView::widget([
-                        'dataProvider' => $dataProvider,
-                        'filterModel' => $searchModel,
-                        'columns' => [
-                                ['class' => 'yii\grid\SerialColumn'],
-                                [
-                                'attribute' => 'material_id',
-                                'label' => 'Item Name',
-                                'value' => 'material.item_name',
-                                'filter' => ArrayHelper::map(SupplierwiseRowMaterial::find()->asArray()->all(), 'id', 'item_name'),
-                            ],
-                            'available_qty',
-                            'reserved_qty',
-//            'status',
-//            'CB',
-                        // 'UB',
-                        // 'DOC',
-                        // 'DOU',
-//                                                ['class' => 'yii\grid\ActionColumn'],
+                    <?php
+                    $gridColumns = [
+                        ['class' => 'kartik\grid\SerialColumn'],
+                        [
+                            'attribute' => 'material_id',
+                            'label' => 'Item Name',
+                            'value' => 'material.item_name',
+                            'filter' => ArrayHelper::map(SupplierwiseRowMaterial::find()->asArray()->all(), 'id', 'item_name'),
                         ],
+                        [
+                            'attribute' => 'material_category',
+                            'format' => 'raw',
+                            'value' => function($data, $key, $index, $column) {
+                                return $data->getMaterialCategory($data->material_id);
+                            },
+                        ],
+                        'available_qty',
+                        'reserved_qty',
+                    ];
+                    echo GridView::widget([
+                        'dataProvider' => $dataProvider,
+//                        'filterModel' => $searchModel,
+                        'columns' => $gridColumns,
+                        'containerOptions' => ['style' => 'overflow: auto'], // only set when $responsive = false
+                        'toolbar' => [
+                            '{export}',
+                            '{toggleData}'
+                        ],
+//                        'pjax' => true,
+                        'bordered' => true,
+                        'striped' => false,
+                        'condensed' => false,
+                        'responsive' => true,
+                        'hover' => true,
+                        'floatHeader' => true,
+//                        'floatHeaderOptions' => ['scrollingTop' => $scrollingTop],
+//                        'showPageSummary' => true,
+                        'panel' => [
+                            'type' => GridView::TYPE_PRIMARY
+                        ],
+                        'caption' => 'Stock Report'
                     ]);
                     ?>
                 </div>

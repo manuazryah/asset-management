@@ -22,7 +22,9 @@
         "kartik-v/yii2-widget-datepicker": "@dev",
         "kartik-v/yii2-mpdf": "*",
         "2amigos/yii2-ckeditor-widget": "^1.0@dev",
-        "kartik-v/yii2-date-range": "dev-master"
+        "kartik-v/yii2-date-range": "dev-master",
+        "kartik-v/yii2-grid": "@dev",
+        "kartik-v/yii2-krajee-base": "@dev"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

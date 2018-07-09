@@ -19,6 +19,8 @@ use Yii;
  * @property SupplierwiseRowMaterial $material
  */
 class StockView extends \yii\db\ActiveRecord {
+    
+    public $material_category;
 
     /**
      * {@inheritdoc}
@@ -60,6 +62,15 @@ class StockView extends \yii\db\ActiveRecord {
      */
     public function getMaterial() {
         return $this->hasOne(SupplierwiseRowMaterial::className(), ['id' => 'material_id']);
+    }
+    
+    public static function getMaterialCategory($id) {
+        $item = SupplierwiseRowMaterial::find()->where(['id' => $id])->one();
+        $category ='';
+        if(!empty($item)){
+            $category = RowMaterialCategory::findOne($item->material_ctegory)->category;
+        }
+        return $category;
     }
 
 }

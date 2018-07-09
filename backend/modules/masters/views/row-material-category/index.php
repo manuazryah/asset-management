@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel common\models\RowMaterialCategorySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Row Material Categories';
+$this->title = 'Raw Material Categories';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="row-material-category-index">
@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 </div>
                 <div class="panel-body">
-                    <?= Html::a('<i class="fa-th-list"></i><span> Add Row Material Category</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                    <?= Html::a('<i class="fa-th-list"></i><span> Add Raw Material Category</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                     <?= \common\components\AlertMessageWidget::widget() ?>
                     <?=
                     GridView::widget([

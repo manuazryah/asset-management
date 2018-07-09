@@ -22,6 +22,9 @@ return [
                 ]
             ],
         ],
+        'gridview' => [
+            'class' => '\kartik\grid\Module'
+        ],
         'admin' => [
             'class' => 'backend\modules\admin\Module',
         ],

@@ -8,10 +8,12 @@ class ComposerStaticInit82f1c4e6b5d03f69ea3171dceb9be168
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
-        '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
-        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+        '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
+        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
+        '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         '180092cfc969a12e06f2132a203a3184' => __DIR__ . '/..' . '/codeception/verify/src/Codeception/function.php',
     );
@@ -34,9 +36,8 @@ class ComposerStaticInit82f1c4e6b5d03f69ea3171dceb9be168
         ),
         'k' => 
         array (
-            'kartik\\mpdf\\' => 12,
-            'kartik\\daterange\\' => 17,
-            'kartik\\date\\' => 12,
+            'kartik\\grid\\' => 12,
+            'kartik\\dialog\\' => 14,
             'kartik\\base\\' => 12,
         ),
         'd' => 
@@ -54,6 +55,7 @@ class ComposerStaticInit82f1c4e6b5d03f69ea3171dceb9be168
         'S' => 
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Polyfill\\Ctype\\' => 23,
             'Symfony\\Component\\Yaml\\' => 23,
             'Symfony\\Component\\Finder\\' => 25,
             'Symfony\\Component\\EventDispatcher\\' => 34,
@@ -132,17 +134,13 @@ class ComposerStaticInit82f1c4e6b5d03f69ea3171dceb9be168
             1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
             2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
-        'kartik\\mpdf\\' => 
+        'kartik\\grid\\' => 
         array (
-            0 => __DIR__ . '/..' . '/kartik-v/yii2-mpdf',
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-grid',
         ),
-        'kartik\\daterange\\' => 
+        'kartik\\dialog\\' => 
         array (
-            0 => __DIR__ . '/..' . '/kartik-v/yii2-date-range',
-        ),
-        'kartik\\date\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-datepicker',
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-dialog',
         ),
         'kartik\\base\\' => 
         array (
@@ -163,6 +161,10 @@ class ComposerStaticInit82f1c4e6b5d03f69ea3171dceb9be168
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
+        'Symfony\\Polyfill\\Ctype\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
         ),
         'Symfony\\Component\\Yaml\\' => 
         array (
@@ -252,13 +254,6 @@ class ComposerStaticInit82f1c4e6b5d03f69ea3171dceb9be168
             'HTMLPurifier' => 
             array (
                 0 => __DIR__ . '/..' . '/ezyang/htmlpurifier/library',
-            ),
-        ),
-        'D' => 
-        array (
-            'Diff' => 
-            array (
-                0 => __DIR__ . '/..' . '/phpspec/php-diff/lib',
             ),
         ),
         'B' => 

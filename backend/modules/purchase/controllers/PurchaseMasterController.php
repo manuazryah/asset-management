@@ -329,5 +329,36 @@ class PurchaseMasterController extends Controller {
             }
         }
     }
+    
+    /*
+     * Add new Material
+     */
+
+    public function actionAddMaterial() {
+        $model = new \common\models\SupplierwiseRowMaterial();
+        if (Yii::$app->request->post()) {
+            $model->material_ctegory = Yii::$app->request->post()['material_ctegory'];
+            $model->item_code = Yii::$app->request->post()['item_code'];
+            $model->item_name = Yii::$app->request->post()['item_name'];
+            $model->item_unit = Yii::$app->request->post()['item_unit'];
+            $model->supplier = Yii::$app->request->post()['supplier'];
+            $model->purchase_price = Yii::$app->request->post()['purchase_price'];
+            $model->minimum_quantity = Yii::$app->request->post()['minimum_quantity'];
+            $model->reference = Yii::$app->request->post()['reference'];
+            $model->comment = Yii::$app->request->post()['comment'];
+            if ($model->validate() && $model->save()) {
+                echo json_encode(array("con" => "1", 'id' => $model->id, 'name' => $model->item_name, 'category' => \common\models\RowMaterialCategory::findOne($model->material_ctegory)->category)); //Success
+                exit;
+            } else {
+                $array = $model->getErrors();
+                $error = isset($array['name']['0']) ? $array['name']['0'] : 'Internal error';
+                echo json_encode(array("con" => "2", 'error' => $error));
+                exit;
+            }
+        }
+        return $this->renderAjax('_form_material', [
+                    'model' => $model,
+        ]);
+    }
 
 }

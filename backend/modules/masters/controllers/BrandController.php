@@ -65,6 +65,9 @@ class BrandController extends Controller {
                 else
                     Yii::$app->session->setFlash('success', "Brand created Successfully");
                 $model = new Brand();
+            }else{
+                var_dump($model->getErrors());
+                echo 'else';exit;
             }
             return $this->redirect(['index']);
         }

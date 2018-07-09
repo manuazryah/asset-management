@@ -15,7 +15,8 @@
     <td>
         <div class="form-group">
             <input type="number" id="productsale_qty-<?= $next ?>" class="form-control productsale_qty" name="ProductSaleDetailsQty[<?= $next ?>]" placeholder="Qty" min="1" aria-invalid="false" autocomplete="off">
-            <div class="help-block"></div>
+            <div style="display: none;"class="avail-stock-div" id="avail-stock-div-<?= $next ?>"><strong>AVL:<span id="avail-stock-<?= $next ?>"></span></strong></div>
+            <input type="hidden" id="invoice-avail-qty-<?= $next ?>" value="0"/>
         </div>
         <div class="stock-check" id="stock-check-<?= $next ?>" style="display:none;">
             <p style="font-size: 10px;font-weight: bold;color: #ef6262;">Stock :<span class="stock-exist" id="stock-exist-<?= $next ?>"></span></p>

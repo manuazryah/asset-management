@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model common\models\SupplierwiseRowMaterial */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Supplierwise Row Materials', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Supplierwise Raw Materials', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="row">
@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             </div>
             <div class="panel-body">
-                <?= Html::a('<i class="fa-th-list"></i><span> Manage Row Material</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                <?= Html::a('<i class="fa-th-list"></i><span> Manage Raw Material</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                 <div class="panel-body"><div class="supplierwise-row-material-view">
                         <p>
                             <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>

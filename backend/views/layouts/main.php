@@ -102,7 +102,7 @@ AppAsset::register($this);
                                 </a>
                                 <ul style="display: none;">
                                     <li>
-                                        <?= Html::a('<i class="fa fa-angle-double-right"></i> Row Material', ['/stock/stock-register/index'], ['class' => 'title']) ?>
+                                        <?= Html::a('<i class="fa fa-angle-double-right"></i> Raw Material', ['/stock/stock-register/index'], ['class' => 'title']) ?>
                                     </li>
                                     <li>
                                         <?= Html::a('<i class="fa fa-angle-double-right"></i> Products', ['/stock/product-stock-register/index'], ['class' => 'title']) ?>
@@ -116,7 +116,7 @@ AppAsset::register($this);
                                 </a>
                                 <ul style="display: none;">
                                     <li>
-                                        <?= Html::a('<i class="fa fa-angle-double-right"></i> Row Material', ['/stock/stock-view/index'], ['class' => 'title']) ?>
+                                        <?= Html::a('<i class="fa fa-angle-double-right"></i> Raw Material', ['/stock/stock-view/index'], ['class' => 'title']) ?>
                                     </li>
                                     <li>
                                         <?= Html::a('<i class="fa fa-angle-double-right"></i> Products', ['/stock/product-stock-view/index'], ['class' => 'title']) ?>
@@ -130,7 +130,7 @@ AppAsset::register($this);
                                 </a>
                                 <ul style="display: none;">
                                     <li>
-                                        <?= Html::a('<i class="fa fa-angle-double-right"></i> Row Material', ['/stock/material-adjustment-master/index'], ['class' => 'title']) ?>
+                                        <?= Html::a('<i class="fa fa-angle-double-right"></i> Raw Material', ['/stock/material-adjustment-master/index'], ['class' => 'title']) ?>
                                     </li>
                                     <li>
                                         <?= Html::a('<i class="fa fa-angle-double-right"></i> Product', ['/stock/product-adjustment-master/index'], ['class' => 'title']) ?>
@@ -150,18 +150,7 @@ AppAsset::register($this);
                     </li>
 
                     <li>
-                        <a href="">
-                            <i class="fa fa-cubes"></i>
-                            <span class="title">Row Material</span>
-                        </a>
-                        <ul>
-                            <li>
-                                <?= Html::a('<i class="fa fa-angle-double-right"></i> Material Category', ['/masters/row-material-category/index'], ['class' => 'title']) ?>
-                            </li>
-                            <li>
-                                <?= Html::a('<i class="fa fa-angle-double-right"></i> Row Material', ['/material/supplierwise-row-material/index'], ['class' => 'title']) ?>
-                            </li>
-                        </ul>
+                        <?= Html::a('<i class="fa fa-cubes"></i> Raw Material', ['/material/supplierwise-row-material/index'], ['class' => 'title']) ?>
                     </li>
                     <li>
                         <a href="">
@@ -194,6 +183,9 @@ AppAsset::register($this);
                             <span class="title">Masters</span>
                         </a>
                         <ul>
+                            <li>
+                                <?= Html::a('<i class="fa fa-angle-double-right"></i> Material Category', ['/masters/row-material-category/index'], ['class' => 'title']) ?>
+                            </li>
                             <li>
                                 <?= Html::a('<i class="fa fa-angle-double-right"></i> Product Category', ['/product/product-category/index'], ['class' => 'title']) ?>
                             </li>
@@ -312,7 +304,7 @@ AppAsset::register($this);
                                     </a>
                                     <ul style="display: none;">
                                         <li>
-                                            <?= Html::a('<i class="fa fa-angle-double-right"></i> Row Material', ['/stock/stock-register/index'], ['class' => 'title']) ?>
+                                            <?= Html::a('<i class="fa fa-angle-double-right"></i> Raw Material', ['/stock/stock-register/index'], ['class' => 'title']) ?>
                                         </li>
                                         <li>
                                             <?= Html::a('<i class="fa fa-angle-double-right"></i> Products', ['/stock/product-stock-register/index'], ['class' => 'title']) ?>
@@ -326,7 +318,7 @@ AppAsset::register($this);
                                     </a>
                                     <ul style="display: none;">
                                         <li>
-                                            <?= Html::a('<i class="fa fa-angle-double-right"></i> Row Material', ['/stock/stock-view/index'], ['class' => 'title']) ?>
+                                            <?= Html::a('<i class="fa fa-angle-double-right"></i> Raw Material', ['/stock/stock-view/index'], ['class' => 'title']) ?>
                                         </li>
                                         <li>
                                             <?= Html::a('<i class="fa fa-angle-double-right"></i> Products', ['/stock/product-stock-view/index'], ['class' => 'title']) ?>
@@ -340,7 +332,7 @@ AppAsset::register($this);
                                     </a>
                                     <ul style="display: none;">
                                         <li>
-                                            <?= Html::a('<i class="fa fa-angle-double-right"></i> Row Material', ['/stock/material-adjustment-master/index'], ['class' => 'title']) ?>
+                                            <?= Html::a('<i class="fa fa-angle-double-right"></i> Raw Material', ['/stock/material-adjustment-master/index'], ['class' => 'title']) ?>
                                         </li>
                                         <li>
                                             <?= Html::a('<i class="fa fa-angle-double-right"></i> Product', ['/stock/product-adjustment-master/index'], ['class' => 'title']) ?>
@@ -358,21 +350,10 @@ AppAsset::register($this);
                         <li>
                             <?= Html::a('<i class="fa fa-list"></i> Finished Product', ['/product/finished-product/index'], ['class' => 'title']) ?>
                         </li>
-
                         <li>
-                            <a href="">
-                                <i class="fa fa-cubes"></i>
-                                <span class="title">Row Material</span>
-                            </a>
-                            <ul>
-                                <li>
-                                    <?= Html::a('<i class="fa fa-angle-double-right"></i> Material Category', ['/masters/row-material-category/index'], ['class' => 'title']) ?>
-                                </li>
-                                <li>
-                                    <?= Html::a('<i class="fa fa-angle-double-right"></i> Row Material', ['/material/supplierwise-row-material/index'], ['class' => 'title']) ?>
-                                </li>
-                            </ul>
+                            <?= Html::a('<i class="fa fa-cubes"></i> Raw Material', ['/material/supplierwise-row-material/index'], ['class' => 'title']) ?>
                         </li>
+
                         <li>
                             <a href="">
                                 <i class="fa fa-users"></i>
@@ -404,6 +385,9 @@ AppAsset::register($this);
                                 <span class="title">Masters</span>
                             </a>
                             <ul>
+                                <li>
+                                    <?= Html::a('<i class="fa fa-angle-double-right"></i> Material Category', ['/masters/row-material-category/index'], ['class' => 'title']) ?>
+                                </li>
                                 <li>
                                     <?= Html::a('<i class="fa fa-angle-double-right"></i> Product Category', ['/product/product-category/index'], ['class' => 'title']) ?>
                                 </li>

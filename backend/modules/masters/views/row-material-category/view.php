@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model common\models\RowMaterialCategory */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Row Material Categories', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Raw Material Categories', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="row">
@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         </div>
                         <div class="panel-body">
-                                <?=  Html::a('<i class="fa-th-list"></i><span> Manage Row Material Category</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                                <?=  Html::a('<i class="fa-th-list"></i><span> Manage Raw Material Category</span>', ['index'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                                 <div class="panel-body"><div class="row-material-category-view">
                                                 <p>
                                                         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>

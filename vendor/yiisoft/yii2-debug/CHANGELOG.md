@@ -4,9 +4,13 @@ Yii Framework 2 debug extension Change Log
 2.0.14 under development
 ------------------------
 
+- Enh #316: Prevent multiple lines in toolbar (ZAYEC77)
 - Bug #302: Fixed panel usage with suffixes in UrlManager (kyrylo-permiakov)
+- Enh #311: Adjusted module's code to use `->get()` for dependencies (samdark)
 - Enh #77: Added "Events" panel (klimov-paul)
 - Enh #301: Added configuration option to toggle IP address restriction warning on / off (jkrasniewski)
+- Bug #300: Fixed email files are not deleted by GC (pistej)
+- Bug #327: Fix animation on page load when the toolbar is expanded (brandonkelly)
 
 
 2.0.13 December 5, 2017

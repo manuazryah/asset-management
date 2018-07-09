@@ -190,7 +190,7 @@ $this->params['breadcrumbs'][] = 'Update';
                                                                         <td>
                                                                             <input id="material_comment_<?= $bom->id ?>" type="text" autocomplete="off" class="form-control" name="updatematerial[<?= $value->id ?>][material_comment]" value="<?= $value->comment ?>" placeholder="Comment">
                                                                         </td>
-                                                                        <td></td>
+                                                                        <td style="padding-top: 16px;"><a id="bom-del-<?= $value->id ?>" class="bom-del" style="border: 1px solid red;padding: 5px 10px;color: red;background: #ecc8c8;" ><i class="fa fa-times material-row-delete" title="Remove Row"></i></a></td>
                                                                     </tr>
                                                                     <?php
                                                                 }
@@ -296,6 +296,22 @@ $this->params['breadcrumbs'][] = 'Update';
             var bid = this.id; // button ID
             var trid = $(this).closest('tr').attr('id'); // table row ID
             $(this).closest('tr').remove();
+        });
+        $(document).on('click', '.bom-del', function (e) {
+            var material_id = $(this).attr('id').match(/\d+/); // 123456
+            $.ajax({
+                type: 'POST',
+                cache: false,
+                async: false,
+                data: {material_id: material_id},
+                url: homeUrl + 'bom/bom-master/remove-material-details',
+                success: function (data) {
+                    if (data == 1) {
+                        $('#bom-del-' + material_id).closest('tr').remove();
+                    }
+                    e.preventDefault();
+                }
+            });
         });
 
         $(document).on('change', '.invoice-material_id', function (e) {
