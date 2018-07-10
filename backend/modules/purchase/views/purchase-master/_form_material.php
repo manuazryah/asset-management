@@ -146,7 +146,7 @@ $this->title = 'Add Material';
                         var $data = JSON.parse(data);
                         if ($data.con === "1") {
                             for (i = 1; i <= row_count; i++) {
-                                var newOption = $('<option value="' + $data.id + '">' + $data.name + ' - ' + $data.category + '</option>');
+                                var newOption = $('<option value="' + $data.id + '">' + $data.name + ' - ' + $data.category + $data.reference + '</option>');
                                 $('#invoice-item_id-' + i).append(newOption);
                             }
                             $('#modal').modal('hide');

@@ -34,7 +34,7 @@ class Warehouse extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['status', 'CB', 'UB'], 'integer'],
+            [['status', 'CB', 'UB','set_as_default'], 'integer'],
             [['DOC', 'DOU'], 'safe'],
             [['warehouse_name'], 'string', 'max' => 100],
         ];

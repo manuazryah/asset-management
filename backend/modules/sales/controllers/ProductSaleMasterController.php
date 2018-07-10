@@ -264,7 +264,7 @@ class ProductSaleMasterController extends Controller {
             $item_datas = \common\models\SupplierwiseRowMaterial::find()->where(['id' => $item_id])->one();
             if (!empty($item_datas)) {
                 $unit = $item_datas->item_unit != '' ? \common\models\Unit::findOne($item_datas->item_unit)->unit_name : '';
-                $stock = \common\models\ProductStockView::find()->where(['id' => $item_id])->one();
+                $stock = \common\models\ProductStockView::find()->where(['product_id' => $item_id])->one();
                 if (!empty($stock)) {
                     $avail_qty = $stock->available_qty;
                 }

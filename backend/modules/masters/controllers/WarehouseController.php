@@ -51,6 +51,13 @@ class WarehouseController extends Controller {
         else
             $model = new Warehouse();
         if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)) {
+            if ($model->set_as_default == 1) {
+                $exist = Warehouse::find()->where(['set_as_default' => 1])->one();
+                if (!empty($exist)) {
+                    $exist->set_as_default = 0;
+                    $exist->update();
+                }
+            }
             $model->warehouse_name = ucfirst($model->warehouse_name);
             if ($model->save()) {
                 if (isset($id) && $id != '')

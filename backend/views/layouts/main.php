@@ -29,7 +29,9 @@ AppAsset::register($this);
     <body class="page-body">
         <?php $this->beginBody() ?>
 
-
+        <?php
+        $notifications = \common\models\StockView::find()->where(['<', 'available_qty', 10])->all();
+        ?>
         <nav class="navbar horizontal-menu navbar-fixed-top"><!-- set fixed position by adding class "navbar-fixed-top" -->
 
             <div class="navbar-inner">
@@ -46,6 +48,10 @@ AppAsset::register($this);
 
                     <!-- This will toggle the mobile menu and will be visible only on mobile devices -->
                     <div class="mobile-menu-toggle">
+                        <a href="#" data-toggle="user-info-menu-horizontal">
+                            <i class="fa-bell-o"></i>
+                            <span class="badge badge-success"><?= count($notifications) ?></span>
+                        </a>
                         <a href="#" data-toggle="mobile-menu-horizontal">
                             <i class="fa-bars"></i>
                         </a>
@@ -207,6 +213,50 @@ AppAsset::register($this);
 
                 <!-- notifications and other links -->
                 <ul class="nav nav-userinfo navbar-right">
+                    <li class="dropdown xs-left">
+                        <a href="#" data-toggle="dropdown" class="notification-icon notification-icon-messages">
+                            <i class="fa-bell-o"></i>
+                            <span class="badge badge-purple"><?= count($notifications) ?></span>
+                        </a>
+
+                        <ul class="dropdown-menu notifications">
+                            <li class="top">
+                                <p class="small">
+                                    You have <strong><?= count($notifications) ?></strong> new notifications.
+                                </p>
+                            </li>
+
+                            <li>
+                                <ul class="dropdown-menu-list list-unstyled ps-scrollbar">
+                                    <?php
+                                    if (!empty($notifications)) {
+                                        foreach ($notifications as $notification) {
+                                            if (!empty($notification)) {
+                                                $material = common\models\SupplierwiseRowMaterial::findOne($notification->material_id);
+                                                $ref = $material->reference != '' ? ' (' . $material->reference . ')' : '';
+                                                ?>
+                                                <li class="active notification-success">
+                                                    <a href="#">
+                                                        <i class="fa fa-shopping-cart"></i>
+
+                                                        <span class="line">
+                                                            <strong><?= $material->item_name?>-<?= \common\models\RowMaterialCategory::findOne($material->material_ctegory)->category ?><?= $ref ?></strong>
+                                                        </span>
+
+                                                        <span class="line small time">
+                                                            Available Quantity : <?= $notification->available_qty?>
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <?php
+                                            }
+                                        }
+                                    }
+                                    ?>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
                     <li>
                         <a href="<?= Yii::$app->homeUrl; ?>site/home"><i class="fa-home"></i> Home</a>
                     </li>

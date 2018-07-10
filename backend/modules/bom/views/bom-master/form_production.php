@@ -211,7 +211,13 @@ $this->params['breadcrumbs'][] = 'Update';
                                                 </div>
                                             </div>
                                             <?php
-                                            $ware_houses = \common\models\Warehouse::find()->all();
+                                            $default_warehouse = common\models\Warehouse::find()->where(['set_as_default' => 1])->one();
+                                            if (!empty($default_warehouse)) {
+                                                $default = $default_warehouse->id;
+                                            } else {
+                                                $default = '';
+                                            }
+                                            $ware_houses = common\models\Warehouse::findAll(['status' => 1]);
                                             ?>
                                             <div class="row">
                                                 <div class="col-md-4 right-div">
@@ -220,8 +226,13 @@ $this->params['breadcrumbs'][] = 'Update';
                                                         <?php
                                                         if (!empty($ware_houses)) {
                                                             foreach ($ware_houses as $ware_house) {
+                                                                if ($ware_house->id == $default) {
+                                                                    $select = 'selected';
+                                                                } else {
+                                                                    $select = '';
+                                                                }
                                                                 ?>
-                                                                <option value="<?= $ware_house->id ?>"><?= $ware_house->warehouse_name ?></option>
+                                                                <option value="<?= $ware_house->id ?>" <?= $select ?>><?= $ware_house->warehouse_name ?></option>
                                                                 <?php
                                                             }
                                                         }

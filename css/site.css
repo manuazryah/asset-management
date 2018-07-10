@@ -76,6 +76,27 @@ table{
     border: none;
     background-color: #e4e4e4;
 }
+.navbar.horizontal-menu .navbar-inner>.nav>li>a.notification-icon.notification-icon-messages:before {
+    background-color: none;
+    background: none;
+}
+@media screen and (max-width: 768px){
+    .navbar.horizontal-menu .navbar-inner>.nav.navbar-mobile a .badge {
+        position: absolute;
+        right: -7px;
+        top: 3px;
+        font-size: 8px;
+        padding: 1px 2px;
+        min-width: 14px;
+    }
+}
+.navbar.horizontal-menu .navbar-inner>.nav>li>a.notification-icon {
+    padding: 0 20px;
+    padding-top: 16px;
+}
+.navbar.horizontal-menu .navbar-inner>.nav>li>a.notification-icon .badge {
+    margin-top: -13px;
+}
 table th{
     color:#373e4a;
 }
@@ -617,7 +638,7 @@ a {
     height: 35px !important;
 }
 .line{
-    width: 250px;
+    /*width: 250px;*/
 }
 .line-col{
     color:#2196F3;

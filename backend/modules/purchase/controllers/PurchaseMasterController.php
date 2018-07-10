@@ -287,10 +287,7 @@ class PurchaseMasterController extends Controller {
         if (Yii::$app->request->isAjax) {
             $next_row_id = $_POST['next_row_id'];
             $next = $next_row_id + 1;
-            $item_datas = ArrayHelper::map(\common\models\SupplierwiseRowMaterial::find()->where(['status' => 1])->all(), 'id', function($model) {
-                        return $model['item_name'] . ' - ' . \common\models\RowMaterialCategory::findOne($model['material_ctegory'])->category;
-                    }
-            );
+            $item_datas = \common\models\SupplierwiseRowMaterial::find()->where(['status' => 1])->all();
             $warehouse_datas = \common\models\Warehouse::findAll(['status' => 1]);
             $shelf_datas = \common\models\ShelfDetails::findAll(['status' => 1]);
             $next_row = $this->renderPartial('next_row', [
@@ -329,7 +326,7 @@ class PurchaseMasterController extends Controller {
             }
         }
     }
-    
+
     /*
      * Add new Material
      */
@@ -347,7 +344,8 @@ class PurchaseMasterController extends Controller {
             $model->reference = Yii::$app->request->post()['reference'];
             $model->comment = Yii::$app->request->post()['comment'];
             if ($model->validate() && $model->save()) {
-                echo json_encode(array("con" => "1", 'id' => $model->id, 'name' => $model->item_name, 'category' => \common\models\RowMaterialCategory::findOne($model->material_ctegory)->category)); //Success
+                $ref = $model->reference != '' ? ' (' . $model->reference . ')' : '';
+                echo json_encode(array("con" => "1", 'id' => $model->id, 'name' => $model->item_name, 'category' => \common\models\RowMaterialCategory::findOne($model->material_ctegory)->category, 'reference' => $ref)); //Success
                 exit;
             } else {
                 $array = $model->getErrors();
