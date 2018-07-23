@@ -70,7 +70,6 @@ use common\components\ModalViewWidget;
         </div>
     </div>
     <div class="row">
-        <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
             <?php
             if ($model->photo != '') {
                 $label = 'Change Photo';
@@ -78,10 +77,8 @@ use common\components\ModalViewWidget;
                 $label = 'Photo';
             }
             ?>
-            <div class='col-md-8 col-sm-8 col-xs-12 left_padd'>
+            <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
                 <?= $form->field($model, 'photo')->fileInput(['maxlength' => true])->label($label) ?>
-            </div>
-            <div class='col-md-4 col-sm-4 col-xs-12 left_padd'>
                 <?php
                 if ($model->photo != '') {
                     $dirPath = Yii::getAlias(Yii::$app->params['uploadPath']) . '/uploads/supplierwise_material/' . $model->id . '.' . $model->photo;
@@ -92,8 +89,11 @@ use common\components\ModalViewWidget;
                     }
                 }
                 ?>
+
             </div>
-        </div>
+            <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>
+                <?= $form->field($model, 'size')->textInput(['maxlength' => true]) ?>
+            </div>
     </div>
     <div class="row">
         <div class='col-md-12 col-sm-12 col-xs-12 left_padd'>

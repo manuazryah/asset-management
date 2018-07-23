@@ -17,7 +17,7 @@ class SupplierwiseRowMaterialSearch extends SupplierwiseRowMaterial {
      */
     public function rules() {
         return [
-                [['id', 'material_ctegory', 'supplier', 'status', 'CB', 'UB', 'item_unit'], 'integer'],
+                [['id', 'material_ctegory', 'supplier', 'status', 'CB', 'UB', 'item_unit','size'], 'integer'],
                 [['item_code', 'item_name', 'photo', 'reference', 'minimum_quantity', 'comment', 'DOC', 'DOU'], 'safe'],
                 [['purchase_price'], 'number'],
         ];
@@ -63,6 +63,7 @@ class SupplierwiseRowMaterialSearch extends SupplierwiseRowMaterial {
             'purchase_price' => $this->purchase_price,
             'item_unit' => $this->item_unit,
             'status' => $this->status,
+            'size' => $this->size,
             'CB' => $this->CB,
             'UB' => $this->UB,
             'DOC' => $this->DOC,

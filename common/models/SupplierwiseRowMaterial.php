@@ -43,7 +43,7 @@ class SupplierwiseRowMaterial extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-                [['material_ctegory', 'item_unit', 'supplier', 'minimum_quantity', 'status', 'CB', 'UB'], 'integer'],
+                [['material_ctegory', 'item_unit', 'supplier', 'minimum_quantity', 'status', 'CB', 'UB','size'], 'integer'],
                 [['purchase_price'], 'number'],
                 [['comment'], 'string'],
                 [['DOC', 'DOU'], 'safe'],

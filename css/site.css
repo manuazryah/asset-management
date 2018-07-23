@@ -1548,3 +1548,10 @@ table.table tr td:last-child {
 .add-material:hover{
     background-color: white !important;
 }
+.job-order-master-form .append-box {
+    border: 1px solid #e1e1e1;
+    padding: 30px;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    position: relative;
+}

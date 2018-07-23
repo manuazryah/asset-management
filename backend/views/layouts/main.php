@@ -93,7 +93,19 @@ AppAsset::register($this);
                     }
                     ?>
                     <li>
-                        <?= Html::a('<i class="fa fa-shopping-cart"></i> <span class="title">Job Order(BOM)</span>', ['/bom/bom-master/index'], ['class' => 'title']) ?>
+                        <a href="">
+                            <i class="fa fa-shopping-cart"></i>
+                            <span class="title">Job Order(BOM)</span>
+                        </a>
+                        <ul>
+                            <li>
+                                <?= Html::a('<i class="fa fa-angle-double-right"></i> Product', ['/bom/bom-master/index'], ['class' => 'title']) ?>
+                            </li>
+
+                            <li>
+                                <?= Html::a('<i class="fa fa-angle-double-right"></i> Bottle', ['/bom/job-order-master/index'], ['class' => 'title']) ?>
+                            </li>
+                        </ul>
                     </li>
                     <li class="has-sub">
                         <a href="">
@@ -240,11 +252,11 @@ AppAsset::register($this);
                                                         <i class="fa fa-shopping-cart"></i>
 
                                                         <span class="line">
-                                                            <strong><?= $material->item_name?>-<?= \common\models\RowMaterialCategory::findOne($material->material_ctegory)->category ?><?= $ref ?></strong>
+                                                            <strong><?= $material->item_name ?>-<?= \common\models\RowMaterialCategory::findOne($material->material_ctegory)->category ?><?= $ref ?></strong>
                                                         </span>
 
                                                         <span class="line small time">
-                                                            Available Quantity : <?= $notification->available_qty?>
+                                                            Available Quantity : <?= $notification->available_qty ?>
                                                         </span>
                                                     </a>
                                                 </li>
@@ -339,7 +351,19 @@ AppAsset::register($this);
                         }
                         ?>
                         <li>
-                            <?= Html::a('<i class="fa fa-shopping-cart"></i> <span class="title">Job Order(BOM)</span>', ['/bom/bom-master/index'], ['class' => 'title']) ?>
+                            <a href="">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span class="title">Job Order(BOM)</span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <?= Html::a('<i class="fa fa-angle-double-right"></i> Product', ['/bom/bom-master/index'], ['class' => 'title']) ?>
+                                </li>
+
+                                <li>
+                                    <?= Html::a('<i class="fa fa-angle-double-right"></i> Bottle', ['/bom/job-order-master/index'], ['class' => 'title']) ?>
+                                </li>
+                            </ul>
                         </li>
                         <li class="has-sub">
                             <a href="">
