@@ -137,4 +137,16 @@ class JobOrderMasterController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    
+    public function actionBottleDetails() {
+        if (Yii::$app->request->isAjax) {
+            $material_id = $_POST['material_id'];
+            $stock= \common\models\StockView::find()->where(['material_id'=>$material_id])->one();
+            $stock_val = 0;
+            if(!empty($stock)){
+                $stock_val = $stock->available_qty;
+            }
+            return $stock_val;
+        }
+    }
 }

@@ -10,7 +10,16 @@ use yii\helpers\ArrayHelper;
 /* @var $form yii\widgets\ActiveForm */
 $model->bom_no = $this->context->getBomNo();
 ?>
-
+<style>
+    .qty_check{
+        color: #b70a0a;
+        font-weight: 600;
+        position: absolute;
+        bottom: 0px;
+        left: 16px;
+        display: none;
+    }
+</style>
 <div class="job-order-master-form form-inline">
     <?= \common\components\AlertMessageWidget::widget() ?>
     <?php $form = ActiveForm::begin(); ?>
@@ -67,8 +76,8 @@ $model->bom_no = $this->context->getBomNo();
 
             </div>
             <div class='col-md-4 col-xs-12 left_padd'>  
-                <?= $form->field($model_details, 'qty')->textInput(['maxlength' => true]) ?>
-
+                <?= $form->field($model_details, 'qty')->textInput(['maxlength' => true, 'type' => 'number','min'=>1]) ?>
+                <div class="qty_check">Available Quantity : <span id="avail-qty"></span></div>
             </div>
             <div class='col-md-4 col-xs-12 left_padd'>    
                 <?= $form->field($model_details, 'damaged')->textInput(['maxlength' => true])->label('Damaged Quantity') ?>
@@ -111,9 +120,21 @@ $model->bom_no = $this->context->getBomNo();
 </script>
 <script>
     $(document).ready(function () {
-        
+
         $(document).on('keyup mouseup', '#joborderdetails-quantity', function (e) {
             $('#joborderdetails-qty').val($(this).val());
+            $('#joborderdetails-qty').keyup();
+        });
+        $(document).on('keyup mouseup', '#joborderdetails-qty', function (e) {
+            var item = $('#joborderdetails-bottle').val();
+            if (item != '') {
+                var avail = $('#avail-qty').text();
+                var qty = $(this).val();
+                if(parseInt(qty) > parseInt(avail)){
+                    alert('Quantity exeeds the available quantity');
+                    $('#joborderdetails-qty').val(avail);
+                }
+            }
         });
 
         /*
@@ -127,10 +148,14 @@ $model->bom_no = $this->context->getBomNo();
                 cache: false,
                 async: false,
                 data: {material_id: $(this).val()},
-                url: '<?= Yii::$app->homeUrl; ?>appointment/appointment/add-new-vessel',
+                url: '<?= Yii::$app->homeUrl; ?>bom/job-order-master/bottle-details',
                 success: function (data) {
-                    $("#modal-pop-up").html(data);
-                    $('#modal-6').modal('show', {backdrop: 'static'});
+                    $('#joborderdetails-qty').attr({
+                        "max": data, // substitute your own
+                    });
+                    $(".qty_check").css({"display": "block"});
+                    $("#avail-qty").text(data);
+                    $('#joborderdetails-qty').keyup();
                     e.preventDefault();
                 }
             });
