@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <div class="panel-body">
                     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+                    <?= \common\components\AlertMessageWidget::widget() ?>
                     <?= Html::a('<i class="fa-th-list"></i><span> Create Job Order</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                     <?=
                     GridView::widget([

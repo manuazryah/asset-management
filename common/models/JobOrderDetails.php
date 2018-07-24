@@ -41,7 +41,7 @@ class JobOrderDetails extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['named_bottle', 'bom_no', 'bottle', 'qty','quantity'], 'required'],
+            [['named_bottle','bottle', 'qty','quantity'], 'required'],
             [['master_id', 'named_bottle', 'quantity', 'bottle', 'qty', 'damaged', 'status', 'CB', 'UB'], 'integer'],
             [['DOC', 'DOU'], 'safe'],
             [['comment'], 'string', 'max' => 1000],

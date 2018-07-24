@@ -49,6 +49,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                         return 'Addition';
                                     }elseif ($model->type == 5) {
                                         return 'Deduction';
+                                    }elseif ($model->type == 6) {
+                                        return 'Job Order (Bottle)';
                                     }else {
                                         return '';
                                     }
