@@ -747,5 +747,30 @@ class BomMasterController extends Controller {
                     'model_bom_material' => $model_bom_material,
         ]);
     }
+    
+    /*
+     * For Mobile View
+     */
+    
+    public function actionGetItemss() {
+        if (Yii::$app->request->isAjax) {
+            $item_id = $_POST['item_id'];
+            $current_row_id = $_POST['current_row_id'];
+            $product_qty = $_POST['product_qty'];
+            $finished_products = \common\models\FinishedProduct::find()->where(['id' => $item_id])->one();
+            $material_details = \common\models\BomDetails::find()->where(['finished_product_id' => $finished_products->id])->all();
+            $supplier_materials = \common\models\SupplierwiseRowMaterial::find()->all();
+            $new_row = $this->renderPartial('material_row_mobile', [
+                'finished_products' => $finished_products,
+                'material_details' => $material_details,
+                'current_row_id' => $current_row_id,
+                'supplier_materials' => $supplier_materials,
+                'product_qty' => $product_qty,
+            ]);
+            $arr_variable1 = array('new_row' => $new_row, 'product_comment' => $finished_products->comment);
+            $data['result'] = $arr_variable1;
+            return json_encode($data);
+        }
+    }
 
 }

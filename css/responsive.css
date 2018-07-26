@@ -1,0 +1,112 @@
+@media (min-width: 1200px) {
+        input[type=submit]{
+                margin-right: 140px;
+        }
+        .micro-submit{
+                margin-right: 140px !important;
+        }
+}
+
+
+@media (min-width: 992px) and (max-width: 1199px){
+        input[type=submit]{
+                margin-right: 90px;
+        }
+        #heading-box .navbar .dropdown {
+                margin-left: 55%;
+        }
+        .micro-submit{
+                margin-right: 90px !important;
+        }
+}
+
+
+@media (min-width: 768px) and (max-width: 991px){
+        input[type=submit]{
+                margin-right: 220px;
+        }
+        #heading-box .navbar .dropdown {
+                margin-left: 56%;
+        }
+        .micro-submit{
+                margin-right: 220px !important;
+        }
+}
+
+@media (max-width: 768px){
+        input[type=submit]{
+                text-align: center;
+                float: none;
+                margin-left: 220px;
+        }
+        #heading-box .navbar .dropdown {
+                margin-left: 61%;
+        }
+        .micro-submit{
+                text-align: center !important;
+                float: none !important;
+                margin-left: 220px !important;
+        }
+}
+
+
+@media (max-width: 486px){
+        input[type=submit]{
+                text-align: center;
+                float: none;
+                margin-left: 40px;
+        }
+        #header img{
+                width: 60%;
+        }
+        #heading-box .navbar .dropdown {
+                margin-left: 70%;
+        }
+        .micro-submit{
+                text-align: center !important;
+                float: none !important;
+                margin-left: 40px !important;
+        }
+        /*    label{
+                float: left;
+                margin-left: 35px;
+                margin-bottom: 0px;
+                padding: 0px;
+            }*/
+}
+
+@media (max-width: 486px){
+        form{
+                margin-left: 0px !important;
+        }
+}
+
+@media (max-width: 330px){
+        .form-control {
+                width: 90px !important;
+        }
+}
+@media (min-width: 331px) and (max-width: 453px){
+        .form-group-doctor{
+                width:91% !important;
+        }
+        .form-group-new{
+                width:48% !important;
+        }
+        .form-group-dropdowns{
+                width:82% !important;
+        }
+        .dropdown-box{
+                width:48% !important;
+        }
+        .alert-new{
+                width: 87% !important;
+                margin-left: 5% !important;
+        }
+        .visiting_time{
+                width: 42% !important;
+        }
+        #notification .container {
+                width: 300px !important;
+        }
+}
