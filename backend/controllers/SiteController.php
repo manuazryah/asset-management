@@ -24,11 +24,11 @@ class SiteController extends Controller {
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
-                    [
+                        [
                         'actions' => ['login', 'error', 'index', 'home', 'forgot', 'new-password', 'exception', 'bom'],
                         'allow' => true,
                     ],
-                    [
+                        [
                         'actions' => ['logout', 'index'],
                         'allow' => true,
                         'roles' => ['@'],
@@ -65,8 +65,8 @@ class SiteController extends Controller {
             return $this->redirect(array('site/home'));
         }
         $useragent = $_SERVER['HTTP_USER_AGENT'];
-        $model->scenario = 'login';
         $model = new AdminUsers();
+        $model->scenario = 'login';
         if ($model->load(Yii::$app->request->post()) && $model->login() && $this->setSession()) {
             return $this->redirect(array('site/home'));
         }
@@ -99,7 +99,8 @@ class SiteController extends Controller {
             return $this->render('dashboard', [
             ]);
         } else {
-            return $this->render('index', [
+            $this->layout = 'main_mobile';
+            return $this->render('dashboard', [
             ]);
         }
     }

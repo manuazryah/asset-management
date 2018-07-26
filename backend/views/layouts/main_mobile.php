@@ -41,10 +41,8 @@ AppAssetMobile::register($this);
             <div class="navbar">
                 <div class="dropdown">
                     <button class="dropbtn">
-                        <span style="color: white;" class="icon-bar"><i class="fa fa-bars" aria-hidden="true"></i></button>
-                    <div class="dropdown-content">
-                        <?= Html::a('Job Order', ['/site/bom'], ['class' => 'title']) ?>
-                    </div>
+                        <?= Html::a('<i class="fa fa-home" aria-hidden="true"></i>', ['/site/index'], ['class' => 'title']) ?>
+                    </button>
                 </div>
                 <button style="padding-left: 0px;">
                     <?php
