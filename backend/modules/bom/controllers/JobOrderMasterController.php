@@ -81,7 +81,7 @@ class JobOrderMasterController extends Controller {
         $model = new JobOrderMaster();
         $model_details = new JobOrderDetails();
 
-        if ($model->load(Yii::$app->request->post()) && $model_details->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post()) && $model_details->load(Yii::$app->request->post()) && $model->validate() && $model_details->validate()) {
             $model->bom_date = date("Y-m-d", strtotime($model->bom_date));
             if ($model_details->damaged == '') {
                 $model_details->damaged = 0;
@@ -144,6 +144,7 @@ class JobOrderMasterController extends Controller {
         $stock->item_code = $item_datas->item_code;
         $stock->item_name = $item_datas->item_name;
         $stock->weight_out = $model_details->qty + $model_details->damaged;
+        $stock->damaged_quantity = $model_details->damaged;
         $stock->status = 1;
         $stock->CB = Yii::$app->user->identity->id;
         $stock->UB = Yii::$app->user->identity->id;

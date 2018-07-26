@@ -39,13 +39,33 @@ $this->params['breadcrumbs'][] = $this->title;
                             'value' => function($data, $key, $index, $column) {
                                 return $data->getMaterialCategory($data->material_id);
                             },
+                            'filter' => ArrayHelper::map(\common\models\RowMaterialCategory::find()->asArray()->all(), 'id', 'category'),
                         ],
                         'available_qty',
                         'reserved_qty',
+                        [
+                            'attribute' => 'image',
+                            'filter' => '',
+                            'format' => 'raw',
+                            'value' => function ($data) {
+                                if ($data->material_id != '') {
+                                    $item = SupplierwiseRowMaterial::find()->where(['id'=>$data->material_id])->one();
+                                    $dirPath = Yii::getAlias(Yii::$app->params['uploadPath']) . '/uploads/supplierwise_material/' . $item->id . '.' . $item->photo;
+                                    if (file_exists($dirPath)) {
+                                        $img = '<img width="70px" height="70" src="' . Yii::$app->homeUrl . 'uploads/supplierwise_material/' . $item->id . '.' . $item->photo . '?' . rand() . '"/>';
+                                    } else {
+                                        $img = 'No Image';
+                                    }
+                                } else {
+                                    $img = 'No Image';
+                                }
+                                return $img;
+                            },
+                        ],
                     ];
                     echo GridView::widget([
                         'dataProvider' => $dataProvider,
-//                        'filterModel' => $searchModel,
+                        'filterModel' => $searchModel,
                         'columns' => $gridColumns,
                         'containerOptions' => ['style' => 'overflow: auto'], // only set when $responsive = false
                         'toolbar' => [

@@ -11,14 +11,14 @@ use common\models\StockView;
  * StockViewSearch represents the model behind the search form about `common\models\StockView`.
  */
 class StockViewSearch extends StockView {
-
+    
     /**
      * @inheritdoc
      */
     public function rules() {
         return [
-                [['id', 'material_id', 'available_qty', 'status', 'CB', 'UB'], 'integer'],
-                [['DOC', 'DOU'], 'safe'],
+            [['id', 'material_id', 'available_qty', 'status', 'CB', 'UB'], 'integer'],
+            [['DOC', 'DOU', 'material_category'], 'safe'],
         ];
     }
 
@@ -39,7 +39,6 @@ class StockViewSearch extends StockView {
      */
     public function search($params) {
         $query = StockView::find()->orderBy(['id' => SORT_DESC]);
-
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -52,6 +51,14 @@ class StockViewSearch extends StockView {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
+        }
+        if ($this->material_category != '') {
+            $arr_data = [];
+            $materials = SupplierwiseRowMaterial::find()->where(['material_ctegory' => $this->material_category])->all();
+            foreach ($materials as $material) {
+                $arr_data[] = $material->id;
+            }
+            $query->andWhere(['material_id' => $arr_data]);
         }
 
         // grid filtering conditions

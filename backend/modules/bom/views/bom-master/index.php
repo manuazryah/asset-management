@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="panel-body">
                     <?= \common\components\AlertMessageWidget::widget() ?>
 
-                    <?= Html::a('<i class="fa-th-list"></i><span> Create Job Order</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
+                    <?= Html::a('<i class="fa-th-list"></i><span> New Job Order</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                     <?=
                     GridView::widget([
                         'dataProvider' => $dataProvider,

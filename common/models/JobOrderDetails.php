@@ -45,6 +45,8 @@ class JobOrderDetails extends \yii\db\ActiveRecord
             [['master_id', 'named_bottle', 'quantity', 'bottle', 'qty', 'damaged', 'status', 'CB', 'UB'], 'integer'],
             [['DOC', 'DOU'], 'safe'],
             [['comment'], 'string', 'max' => 1000],
+            ['qty', 'compare', 'compareValue' => 0, 'operator' => '>'],
+            ['quantity', 'compare', 'compareAttribute' => 'qty', 'operator' => '<='],
             [['master_id'], 'exist', 'skipOnError' => true, 'targetClass' => JobOrderMaster::className(), 'targetAttribute' => ['master_id' => 'id']],
             [['named_bottle'], 'exist', 'skipOnError' => true, 'targetClass' => SupplierwiseRowMaterial::className(), 'targetAttribute' => ['named_bottle' => 'id']],
             [['bottle'], 'exist', 'skipOnError' => true, 'targetClass' => SupplierwiseRowMaterial::className(), 'targetAttribute' => ['bottle' => 'id']],

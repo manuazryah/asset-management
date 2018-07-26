@@ -17,7 +17,7 @@ class StockRegisterSearch extends StockRegister {
      */
     public function rules() {
         return [
-                [['id', 'type', 'document_line_id', 'item_id', 'warehouse', 'shelf', 'weight_in', 'weight_out', 'balance_qty', 'status', 'CB', 'UB'], 'integer'],
+                [['id', 'type', 'document_line_id', 'item_id', 'warehouse', 'shelf', 'weight_in', 'weight_out', 'balance_qty', 'status', 'CB', 'UB','damaged_quantity'], 'integer'],
                 [['invoice_no', 'invoice_date', 'item_code', 'item_name', 'DOC', 'DOU'], 'safe'],
                 [['item_cost'], 'number'],
         ];

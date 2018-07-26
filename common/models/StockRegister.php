@@ -45,7 +45,7 @@ class StockRegister extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-                [['type', 'document_line_id', 'item_id', 'warehouse', 'shelf', 'weight_in', 'weight_out', 'balance_qty', 'status', 'CB', 'UB'], 'integer'],
+                [['type', 'document_line_id', 'item_id', 'warehouse', 'shelf', 'weight_in', 'weight_out', 'balance_qty', 'status', 'CB', 'UB','damaged_quantity'], 'integer'],
                 [['invoice_date', 'DOC', 'DOU'], 'safe'],
                 [['item_cost'], 'number'],
                 [['invoice_no', 'item_code', 'item_name'], 'string', 'max' => 100],

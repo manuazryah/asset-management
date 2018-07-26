@@ -75,13 +75,14 @@ $model->bom_no = $this->context->getBomNo();
                 <?= $form->field($model_details, 'bottle')->dropDownList($clear_bottle_datas, ['prompt' => '-Choose Material-']); ?>
 
             </div>
-            <div class='col-md-4 col-xs-12 left_padd'>  
-                <?= $form->field($model_details, 'qty')->textInput(['maxlength' => true, 'type' => 'number','min'=>1]) ?>
+            <div class='col-md-4 col-xs-12 left_padd'> 
+                <div class='col-md-6 left_padd' style="padding-left: 0px;"> 
+                    <?= $form->field($model_details, 'qty')->textInput(['maxlength' => true, 'type' => 'number', 'min' => 1, 'readonly' => TRUE]) ?>
+                </div>
+                <div class='col-md-6 left_padd' style="padding-right: 0px;"> 
+                    <?= $form->field($model_details, 'damaged')->textInput(['maxlength' => true, 'type' => 'number', 'min' => 0])->label('Damaged Quantity') ?>
+                </div>
                 <div class="qty_check">Available Quantity : <span id="avail-qty"></span></div>
-            </div>
-            <div class='col-md-4 col-xs-12 left_padd'>    
-                <?= $form->field($model_details, 'damaged')->textInput(['maxlength' => true])->label('Damaged Quantity') ?>
-
             </div>
         </div>
     </div>
@@ -130,9 +131,27 @@ $model->bom_no = $this->context->getBomNo();
             if (item != '') {
                 var avail = $('#avail-qty').text();
                 var qty = $(this).val();
-                if(parseInt(qty) > parseInt(avail)){
+                if (parseInt(qty) > parseInt(avail)) {
                     alert('Quantity exeeds the available quantity');
                     $('#joborderdetails-qty').val(avail);
+                }
+            }
+        });
+        
+        $(document).on('keyup mouseup', '#joborderdetails-damaged', function (e) {
+            var item = $('#joborderdetails-bottle').val();
+            if (item != '') {
+                var avail = $('#avail-qty').text();
+                var damaged_qty = $(this).val();
+                if(damaged_qty == ''){
+                    damaged_qty = 0;
+                }
+                var qty = $('#joborderdetails-qty').val();
+                var actual_qty = parseInt(qty) + parseInt(damaged_qty);
+                if (actual_qty > parseInt(avail)) {
+                    alert('Quantity exeeds the available quantity');
+                    var balance = parseInt(avail) - parseInt(qty);
+                    $('#joborderdetails-damaged').val(balance);
                 }
             }
         });
@@ -155,7 +174,10 @@ $model->bom_no = $this->context->getBomNo();
                     });
                     $(".qty_check").css({"display": "block"});
                     $("#avail-qty").text(data);
+                    $('#joborderdetails-quantity').keyup();
                     $('#joborderdetails-qty').keyup();
+                    $('#joborderdetails-damaged').val(0);
+                    $("#joborderdetails-damaged").focus();
                     e.preventDefault();
                 }
             });

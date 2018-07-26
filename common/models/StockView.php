@@ -21,6 +21,7 @@ use Yii;
 class StockView extends \yii\db\ActiveRecord {
     
     public $material_category;
+    public $image;
 
     /**
      * {@inheritdoc}
