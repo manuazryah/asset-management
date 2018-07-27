@@ -18,10 +18,10 @@ use yii\helpers\Html;
                         <?= Html::a('Job Order', ['/site/bom'], ['class' => 'btn btn-orange']) ?>
                     </div>
                     <div>
-                        <?= Html::a('Material Stock', ['/site/bom'], ['class' => 'btn btn-orange']) ?>
+                        <?= Html::a('Material Stock', ['/site/material-stock'], ['class' => 'btn btn-orange']) ?>
                     </div>
                     <div>
-                        <?= Html::a('Product Stock', ['/site/bom'], ['class' => 'btn btn-orange']) ?>
+                        <?= Html::a('Product Stock', ['/site/product-stock'], ['class' => 'btn btn-orange']) ?>
                     </div>
                 </div>
             </div>

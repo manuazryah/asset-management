@@ -37,20 +37,14 @@ AppAssetMobile::register($this);
             <h2 style="color:#063c55;font-weight: 600;text-align: center;">AL ORCHID PERFUME</h2>
         </section>
         <section id="heading-box">
+
             <div class="navbar">
                 <div class="dropdown">
                     <button class="dropbtn">
-                        <span style="color: white;" class="icon-bar"><i class="fa fa-bars" aria-hidden="true"></i></button>
-                    <div class="dropdown-content">
-                        <?= Html::a('Job Order', ['/site/bom'], ['class' => '']) ?>
-                        <?= Html::a('Material Stock', ['/site/material-stock'], ['class' => '']) ?>
-                        <?= Html::a('Product Stock', ['/site/product-stock'], ['class' => '']) ?>
-                    </div>
+                        <?= Html::a('<i class="fa fa-home" aria-hidden="true"></i>', ['/site/index'], ['class' => 'title']) ?>
+                    </button>
                 </div>
-                <button  id="notification">
-                    <?= Html::a('<i class="fa fa-home" aria-hidden="true"></i>', ['/site/index'], ['class' => 'title']) ?>
-                </button>
-                <button>
+                <button style="padding-left: 0px;">
                     <?php
                     echo ''
                     . Html::beginForm(['/site/logout'], 'post', ['style' => '']) . '<a>'
@@ -61,6 +55,7 @@ AppAssetMobile::register($this);
                     . '';
                     ?>
                 </button>
+            <!--<a href="<?= Yii::$app->homeUrl; ?>site/logout"><i class="fa fa-power-off" aria-hidden="true"></i></a>-->
             </div>
         </section>
         <?php $this->beginBody() ?>

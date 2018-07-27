@@ -19,8 +19,8 @@ p{
 }
 form {
     margin: 0 auto;
-/*    margin-top: 20px;
-    margin-left: 126px;*/
+    /*    margin-top: 20px;
+        margin-left: 126px;*/
 }
 label {
     color: #555;
@@ -75,7 +75,7 @@ input[type=submit] {
 }
 .micro-submit{
     float: right;
-    margin-right: 20px;
+    /*margin-right: 20px;*/
     background-color: #3a74a5;
     margin-top: 20px;
     margin-bottom: 20px;
@@ -402,8 +402,8 @@ input[type=submit] {
     text-align: center;
 }
 .bom-master-form .table>thead>tr>td {
-       text-align: center;
-       font-size: 12px;
+    text-align: center;
+    font-size: 12px;
 }
 .bom-master-form .select2-container {
     margin-left: 8px;
@@ -459,9 +459,47 @@ input[type=submit] {
 .box{
     border: 1px solid #cacaca;
     text-align: center;
-        margin: 25px 0px;
+    margin: 25px 0px;
     padding: 30px 15px 15px 15px;
 }
 #yii-debug-toolbar{
     display: none !important;
+}
+.panel-heading{
+    padding: 15px 0px 5px 0px;
+    border-bottom: 2px solid #9caab1;
+    margin-bottom: 17px;
+    color: #063c55;
+}
+.panel-title{
+    font-weight: 600;
+}
+.summary{
+    color: #03679a;
+    font-size: 11px;
+}
+.grid-view .table>thead>tr>th a {
+    color: #337ab7;
+    font-size: 11px;
+}
+.grid-view .table>thead>tr>th {
+    color: #337ab7;
+    font-size: 11px;
+}
+
+.fa-home{
+    font-size: 17px;
+}
+#login-form .form-control{
+    width: 100%;
+}
+#login-form h1{
+    padding-left: 18px;
+    margin-bottom: 15px;
+}
+#login-form .control-label{
+    font-size: 12px;
+}
+#login-form .form-group {
+    margin: 0px 18px 15px 0px;
 }

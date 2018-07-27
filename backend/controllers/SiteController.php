@@ -24,11 +24,11 @@ class SiteController extends Controller {
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
-                        [
-                        'actions' => ['login', 'error', 'index', 'home', 'forgot', 'new-password', 'exception', 'bom'],
+                    [
+                        'actions' => ['login', 'error', 'index', 'home', 'forgot', 'new-password', 'exception', 'bom', 'material-stock', 'product-stock'],
                         'allow' => true,
                     ],
-                        [
+                    [
                         'actions' => ['logout', 'index'],
                         'allow' => true,
                         'roles' => ['@'],
@@ -99,8 +99,7 @@ class SiteController extends Controller {
             return $this->render('dashboard', [
             ]);
         } else {
-            $this->layout = 'main_mobile';
-            return $this->render('dashboard', [
+            return $this->render('index', [
             ]);
         }
     }
@@ -239,6 +238,27 @@ class SiteController extends Controller {
         $model = new \common\models\BomMaster();
         return $this->render('bom', [
                     'model' => $model,
+        ]);
+    }
+
+    public function actionMaterialStock() {
+        $this->layout = 'main_mobile';
+        $searchModel = new \common\models\StockViewSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination->pageSize = 5;
+        return $this->render('material_stock', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+        ]);
+    }
+    public function actionProductStock() {
+        $this->layout = 'main_mobile';
+        $searchModel = new \common\models\ProductStockViewSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination->pageSize = 5;
+        return $this->render('product_stock', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
         ]);
     }
 

@@ -16,13 +16,16 @@ $this->title = 'Login';
             <div class="col-md-6 shadow">
                 <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
                 <?= \common\widgets\Alert::widget(); ?>
-                <div>
+                <div class="col-md-12">
+                   <h1>Dear user, log in to access the admin area!</h1>
+                </div>
+                <div class="col-md-12">
                     <?= $form->field($model, 'user_name')->textInput(['autofocus' => '', 'placeholder' => 'Username']) ?>
                 </div>
-                <div>
+                <div class="col-md-12">
                     <?= $form->field($model, 'password')->passwordInput(['placeholder' => 'Password']) ?>
                 </div>
-                <div>
+                <div class="col-md-12">
                     <?= Html::submitButton('Login', ['class' => 'micro-submit', 'name' => 'login']) ?>
                 </div>
 
