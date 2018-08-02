@@ -157,8 +157,19 @@ $this->params['breadcrumbs'][] = $this->title;
         background-color: #b9c7a7;
     }
 </style>
+<link rel="stylesheet" href="<?= Yii::$app->homeUrl; ?>css/select2.css">
+<link rel="stylesheet" href="<?= Yii::$app->homeUrl; ?>css/select2-bootstrap.css">
+<script src="<?= Yii::$app->homeUrl; ?>js/select2.min.js"></script>
 <script>
     $(document).ready(function () {
+
+        $('#productsale_id-1').select2({
+            allowClear: true
+        }).on('select2-open', function ()
+        {
+            $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+        });
+
         $(document).on('change', '.product_id', function (e) {
             var flag = 0;
             var count = 0;
@@ -200,6 +211,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 $('#productsale_qty-' + current_row_id).val('');
                 $("#productsale_unit-" + current_row_id).val('');
                 $('#productsale_comment-' + current_row_id).val('');
+                $("#productsale_id-" + current_row_id).select2("val", "");
                 e.preventDefault();
             }
         });
@@ -238,6 +250,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     $("#next_item_id").val(next);
                     $('.productsale_qty').attr('type', 'number');
                     $('.productsale_qty').attr('min', 1);
+                    $('#productsale_id-' + next).select2({
+                        allowClear: true
+                    }).on('select2-open', function ()
+                    {
+                        $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+                    });
                     e.preventDefault();
                 }
             });

@@ -97,8 +97,19 @@ use common\models\FinishedProduct;
     <?php ActiveForm::end(); ?>
 
 </div>
+<link rel="stylesheet" href="<?= Yii::$app->homeUrl; ?>css/select2.css">
+<link rel="stylesheet" href="<?= Yii::$app->homeUrl; ?>css/select2-bootstrap.css">
+<script src="<?= Yii::$app->homeUrl; ?>js/select2.min.js"></script>
 <script>
     $(document).ready(function () {
+
+        $('#invoice-item_id-1').select2({
+            allowClear: true
+        }).on('select2-open', function ()
+        {
+            $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+        });
+
         $(document).on('click', '#add_another_line', function (e) {
             e.preventDefault();
             var next_row_id = $('#next_item_id').val();
@@ -114,6 +125,12 @@ use common\models\FinishedProduct;
                     console.log(res);
                     $('#add-invoicee tr:last').after(res.result['next_row_html']);
                     $("#next_item_id").val(next);
+                    $('#invoice-item_id-' + next).select2({
+                        allowClear: true
+                    }).on('select2-open', function ()
+                    {
+                        $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+                    });
                 }
             });
         });
@@ -154,6 +171,7 @@ use common\models\FinishedProduct;
                 $('#invoice-qty-' + current_row_id).attr('max', '');
                 $('#invoice-unit-' + current_row_id).text('');
                 $('#invoice-warehouse-' + current_row_id).val('');
+                $("#invoice-item_id-" + current_row_id).select2("val", "");
                 e.preventDefault();
             }
         });

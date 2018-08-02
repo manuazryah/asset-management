@@ -4,7 +4,7 @@
             <option value="">-Choose a Item-</option>
             <?php foreach ($item_datas as $item_data) {
                 ?>
-                <option value="<?= $item_data->id ?>"><?= $item_data->item_name ?></option>
+                <option value="<?= $item_data->id ?>"><?= $item_data->item_name ?><?= $item_data->reference != '' ? '-' . $item_data->reference : '' ?></option>
             <?php }
             ?>
         </select>

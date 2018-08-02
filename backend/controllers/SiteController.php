@@ -243,7 +243,7 @@ class SiteController extends Controller {
 
     public function actionMaterialStock() {
         $this->layout = 'main_mobile';
-        $searchModel = new \common\models\StockViewSearch();
+        $searchModel = new \common\models\MaterialStockViewSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->pagination->pageSize = 5;
         return $this->render('material_stock', [
@@ -251,9 +251,10 @@ class SiteController extends Controller {
                     'dataProvider' => $dataProvider,
         ]);
     }
+
     public function actionProductStock() {
         $this->layout = 'main_mobile';
-        $searchModel = new \common\models\ProductStockViewSearch();
+        $searchModel = new \common\models\ProductStockSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->pagination->pageSize = 5;
         return $this->render('product_stock', [

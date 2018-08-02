@@ -18,7 +18,40 @@ $this->title = 'BOM Details';
 $this->params['breadcrumbs'][] = ['label' => 'BOM Details', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
+<style>
+    .filter{
+        background-color: #b9c7a7;
+    }
+    table.table tr td:last-child a {
+        padding: inherit;padding: 4px 4px;
+    }
+    .error{
+        color: #0553b1;
+        padding-bottom: 5px;
+        font-size: 18px;
+        font-weight: bold;
+    }.field-appointmentdetails-tax{
+        width:65%!important;
+        display: inline-block;
+    }.field-appointmentdetails-quantity{
+        width:70%!important;
+        display: inline-block;
+    }.formm td{
+        padding: 5px !important;
+    }
+    .field-bomdetails-quantity{
+        position: relative;
+    }
+    #unit-text{
+        margin-left: 5px;
+        position: absolute;
+        top: 8px;
+        right: 25px;
+    }
+    #appointment-table .form-control {
+        padding: 0px !important;
+    }
+</style>
 <div class="row">
     <div class="col-md-12">
 
@@ -108,7 +141,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <td>
                                         <div class="form-group field-bomdetails-quantity required">
 
-                                            <input type="number" id="bomdetails-quantity" class="form-control" name="BomDetails[quantity]" value="1" placeholder="Quantity" min="1" aria-required="true">
+                                            <input type="number" id="bomdetails-quantity" class="form-control" name="BomDetails[quantity]" value="<?= $model->quantity ?>" placeholder="Quantity" min="1" aria-required="true" style="padding-left: 5px !important;">
                                             <span id="unit-text"></span>
                                             <div class="help-block"></div>
                                         </div>
@@ -133,41 +166,19 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 
-
-
-<style>
-    .filter{
-        background-color: #b9c7a7;
-    }
-    table.table tr td:last-child a {
-        padding: inherit;padding: 4px 4px;
-    }
-    .error{
-        color: #0553b1;
-        padding-bottom: 5px;
-        font-size: 18px;
-        font-weight: bold;
-    }.field-appointmentdetails-tax{
-        width:65%!important;
-        display: inline-block;
-    }.field-appointmentdetails-quantity{
-        width:70%!important;
-        display: inline-block;
-    }.formm td{
-        padding: 5px !important;
-    }
-    .field-bomdetails-quantity{
-        position: relative;
-    }
-    #unit-text{
-        margin-left: 5px;
-        position: absolute;
-        top: 8px;
-        right: 25px;
-    }
-</style>
+<link rel="stylesheet" href="<?= Yii::$app->homeUrl; ?>css/select2.css">
+<link rel="stylesheet" href="<?= Yii::$app->homeUrl; ?>css/select2-bootstrap.css">
+<script src="<?= Yii::$app->homeUrl; ?>js/select2.min.js"></script>
 <script>
     $("document").ready(function () {
+
+        $('#bomdetails-row_material_id').select2({
+            allowClear: true
+        }).on('select2-open', function ()
+        {
+            $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+        });
+
         $(document).on('change', '#bomdetails-row_material_id', function () {
             $.ajax({
                 type: 'POST',

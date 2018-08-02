@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attribute' => 'product_id',
                             'label' => 'Product Name',
                             'value' => 'product.product_name',
-                            'filter' => ArrayHelper::map(FinishedProduct::find()->asArray()->all(), 'id', 'product_name'),
+//                            'filter' => ArrayHelper::map(FinishedProduct::find()->asArray()->all(), 'id', 'product_name'),
                         ],
                         [
                             'attribute' => 'available_qty',

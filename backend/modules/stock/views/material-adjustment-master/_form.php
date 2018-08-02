@@ -62,7 +62,7 @@ use common\models\SupplierwiseRowMaterial;
                         <option value="">-Choose a Item-</option>
                         <?php foreach ($item_datas as $item_data) {
                             ?>
-                            <option value="<?= $item_data->id ?>"><?= $item_data->item_name ?></option>
+                            <option value="<?= $item_data->id ?>"><?= $item_data->item_name ?><?= $item_data->reference != '' ? '-' . $item_data->reference : '' ?></option>
                         <?php }
                         ?>
                     </select>
@@ -117,8 +117,19 @@ use common\models\SupplierwiseRowMaterial;
     <?php ActiveForm::end(); ?>
 
 </div>
+<link rel="stylesheet" href="<?= Yii::$app->homeUrl; ?>css/select2.css">
+<link rel="stylesheet" href="<?= Yii::$app->homeUrl; ?>css/select2-bootstrap.css">
+<script src="<?= Yii::$app->homeUrl; ?>js/select2.min.js"></script>
 <script>
     $(document).ready(function () {
+
+        $('#invoice-item_id-1').select2({
+            allowClear: true
+        }).on('select2-open', function ()
+        {
+            $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+        });
+
         $(document).on('click', '#add_another_line', function (e) {
             e.preventDefault();
             var next_row_id = $('#next_item_id').val();
@@ -134,6 +145,12 @@ use common\models\SupplierwiseRowMaterial;
                     console.log(res);
                     $('#add-invoicee tr:last').after(res.result['next_row_html']);
                     $("#next_item_id").val(next);
+                    $('#invoice-item_id-' + next).select2({
+                        allowClear: true
+                    }).on('select2-open', function ()
+                    {
+                        $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+                    });
                 }
             });
         });
@@ -176,6 +193,7 @@ use common\models\SupplierwiseRowMaterial;
                 $('#invoice-price-' + current_row_id).val('');
                 $('#invoice-total-' + current_row_id).val('');
                 $('#invoice-warehouse-' + current_row_id).val('');
+                $("#invoice-item_id-" + current_row_id).select2("val", "");
                 e.preventDefault();
             }
         });

@@ -122,6 +122,14 @@ $model->bom_no = $this->context->getBomNo();
 <script src="<?= Yii::$app->homeUrl; ?>js/select2.min.js"></script>
 <script>
     $(document).ready(function () {
+
+        $('#product_id-1').select2({
+            allowClear: true
+        }).on('select2-open', function ()
+        {
+            $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+        });
+
         $(document).on('click', '#addbomdetails', function (event) {
             var row_id = $('#bom_row_count').val();
             var next = parseInt(row_id) + 1;

@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attribute' => 'material_id',
                             'label' => 'Material',
                             'value' => 'material.item_name',
-                            'filter' => ArrayHelper::map(SupplierwiseRowMaterial::find()->asArray()->all(), 'id', 'item_name'),
+//                            'filter' => ArrayHelper::map(SupplierwiseRowMaterial::find()->asArray()->all(), 'id', 'item_name'),
                         ],
                         [
                             'attribute' => 'material_category',
@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                         [
                             'attribute' => 'available_qty',
-                            'filter'=>false,
+                            'filter' => false,
                         ],
                     ],
                 ]);
